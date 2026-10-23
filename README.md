@@ -63,8 +63,8 @@ chmod +x Turtle_System-*-x86_64.AppImage
 ./Turtle_System-*-x86_64.AppImage            # optionally followed by a .tgy/.tgp/.tgb file
 ```
 
-It bundles Python 3.12, Qt 6 and NumPy and runs on x86_64 distributions with glibc 2.17 or
-newer (X11 and Wayland). Build it yourself with `tools/build_appimage.sh`.
+It bundles Python 3.12, Qt 6 and NumPy and runs on x86_64 distributions with glibc 2.34 or
+newer, e.g. Ubuntu 22.04+, Debian 12+, Fedora 35+ (X11 and Wayland). Build it yourself with `tools/build_appimage.sh`.
 
 ### From source
 
