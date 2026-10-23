@@ -4,3 +4,4 @@ __pycache__/
 *.tmj
 .venv/
 /logos/__pycache__/
+dist/
