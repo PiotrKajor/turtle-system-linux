@@ -1,0 +1,258 @@
+program ChickenCoop;
+{Adapted from a student program submitted in}
+{March 2001 for the ACOM Programming Concepts}
+{core at Leeds University, using Turtle 4}
+var
+  count:integer;
+procedure showpos;
+begin
+  write('position = ('+str(turtx)+', '+str(turty)+')');
+  writeln('  direction = '+str(turtd))
+end;
+procedure coop;
+procedure steps(s,x:integer);
+var
+  count:integer;
+begin
+  for count:=1 to s*2 do
+  begin
+    if count mod 2=1 then
+      movexy(0,-100)
+    else
+      movexy(-100,0)
+  end;
+  setxy(x,turty);
+  movexy(0,s*100);
+  polygon(s*2+3)
+end;
+procedure wheel;
+begin
+  colour(black);
+  blot(40);
+  colour(white);
+  circle(20)
+end;
+begin {Procedure coop}
+  setxy(900,1000); {bottom of steps}
+  colour(greengrey);
+  steps(4,400);
+
+  {light red coop}
+  setxy(0,100);
+  setxy(400,100);
+  setxy(400,600);
+  setxy(0,600);
+  colour(lightred);
+  polygon(4);
+
+  {blue roof}
+  setxy(0,50);
+  setxy(500,50);
+  setxy(500,100);
+  setxy(0,100);
+  colour(royal);
+  polygon(4);
+
+  {yellow door}
+  setxy(400,100);
+  setxy(425,100);
+  setxy(425,600);
+  setxy(400,600);
+  colour(peach);
+  polygon(4);
+
+  {maroon post at front of coop}
+  setxy(360,600);
+  setxy(400,600);
+  setxy(400,1000);
+  setxy(360,1000);
+  colour(maroon);
+  polygon(4);
+
+  {nugget outlet platform}
+  setxy(0,600);
+  setxy(100,600);
+  setxy(100,675);
+  setxy(0,675);
+  colour(black);
+  polygon(4);
+  setxy(300,600);
+  setxy(400,600);
+  setxy(400,675);
+  setxy(300,675);
+  colour(black);
+  polygon(4);
+  setxy(25,280);
+  display('CHICKEN',10,60);
+  pendown;
+
+  {conveyor belt}
+  colour(black);
+  thickness(4);
+  setxy(0,1000);
+  drawxy(300,0);
+  setxy(0,920);
+  drawxy(300,0);
+  thickness(2);
+  setxy(40,960);
+  wheel;
+  setxy(170,960);
+  wheel;
+  setxy(300,960);
+  wheel;
+  home
+end; {Procedure coop}
+procedure leg(len:integer);
+begin
+  drawxy(0,len);
+  movexy(-20,0);
+  drawxy(40,0);
+  movexy(-20,0);
+  drawxy(-13,7);
+  movexy(13,-7-len)
+end;
+procedure drawchick;
+begin
+  colour(black); {body}
+  thickness(2);
+  blot(50);
+  colour(yellow);
+  blot(47);
+  movexy(-40,-40); {head}
+  colour(black);
+  blot(35);
+  colour(yellow);
+  blot(32);
+  movexy(-15,-15); {eye}
+  colour(black);
+  blot(8);
+  colour(red);
+  blot(6);
+  thickness(6);
+  movexy(-18,10); {top of beak}
+  colour(black);
+  drawxy(-13,7);
+  drawxy(12,0);
+  colour(yellow);
+  polygon(3);
+  movexy(0,4); {bottom of beak}
+  colour(black);
+  drawxy(-7,8);
+  drawxy(8,-1);
+  colour(yellow);
+  polygon(3);
+  movexy(70,75); {legs}
+  colour(red);
+  leg(60);
+  movexy(20,0);
+  leg(50);
+  movexy(-17,-48)
+end;
+procedure erasechick;
+begin
+  colour(white);
+  thickness(6);
+  blot(50); {body}
+  movexy(-40,-40); {head}
+  blot(50);
+  movexy(37,88); {legs}
+  leg(60);
+  movexy(20,0);
+  leg(50);
+  movexy(-17,-48)
+end;
+procedure chickjump(xvel,yvel,gravity,xstop:integer);
+begin
+  repeat
+    noupdate; {pause screen updating}
+    erasechick; {erase chicken image if present}
+    movexy(xvel,yvel);
+    yvel:=yvel+gravity; {simulate gravity}
+    drawchick; {draw new chicken image}
+    update; {erase and draw simultaneously}
+    pause(10)
+  until turtx<=xstop {stop at desired x-position}
+end;
+procedure door;
+begin
+  thickness(2); {open coop door}
+  setxy(401,250);
+  setxy(800,250);
+  setxy(800,600);
+  setxy(401,600);
+  setxy(401,250);
+  colour(peach);
+  polygon(4);
+  colour(black);
+  polyline(5);
+  setxy(450,290);
+  display('NUGGETS',10,50);
+  forget(1);
+  pause(600); {shut door}
+  colour(white);
+  polygon(4);
+  polyline(5);
+  setxy(400,100);
+  setxy(425,100);
+  setxy(425,600);
+  setxy(400,600);
+  colour(peach);
+  polygon(4)
+end;
+procedure ohno;
+begin
+  setxy(450,250);
+  colour(orangered);
+  thickness(10);
+  drawxy(80,-40);
+  setxy(550,120);
+  display('Oh No!!',20,70);
+  pause(1000);
+  colour(white);
+  setxy(445,120);
+  box(440,140,white,false)
+end;
+procedure nugget;
+begin
+  ellblot(80,28);
+  movexy(50,0);
+  blot(28);
+  movexy(-100,0);
+  blot(28);
+  movexy(50,0)
+end;
+procedure nuggetmove(xvel,yvel:integer);
+begin
+  noupdate;
+  colour(white);
+  nugget;
+  movexy(xvel,yvel);
+  colour(gold);
+  nugget;
+  update;
+  pause(30)
+end;
+begin
+  coop;
+  repeat
+    setxy(950,883);
+    repeat {chicken jumps up the steps}
+      chickjump(-5,-43,4,turtx-100);
+      pause(100)
+    until turtx<=600;
+    door;
+    ohno;
+    pause(400);
+    for count:=1 to 4 do
+    begin {4 nuggets to be produced}
+      setxy(200,630);
+      repeat {falling down}
+        nuggetmove(-2,29)
+      until turty>870;
+      repeat {on conveyor belt}
+        nuggetmove(-15,0)
+      until turtx<=-80
+    end;
+    pause(1000)
+  until 1=0
+end.

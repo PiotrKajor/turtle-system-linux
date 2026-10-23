@@ -1,0 +1,68 @@
+program TypingTest;
+var
+  count:integer;
+  letters:string;
+  c,m,n:integer;
+  temp:char;
+  x,y:integer;
+  det:integer;
+begin
+  {show instructions}
+  blank(cream);
+  setxy(15,200);
+  display('In this typing test,  you will be shown the',4,36);
+  setxy(20,270);
+  display('letters of the alphabet in a random order,',4,36);
+  setxy(20,340);
+  display('and in a mixture of upper- and lower-case.',4,36);
+  setxy(20,410);
+  display('Type them as fast as you can, and see how',4,36);
+  setxy(20,480);
+  display('quickly you can finish the entire alphabet.',4,36);
+  setxy(20,620);
+  display('Now wait 5 seconds or press "Esc" key to start ...',4,30);
+  keyecho(false);
+  {wait for escape key, 5 seconds maximum, before proceeding...}
+  det:=detect(\escape,5000);
+  {create a string containing all letters of the alphabet}
+  letters:='';
+  for c:=65 to 90 do
+    {randomly select upper or lower case}
+    if random(2)=0 then
+      letters:=letters+chr(c)
+  else
+    letters:=letters+chr(c+32);
+  {randomize the order of the letters}
+  for count:=1 to 50 do
+  begin
+    m:=random(26)+1;
+    n:=random(26)+1;
+    if m<>n then
+    begin
+      temp:=letters[m];
+      letters[m]:=letters[n];
+      letters[n]:=temp
+    end
+  end;
+  {set timer to zero}
+  timeset(0);
+  {for each letter in turn...}
+  for count:=1 to 26 do
+  begin
+    {rub out previous letter}
+    blank(black);
+    {print letter at random coordinates}
+    setxy(100+random(300),random(250));
+    colour(yellow);
+    display(letters[count],3,450);
+    {wait for user to type that letter}
+    repeat
+      det:=detect(\keybuffer,0)
+    until read(1)=letters[count]
+  end;
+  {show time taken}
+  blank(lightblue);
+  setxy(60,460);
+  colour(lightred);
+  display('Your time was '+qstr(time,1000,2)+' seconds',4,50)
+end.

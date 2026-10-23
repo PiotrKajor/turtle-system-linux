@@ -1,0 +1,115 @@
+REM set up the canvas
+PROCsetup
+REM repeatedly...
+REPEAT
+  REM if left mouse button is pressed...
+  IF ?lmouse>0 THEN
+    REM if cursor is at bottom of canvas...
+    IF ?mousey>900 THEN
+      REM set brush colour
+      PROCsetBrushColour(PIXCOL(?mousex,?mousey))
+    ELSE
+      REM if cursor is in brush width selection area...
+      IF (?mousey>850) AND ((?mousex>600) AND (?mousex<850)) THEN
+        REM set brush width
+        PROCsetBrushWidth(((?mousex DIV 50)*2)-16)
+      ELSE
+        REM if cursor is in drawing area...
+        IF ?mousey<850-brushWidth% THEN
+          REM draw with the brush
+          PROCpaintbrush(?mousex,?mousey)
+        ENDIF
+      ENDIF
+    ENDIF
+  ENDIF
+  REM if right mouse button is pressed and cursor is in drawing area...
+  IF (?rmouse>0) AND (?mousey<850) THEN
+    REM fill with the paintcan
+    PROCpaintcan(?mousex,?mousey)
+  ENDIF
+  UPDATE
+UNTIL FALSE
+END
+
+REM sets brush width, and updates display
+DEF PROCsetBrushWidth(width%)
+  LOCAL count%
+  REM set brush width
+  brushWidth%=width%
+  REM update brush width display
+  NOUPDATE
+  COLOUR(BLACK)
+  FOR count%=0 TO 4
+    SETXY(625+count%*50,875)
+    BLOT(8+count%*2)
+  NEXT
+  COLOUR(brushColour%)
+  RECOLOUR(((brushWidth%+16)*25)+25,875,LIGHTRED)
+  UPDATE
+ENDPROC
+
+REM sets brush colour, and updates display
+DEF PROCsetBrushColour(colr%)
+  REM set brush colour
+  brushColour%=colr%
+  REM update brush colour display
+  COLOUR(colr%)
+  SETXY(975,875)
+  BLOT(16)
+ENDPROC
+
+REM draws with the paintbrush at the given coordinates
+DEF PROCpaintbrush(x%,y%)
+  SETXY(x%,y%)
+  COLOUR(brushColour%)
+  BLOT(brushWidth%)
+ENDPROC
+
+REM fills with the paint can at the given coordinates
+DEF PROCpaintcan(x%,y%)
+  RECOLOUR(x%,y%,brushColour%)
+ENDPROC
+
+REM draws a square of the given colour
+DEF PROCsquare(col%)
+  MOVEXY(50,0)
+  MOVEXY(0,50)
+  MOVEXY(-50,0)
+  MOVEXY(0,-50)
+  COLOUR(col%)
+  POLYGON(4)
+ENDPROC
+
+REM sets up the canvas
+DEF PROCsetup
+  LOCAL count%
+  REM draw clickable interface grid
+  COLOUR(LIGHTRED)
+  SETXY(0,850)
+  DRAWXY(1000,0)
+  SETXY(0,900)
+  DRAWXY(1000,0)
+  SETXY(450,850)
+  DRAWXY(0,50)
+  SETXY(850,850)
+  DRAWXY(0,50)
+  REM print text instructions in grid
+  COLOUR(BLACK)
+  SETXY(10,858)
+  DISPLAY("Left-click to draw, right-click to fill",0,20)
+  SETXY(450+10,858)
+  DISPLAY("Brush width:",0,20)
+  SETXY(850+10,858)
+  DISPLAY("Colour:",0,20)
+  REM draw 40 different colour selection boxes
+  SETXY(0,900)
+  FOR count%=1 TO 20
+    PROCsquare(RGB(count%))
+    MOVEXY(0,50)
+    PROCsquare(RGB(count%+30))
+    MOVEXY(50,-50)
+  NEXT
+  REM initialise brush colour and width, and their displays
+  PROCsetBrushColour(BLACK)
+  PROCsetBrushWidth(8)
+ENDPROC

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="text/x-turtle-python">
+    <sub-class-of type="text/plain"/>
+    <comment>Turtle Python program</comment>
+    <glob pattern="*.tgy"/>
+  </mime-type>
+  <mime-type type="text/x-turtle-pascal">
+    <sub-class-of type="text/plain"/>
+    <comment>Turtle Pascal program</comment>
+    <glob pattern="*.tgp"/>
+  </mime-type>
+  <mime-type type="text/x-turtle-basic">
+    <sub-class-of type="text/plain"/>
+    <comment>Turtle BASIC program</comment>
+    <glob pattern="*.tgb"/>
+  </mime-type>
+</mime-info>

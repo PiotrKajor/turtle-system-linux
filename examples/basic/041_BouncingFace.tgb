@@ -1,0 +1,70 @@
+CONST FACERADIUS%=100
+REM set starting point and velocity
+x%=300
+y%=700
+xvel%=8
+yvel%=-4
+WHILE 0<1
+  NOUPDATE
+  REM rub out existing face
+  COLOUR(WHITE)
+  BLOT(FACERADIUS%+1)
+  REM move to next location
+  x%=x%+xvel%
+  y%=y%+yvel%
+  SETXY(x%,y%)
+  REM draw new face
+  PROCface(FACERADIUS%)
+  REM reset x and y after face drawing
+  SETXY(x%,y%)
+  UPDATE
+  PAUSE(10)
+  REM "bounce" (i.e. invert velocity) at canvas edges
+  IF (x%<FACERADIUS%) OR (x%>999-FACERADIUS%) THEN
+    xvel%=-xvel%
+  ENDIF
+  IF (y%<FACERADIUS%) OR (y%>999-FACERADIUS%) THEN
+    yvel%=-yvel%
+  ENDIF
+ENDWHILE
+END
+
+REM draws a face of the given radius
+REM N.B. copied from the Resizable face example
+DEF PROCface(radius%)
+  DIRECTION(0)
+  REM draw head
+  COLOUR(PEACH)
+  BLOT(radius%)
+  REM draw mouth
+  COLOUR(DARKRED)
+  BLOT(radius%*7/10)
+  FORWARD(radius%*3/20)
+  COLOUR(PEACH)
+  BLOT(radius%*3/4)
+  REM draw nose
+  BACK(radius%*3/10)
+  COLOUR(ROYAL)
+  BLOT(radius%*3/20)
+  REM move to left eye position (without drawing)
+  PENUP
+  FORWARD(radius%*9/20)
+  LEFT(90)
+  FORWARD(radius%*2/5)
+  REM draw left eye
+  PROCeye(radius%)
+  REM move to right eye position (without drawing)
+  BACK(radius%*4/5)
+  REM draw right eye
+  PROCeye(radius%)
+ENDPROC
+
+REM draws an eye sized relative to the face
+DEF PROCeye(faceRadius%)
+  COLOUR(WHITE)
+  ELLBLOT(faceRadius%*3/20,faceRadius%/10)
+  COLOUR(EMERALD)
+  BLOT(faceRadius%*9/100)
+  COLOUR(BLACK)
+  BLOT(faceRadius%/25)
+ENDPROC

@@ -1,0 +1,15 @@
+# black out canvas
+blank(black)
+# initialise colour variables randomly
+colourInc=randrange(5)
+colourCode=randint(1,20)
+thickness(16)
+# draw a multi-coloured spiral by repeatedly ...
+for lineLength in range (250):
+    # cycling through some standard Turtle colours
+    colourCode=(colourCode+colourInc)% 20+1
+    colour(rgb(colourCode))
+    # moving forward by an increasing amount
+    forward(lineLength)
+    # turning right by 30 degrees
+    right(30)

@@ -1,0 +1,37 @@
+program IterateRoot;
+var
+  square,guess,quotient:integer;
+  s:string;
+begin
+  output(true,white,false);
+  repeat
+    console(true,cream);
+    writeln('CALCULATION OF APPROXIMATE SQUARE ROOTS, BY ITERATION');
+    writeln('');
+    write('Which square root (<2148) would you like to calculate? ');
+    s:=readln
+  until str(val(s))=s;
+  output(false,cream,true);
+  writeln('');
+  writeln('');
+  writeln('   guess    '+s+'/guess');
+  square:=val(s)*1000000;
+  guess:=1000;
+  repeat
+    quotient:=square/guess;
+    writeln('');
+    write(pad(qstr(guess,1000,3),' ',8)+'   '+pad(qstr(quotient,1000,3),' ',8));
+    pause(2000);
+    if guess=quotient then
+      writeln('')
+    else
+    begin
+      write(pad('  sum = ',' ',14)+pad(qstr(guess+quotient,1000,3),' ',-8));
+      writeln('  average = '+qstr(guess+quotient,2000,3))
+    end;
+    guess:=(guess+quotient)/2
+  until (guess=quotient) or (guess=(guess+quotient)/2);
+  writeln('');
+  writeln('');
+  writeln('The square root of '+s+' is approximately '+qstr(guess,1000,3))
+end.

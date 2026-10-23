@@ -1,0 +1,10 @@
+REM adjust start position so pattern is central
+MOVEXY(-20,80)
+REM counting from 1 to 300 ...
+FOR i%=25 TO 300
+  REM move forward by 3 times the count number
+  FORWARD(i%*3)
+  REM turn right by 121 degrees
+  RIGHT(121)
+NEXT
+END

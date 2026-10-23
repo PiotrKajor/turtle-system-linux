@@ -1,0 +1,10 @@
+REM write question to console
+PRINTON("What is your name?  ")
+REM read characters from keybuffer until ENTER key is pressed
+s$=GETLINE$
+REM write a greeting (on a new line)
+PRINT("")
+PRINTON("Hello, "+s$+", ...  ")
+PAUSE(500)
+PRINT("How are you?")
+END

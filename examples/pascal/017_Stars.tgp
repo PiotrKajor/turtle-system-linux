@@ -1,0 +1,52 @@
+program Stars;
+var
+  n:integer;
+
+{draws a star with given points & colour}
+procedure star(points,colr:integer);
+var
+  count:integer;
+begin
+  {set the size of a "degree" so there   }
+  {are twice as many in a complete circle}
+  {as there are points in the polygon    }
+  angles(points*2);
+  {trace outline with the turtle}
+  for count:=1 to points do
+  begin
+    {move out to point}
+    forward(450);
+    {move back to centre}
+    back(450);
+    {forget visit back to the centre}
+    forget(1);
+    {turn right by 1 "degree", i.e.}
+    {halfway round to next point   }
+    right(1);
+    {move out to inner corner}
+    forward(200);
+    {move back to centre}
+    back(200);
+    {forget visit back to the centre}
+    forget(1);
+    {turn right by 1 "degree", i.e. the}
+    {rest of the way to the next point }
+    right(1)
+  end;
+  {set the specified colour}
+  colour(colr);
+  {draw polygon joining remembered points}
+  polygon(points*2)
+end;
+begin
+  {don't draw as the Turtle moves}
+  penup;
+  {draw stars with increasing points}
+  for n:=3 to 12 do
+  begin
+    {each star is a different colour}
+    star(n,rgb(n-2));
+    {pause to enable each to be seen}
+    pause(500)
+  end
+end.

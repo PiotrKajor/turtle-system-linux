@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.tmc
+*.tmj
+.venv/
+/logos/__pycache__/

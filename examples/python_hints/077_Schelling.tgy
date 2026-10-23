@@ -1,0 +1,51 @@
+# Set size of canvas and empty colour
+WIDTH=50
+HEIGHT=50
+EMPTY=green
+
+# Function: is colour c happy at (x,y)?
+def happy(x,y,c):
+    like=0
+    unlike=0
+    for i in range (-1,2):
+        for j in range (-1,2):
+            if (i!=0) or (j!=0):
+                neighbour=pixcol(x+i,y+j)
+                if neighbour!=EMPTY:
+                    if neighbour==c:
+                        like+=1
+                    else:
+                        unlike+=1
+    return (like>=unlike-1)
+
+# Set up initial canvas and map
+canvas(-1,-1,WIDTH+2,HEIGHT+2)
+resolution(WIDTH+2,HEIGHT+2)
+noupdate()
+blank(EMPTY)
+for i in range (WIDTH):
+    for j in range (HEIGHT):
+        if randrange(25)==0:
+            pixset(i,j,EMPTY)
+        else:
+            if (i+j)% 2==0:
+                pixset(i,j,red)
+            else:
+                pixset(i,j,blue)
+# Pause to show initial map
+pause(2000)
+while ?key!=\escape:
+    noupdate()
+    this=EMPTY
+    # Find an unhappy cell
+    while (this==EMPTY) or (happy(tryi,tryj,this)):
+        tryi=randrange(WIDTH)
+        tryj=randrange(HEIGHT)
+        this=pixcol(tryi,tryj)
+    pixset(tryi,tryj,EMPTY)
+    # Find an empty cell where they'll be happy
+    while (pixcol(tryi,tryj)!=EMPTY) or not (happy(tryi,tryj,this)):
+        tryi=randrange(WIDTH)
+        tryj=randrange(HEIGHT)
+    pixset(tryi,tryj,this)
+    update()

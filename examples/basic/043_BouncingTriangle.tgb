@@ -1,0 +1,54 @@
+CONST SIZE%=100
+REM set starting point and velocity
+x%=300
+y%=700
+d%=0
+xVelocity%=8
+yVelocity%=-4
+dVelocity%=5
+WHILE 0<1
+  NOUPDATE
+  REM rub out existing triangle
+  BLANK(WHITE)
+  REM move to next location
+  x%=x%+xVelocity%
+  y%=y%+yVelocity%
+  d%=(d%+dVelocity%) MOD 360
+  REM draw new triangle
+  PROCtriangle(RED)
+  UPDATE
+  PAUSE(10)
+  REM "bounce" (i.e. invert velocity) at canvas edges
+  IF xEdge% THEN
+    xVelocity%=-xVelocity%
+    dVelocity%=-dVelocity%
+  ENDIF
+  IF yEdge% THEN
+    yVelocity%=-yVelocity%
+    dVelocity%=-dVelocity%
+  ENDIF
+ENDWHILE
+END
+
+REM draws a triangle, and checks whether it meets the edge of the canvas
+DEF PROCtriangle(colr%)
+  LOCAL count%
+  xEdge%=FALSE
+  yEdge%=FALSE
+  SETXY(x%,y%)
+  DIRECTION(d%)
+  COLOUR(colr%)
+  FOR count%=1 TO 3
+    FORWARD(SIZE%)
+    IF ABS(turtx%-500)>495 THEN
+      xEdge%=TRUE
+    ENDIF
+    IF ABS(turty%-500)>495 THEN
+      yEdge%=TRUE
+    ENDIF
+    BACK(SIZE%)
+    FORGET(1)
+    RIGHT(120)
+  NEXT
+  POLYGON(3)
+ENDPROC

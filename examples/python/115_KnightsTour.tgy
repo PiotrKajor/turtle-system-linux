@@ -1,0 +1,175 @@
+WIDTH=10
+HEIGHT=10
+MAXBOARD=256 # maximum size of board
+MARGIN=20 # blank border around the board
+DRAWALL=True # if true, shows all moves; if false, only draws best-so-fars
+PAUSEONEACH=250 # milliseconds to pause after each attempt
+PAUSEONBEST=2000 # milliseconds to pause on new best attempt so far
+
+vectorx=[1,2,2,1,-1,-2,-2,-1] # x-shift for 8 possible knight moves
+vectory=[-2,-1,1,2,2,1,-1,-2] # y-shift for 8 possible knight moves
+squarestatus=[0]*MAXBOARD     # holds the status of each square (0=unvisited; otherwise order in tour)
+cleverrank=[0]*MAXBOARD       # holds the number of unvisited squares adjacent to given square
+boardsize=WIDTH*HEIGHT
+xgap=(1000-2*MARGIN)/WIDTH
+ygap=(1000-2*MARGIN)/HEIGHT
+if xgap<=ygap:
+    radius=xgap*2/5
+else:
+    radius=ygap*2/5
+
+def findx(s): # find x-cooredinate of square
+    return s % WIDTH
+
+def findy(s): # find y-coordinate of square
+    return s//WIDTH
+
+def findsquare(x,y): # calculate square index given x and y
+    return y*WIDTH+x
+
+def drawsquare(s): # draw square, showing its status
+    setxy(MARGIN+xgap*findx(s)+xgap/2,MARGIN+ygap*findy(s)+ygap/2)
+    if squarestatus[s]==0:
+        colour(salmon) # unvisited squares have salmon blots
+        blot(radius)
+    else:
+        colour(white)  # others have white blots with order number
+        blot(radius)
+        if WIDTH>10:   # calculations attempt to align numbers centrally
+            if squarestatus[s]<10:
+                movexy(-8,-20)
+            elif squarestatus[s]<100:
+                movexy(-15,-20)
+            else:
+                movexy(-22,-20)
+            colour(black)
+            display(str(squarestatus[s]),4,20)
+        else:
+            if squarestatus[s]<10:
+                movexy(-10,-24)
+            elif squarestatus[s]<100:
+                movexy(-20,-24)
+            else:
+                movexy(-30,-24)
+            colour(black)
+            display(str(squarestatus[s]),4,25)
+
+def drawboard(): # draw entire board
+    noupdate()
+    blank(darkgreen)
+    for s in range (boardsize):
+        drawsquare(s)
+    update()
+
+def goodmove(s,direction:int): # try DIRECTION from square S - returns new square if OK, else -1
+    newx=findx(s)+vectorx[direction]
+    newy=findy(s)+vectory[direction]
+    if (newx>=0) and (newx<WIDTH) and (newy>=0) and (newy<HEIGHT): # is move legal?
+        result=findsquare(newx,newy) # provisionally return new square index
+        if squarestatus[result]>0: # is square already taken?
+            result=-1
+    else:
+        result=-1
+    return result
+
+def takesquare(s,order): # occupy square S as the ORDERth of the tour
+    squarestatus[s]=order
+    if clever:
+        for d in range (8):
+            adjs=goodmove(s,d)      # for each unvisited neighbour ...
+            if adjs>-1:
+                cleverrank[adjs]-=1 # ... it has one fewer onward option
+    if DRAWALL:
+        noupdate()
+        drawsquare(s)
+        update()                    # one refresh per move, not one per drawing command
+
+def clearboard(): # empty board, calculating cleverrank for all squares
+    for s in range (boardsize):
+        squarestatus[s]=0
+    if clever:
+        for s in range (boardsize): # for each square on the board,
+            cleverrank[s]=0
+            for d in range (8):        # try each knight direction
+                if goodmove(s,d)>-1:    # if a legal move
+                    cleverrank[s]+=1      # increment cleverrank
+
+def randommove(s): # select a random direction of OK move from square S
+    chosen=-1 # default if no OK move
+    numok=0
+    for d in range (8):
+        if goodmove(s,d)>-1:
+            numok+=1                # keep count of OK moves
+            if randrange(numok)==0: # choose latest with probability 1/numok
+                chosen=d
+    return chosen
+
+def clevermove(s): # find next direction from S using Warnsdorff's rule: prioritise dealing with
+    chosen=-1          # awkward squares, by selecting one that has the fewest onward options
+    bestrank=9                             # set bestrank to 9 (impossibly bad)
+    for d in range (8):
+        news=goodmove(s,d)                 # check each of the 8 directions
+        if news>-1:                        # for each possible OK move ...
+            if cleverrank[news]<bestrank:    # if its rank is lower than best so far
+                chosen=d                       # then choose it
+                bestrank=cleverrank[news]
+                numbest=1
+            elif cleverrank[news]==bestrank: # if its rank is equal to best so far
+                numbest+=1                     # then keep count of number at that level
+                if randrange(numbest)==0:
+                    chosen=d                   # choose new move with probability 1/numbest
+    return chosen
+
+def findroute(): # try to find a complete route
+    thiss=randrange(boardsize)             # randomly choose first square
+    countsquares=1
+    takesquare(thiss,1)
+    fail=False
+    while not (fail) and (countsquares<boardsize): # MOVE LOOP
+        if clever:
+            d=clevermove(thiss)            # select a clevermove
+        else:
+            d=randommove(thiss)            # or a randommove
+        if d==-1:                          # if -1, the tour fails
+            fail=True
+        else:
+            thiss=goodmove(thiss,d)        # if an OK move, make it
+            countsquares+=1                # increment tour counter
+            takesquare(thiss,countsquares) # set status, adjust ranks, draw
+    return countsquares # when finished, return the count of squares visited
+
+print('Random search or Clever search? (R/C) ')
+det=detect(\key,0)
+while (det!=\r) and (det!=\c):
+    det=detect(\key,0)
+clever=(det==\c)
+if clever:
+    print('  Clever ...')
+else:
+    print('  Random ...')
+if boardsize>MAXBOARD:
+    print('Error: maximum board size is '+str(MAXBOARD)+' squares')
+else:
+    attempts=0
+    total=0
+    best=0
+    first=True
+    while first or (best!=boardsize): # continue until entire board covered ...
+        first=False
+        attempts+=1                     # start new attempt
+        clearboard()                    # clear the board
+        if DRAWALL:                     # if DRAWALL,
+            drawboard()                   # draw the clear board
+        countsquares=findroute()        # find a route
+        total=total+countsquares        # count total moves (for averaging)
+        if countsquares>best:           # if this is the best so far ...
+            best=countsquares
+            if not DRAWALL:
+                drawboard()               # if not drawn already, draw the board
+            if attempts>1:                # if multiple attempts, print the statistics
+                print('Attempt '+str(attempts)+', score: '+str(countsquares)+'  (average of all attempts: '+qstr(total,attempts,2)+')')
+            else:
+                print('Attempt '+str(attempts)+', score: '+str(countsquares))
+            pause(PAUSEONBEST)            # pause before stopping or continuing
+        else:
+            pause(PAUSEONEACH)            # shorter pause if not best so far

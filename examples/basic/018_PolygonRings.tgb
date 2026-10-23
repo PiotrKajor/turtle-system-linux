@@ -1,0 +1,40 @@
+PENUP
+REM draw black blot for background
+BLOT(500)
+RNDCOL(6)
+REM draw five annuli within the blot
+PROCannulus(410,80,2)
+PROCannulus(310,80,3)
+PROCannulus(210,80,5)
+PROCannulus(110,80,7)
+PROCannulus(10,80,1)
+END
+
+REM draws an annulus (ring) with given inner
+REM radius, width, and coloured segment angle
+DEF PROCannulus(inner%,width%,angle%)
+  LOCAL count%
+  REM count enough segments to go full circle
+  FOR count%=0 TO (360 DIV angle%)
+    REM move from centre to outside edge
+    FORWARD(inner%+width%)
+    REM move back to inside edge
+    BACK(width%)
+    REM move back to centre
+    BACK(inner%)
+    REM forget visit to centre
+    FORGET(1)
+    REM turn right by specified angle
+    RIGHT(angle%)
+    REM move from centre to inside edge
+    FORWARD(inner%)
+    REM move to outside edge
+    FORWARD(width%)
+    REM rotate round 20 standard colours
+    COLOUR(RGB((count% MOD 20)+1))
+    REM draw coloured quadrilateral
+    POLYGON(4)
+    REM move back to centre
+    BACK(inner%+width%)
+  NEXT
+ENDPROC

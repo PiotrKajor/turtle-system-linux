@@ -1,0 +1,87 @@
+program sexratio;
+const
+  population=1000;
+  matepergen=400;
+  randomvar=1;
+  leftmargin=70;
+  topmargin=20;
+var
+  female:array [1..population] of boolean;
+  fop:array [1..population] of integer;
+  generation:integer;
+  n:integer;
+procedure axes;
+var
+  i:integer;
+begin
+  for i:=1 to 9 do
+  begin
+    setxy(leftmargin+i*100-25,topmargin+800);
+    display(str(i*100),4,20)
+  end;
+  for i:=2 to 10 do
+  begin
+    setxy(0,1000-i*100);
+    colour(black);
+    display(str(i*10)+'%',4,20);
+    movexy(leftmargin,topmargin);
+    colour(lightgrey);
+    drawxy(1000-leftmargin,0)
+  end;
+  setxy(leftmargin,topmargin);
+  colour(black);
+  drawxy(0,800);
+  drawxy(1000-leftmargin,0);
+  colour(red);
+  setxy(50,880);
+  display('Proportion of Females in Population, over 900 Generations',4,25);
+  setxy(50,930);
+  display('with Female Offspring Probability genes initially set 90%+',4,25)
+end;
+procedure graph;
+var
+  females,n:integer;
+begin
+  females:=0;
+  for n:=1 to population do
+    if female[n] then
+      inc(females);
+  colour(red);
+  setxy(leftmargin+generation,topmargin+1000-females);
+  if generation>0 then
+    polyline(2)
+end;
+procedure domating;
+var
+  a,b,replace:integer;
+  inherita:boolean;
+begin
+  repeat
+    a:=random(population)+1;
+    b:=random(population)+1
+  until female[a]<>female[b];
+  inherita:=(random(2)=0);
+  replace:=random(population)+1;
+  if inherita then
+    fop[replace]:=fop[a]
+  else
+    fop[replace]:=fop[b];
+  female[replace]:=fop[replace]>random(1000);
+  fop[replace]:=fop[replace]+random(randomvar*20+1)-randomvar*10;
+  fop[replace]:=max(0,min(1000,fop[replace]))
+end;
+begin
+  axes;
+  for n:=1 to population do
+  begin
+    female[n]:=(random(2)=0);
+    fop[n]:=900+random(101)
+  end;
+  generation:=0;
+  repeat
+    graph;
+    inc(generation);
+    for n:=1 to matepergen do
+      domating;
+  until generation=900
+end.

@@ -1,0 +1,21 @@
+Third-party material in this repository
+=======================================
+
+Turtle System (c) Peter Millican, University of Oxford and National University of
+Singapore, 2000-2026. https://www.turtle.ox.ac.uk/
+  - examples/          The built-in example programs of Turtle System 15.95, extracted from
+                       the original program by tools/extract_examples.py. They are the work of
+                       Peter Millican and are included for educational use only.
+  - data/builtins.json The list and descriptions of the built-in commands, and
+    data/lexemes.json, data/opcodes.json  the language and Turtle Machine tables, extracted
+                       from the original program so that this system matches it.
+This project is an independent re-implementation and is not affiliated with or endorsed by
+the authors of the Turtle System.
+
+Wine (https://www.winehq.org/), LGPL 2.1 or later
+  - gdi.py             Rasterisation algorithms ported from Wine's dlls/win32u (dibdrv,
+                       region code).
+
+Logo artwork (logos/, icons/, docs/banner.png)
+  - Microsoft Fluent Emoji "Turtle", MIT License, https://github.com/microsoft/fluentui-emoji
+  - Google Noto Color Emoji "turtle", Apache License 2.0, https://github.com/googlefonts/noto-emoji

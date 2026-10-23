@@ -1,0 +1,97 @@
+XORIGIN=500
+YORIGIN=500
+HALFWIDTH=400
+YSCALE=200
+RADIANS=False # make True for x-axis in radians
+
+# draws graph axes
+def drawAxes():
+    thickness(3)
+    # draw x axis
+    setxy(XORIGIN-HALFWIDTH,YORIGIN)
+    drawxy(HALFWIDTH*2,0)
+    # draw y axis
+    setxy(XORIGIN,0)
+    drawxy(0,1000)
+    # draw circle at origin
+    setxy(XORIGIN,YORIGIN)
+    circle(15)
+    # draw lines at y=1 and y=-1
+    thickness(2)
+    setxy(XORIGIN-HALFWIDTH,YORIGIN-YSCALE)
+    drawxy(HALFWIDTH*2,0)
+    setxy(XORIGIN-HALFWIDTH,YORIGIN+YSCALE)
+    drawxy(HALFWIDTH*2,0)
+    setxy(XORIGIN+HALFWIDTH+10,YORIGIN-YSCALE-18)
+    display('+1',0,20)
+    setxy(XORIGIN+HALFWIDTH+10,YORIGIN+YSCALE-18)
+    display('-1',0,20)
+    # print x axis labels
+    if RADIANS:
+        setxy(XORIGIN-HALFWIDTH-44,YORIGIN-4)
+        display('-p',29,28)
+        setxy(XORIGIN-HALFWIDTH/2-2,YORIGIN-4)
+        display('-p/2',29,28)
+        setxy(XORIGIN+HALFWIDTH/2-50,YORIGIN-4)
+        display('p/2',29,28)
+        setxy(XORIGIN+HALFWIDTH,YORIGIN-4)
+        display('p',29,28)
+    else:
+        setxy(XORIGIN-HALFWIDTH-60,YORIGIN)
+        display('-180',0,20)
+        setxy(XORIGIN-HALFWIDTH/2,YORIGIN)
+        display('-90',0,20)
+        setxy(XORIGIN+HALFWIDTH/2-30,YORIGIN)
+        display('90',0,20)
+        setxy(XORIGIN+HALFWIDTH,YORIGIN)
+        display('180',0,20)
+
+# plots a sine curve
+def plotSineCurve():
+    for degrees in range (-180,181,1):
+        x=XORIGIN+divmult(degrees,180,HALFWIDTH)
+        y=YORIGIN-sin(degrees,1,YSCALE)
+        setxy(x,y)
+    polyline(361)
+
+# plots a cosine curve
+def plotCosineCurve():
+    for degrees in range (-180,181,1):
+        x=XORIGIN+divmult(degrees,180,HALFWIDTH)
+        y=YORIGIN-cos(degrees,1,YSCALE)
+        setxy(x,y)
+    polyline(361)
+
+# plots a tangent curve
+def plotTanCurve():
+    for degrees in range (-180,181,1):
+        if degrees==-90:
+            polyline(90)
+        else:
+            if degrees==90:
+                polyline(179)
+            else:
+                x=XORIGIN+divmult(degrees,180,HALFWIDTH)
+                y=YORIGIN-tan(degrees,1,YSCALE)
+                setxy(x,y)
+    polyline(90)
+
+# draw axes
+drawAxes()
+noupdate()
+thickness(4)
+# plot sine curve in green
+colour(green)
+setxy(250,700)
+display('sine',16,40)
+plotSineCurve()
+# plot cosine curve in red
+colour(red)
+setxy(30,700)
+display('cosine',16,40)
+plotCosineCurve()
+# plot tangent curve in blue
+colour(blue)
+setxy(140,920)
+display('tangent',16,40)
+plotTanCurve()

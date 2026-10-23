@@ -1,0 +1,55 @@
+SNAKECOLOUR=purple
+APPLECOLOUR=green
+BOARDSIZE=30
+
+snakelength=2 # start with snake of length 2
+crash=False # initialise crash test to False
+
+def newapple(): # draws a new apple
+    x=randrange(BOARDSIZE)
+    y=randrange(BOARDSIZE)
+    # choose a random point where the snake isn't
+    while pixcol(x,y)==SNAKECOLOUR:
+        x=randrange(BOARDSIZE)
+        y=randrange(BOARDSIZE)
+    pixset(x,y,APPLECOLOUR) # draw an apple there
+
+canvas(0,0,BOARDSIZE,BOARDSIZE)
+resolution(BOARDSIZE,BOARDSIZE) # large pixels, apple-sized
+angles(4) # only 4 directions are needed
+blank(lightblue)
+cursor(0) # blank canvas and hide cursor
+colour(SNAKECOLOUR)
+thickness(1) # snake is one (large) pixel wide
+penup()
+forward(1) # draw snake of length 2
+newapple() # place the first apple
+while not crash:
+    noupdate()
+    if (abs(?key)==\up) and (turtd!=2):
+        direction(0) # turn snake in response to arrow keys
+    if (abs(?key)==\right) and (turtd!=3):
+        direction(1)
+    if (abs(?key)==\down) and (turtd!=0):
+        direction(2)
+    if (abs(?key)==\left) and (turtd!=1):
+        direction(3)
+    forward(1) # move snake forward
+    if (turtx<0) or (turtx>=BOARDSIZE) or (turty<0) or (turty>=BOARDSIZE):
+        crash=True # crash if snake reaches edge of canvas
+    if pixcol(turtx,turty)==SNAKECOLOUR:
+        crash=True # crash if snake hits itself
+    if pixcol(turtx,turty)==APPLECOLOUR: # on finding apple,
+        snakelength=snakelength+1 # snake grows by 1
+        pixset(turtx,turty,SNAKECOLOUR) # apple becomes snake
+        newapple() # create a new apple in a random place
+    colour(lightblue)
+    polyline(snakelength+1) # erase the previous snake
+    colour(SNAKECOLOUR)
+    polyline(snakelength) # draw new snake
+    update()
+    pause(250-(snakelength*3)) # get faster as snake lengthens
+resolution(1000,1000) # standard resolution for score display
+blank(lilac)
+setxy(BOARDSIZE//4,2*BOARDSIZE//5)
+display('Score '+str(snakelength-2),20,100)

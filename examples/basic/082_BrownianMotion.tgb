@@ -1,0 +1,98 @@
+
+
+CONST POLRADIUS%=80
+CONST MOLRADIUS%=10
+CONST HITRADIUS%=90
+CONST MOLECULES%=400
+CONST SLOWSPEED%=30
+CONST HIGHSPEED%=50
+CONST SPEEDRATIO%=10
+CONST POLCOLOUR%=BLUE
+CONST MOLCOLOUR%=RED
+CONST HALOCOLOUR%=&FFFFFE
+CONST DELAY%=50
+DIM mx%(MOLECULES%)
+DIM my%(MOLECULES%)
+DIM ms%(MOLECULES%)
+DIM md%(MOLECULES%)
+NOUPDATE
+PROCsetup
+BLANK(WHITE)
+PROCdraw(TRUE)
+REPEAT
+  NOUPDATE
+  PROCdraw(FALSE)
+  FOR n%=0 TO MOLECULES%
+    PROCmove(n%)
+  NEXT
+  px%=px%+pxvel%/SPEEDRATIO%
+  py%=py%+pyvel%/SPEEDRATIO%
+  PROCdraw(TRUE)
+  UPDATE
+  PAUSE(DELAY%)
+UNTIL (ABS(px%-500)>490) OR (ABS(py%-500)>480)
+END
+
+DEF PROCsetup
+  LOCAL n%
+  PENUP
+  px%=500
+  py%=500
+  pxvel%=0
+  pyvel%=0
+  SETXY(px%,py%)
+  COLOUR(HALOCOLOUR%)
+  BLOT(HITRADIUS%)
+  FOR n%=0 TO MOLECULES%
+    REPEAT
+      mx%(n%)=RND(1000-1*MOLRADIUS%)+MOLRADIUS%
+      my%(n%)=RND(1000-1*MOLRADIUS%)+MOLRADIUS%
+    UNTIL PIXCOL(mx%(n%),my%(n%))=WHITE
+    ms%(n%)=RND(HIGHSPEED%-SLOWSPEED%)+SLOWSPEED%
+    md%(n%)=RND(360)-1
+    SETXY(mx%(n%),my%(n%))
+    BLOT(2*MOLRADIUS%)
+  NEXT
+ENDPROC
+
+DEF PROCdraw(positive%)
+  LOCAL n%
+  IF positive% THEN
+    COLOUR(MOLCOLOUR%)
+    radius%=MOLRADIUS%
+  ELSE
+    COLOUR(WHITE)
+    radius%=MOLRADIUS%+1
+  ENDIF
+  FOR n%=0 TO MOLECULES%
+    SETXY(mx%(n%),my%(n%))
+    BLOT(radius%)
+  NEXT
+  SETXY(px%,py%)
+  IF positive% THEN
+    COLOUR(POLCOLOUR%)
+    BLOT(POLRADIUS%)
+  ELSE
+    BLOT(POLRADIUS%+1)
+  ENDIF
+ENDPROC
+
+DEF PROCmove(m%)
+  LOCAL degturn%,impact%
+  SETXY(mx%(m%),my%(m%))
+  DIRECTION(md%(m%))
+  FORWARD(ms%(m%))
+  IF HYPOT(turtx%-px%,turty%-py%,1)<=HITRADIUS% THEN
+    WHILE HYPOT(turtx%-px%,turty%-py%,1)<HITRADIUS%
+      BACK(1)
+    ENDWHILE
+    TURNXY(px%-turtx%,py%-turty%)
+    degturn%=turtd%-md%(m%)
+    md%(m%)=(180+(turtd%+degturn%)) MOD 360
+    impact%=COS(degturn%,1,ms%(m%))
+    pxvel%=pxvel%+SIN(turtd%,1,impact%)
+    pyvel%=pyvel%-COS(turtd%,1,impact%)
+  ENDIF
+  mx%(m%)=(turtx%+1000) MOD 1000
+  my%(m%)=(turty%+1000) MOD 1000
+ENDPROC

@@ -1,0 +1,77 @@
+program file_commands;
+const
+  testfile1='testfile1.txt';
+  testfile2='testfile2.txt';
+  enquire=0;
+  delete=1;
+  create=2;
+  recreate=3;
+  tnotify=4;
+  fnotify=16;
+  tonentry=64;
+  tonexit=128;
+  todo=create;
+var
+  code:integer;
+procedure showresult(b:boolean;n:string);
+begin
+  if b then
+    writeln(uppercase(n)+' returns TRUE')
+  else
+    writeln(uppercase(n)+' returns FALSE')
+end;
+begin
+  output(true,cream,true);
+  code:=todo+tnotify+fnotify;
+  writeln('Code on entry = $'+hexstr(code,2));
+  writeln('The initial CHECKFILE command will invoke a message window ...');
+  code:=checkfile(testfile1,code);
+  writeln('Code on exit = $'+hexstr(code,2));
+  if code and tonentry>0 then
+    writeln('File existed on entry')
+  else
+    writeln('No file on entry');
+  if code and tonexit>0 then
+    writeln('File existed on exit')
+  else
+    writeln('No file on exit');
+  writeln('');
+  showresult(fileexists(testfile1),'fileexists('+testfile1+')');
+  writeln('');
+  showresult(deletefile(testfile1),'deletefile('+testfile1+')');
+  showresult(fileexists(testfile1),'fileexists('+testfile1+')');
+  writeln('');
+  if checkfile(testfile1,2)>127 then
+    writeln('File "'+testfile1+'" has been created')
+  else
+    writeln('File "'+testfile1+'" could not be created');
+  showresult(fileexists(testfile1),'fileexists('+testfile1+')');
+  showresult(fileexists(testfile2),'fileexists('+testfile2+')');
+  writeln('');
+  if copyfile(testfile1,testfile2) then
+    writeln('File "'+testfile1+'" has been copied to "'+testfile2+'"')
+  else
+    writeln('File "'+testfile1+'" could not be copied to "'+testfile2+'"');
+  showresult(fileexists(testfile1),'fileexists('+testfile1+')');
+  showresult(fileexists(testfile2),'fileexists('+testfile2+')');
+  writeln('');
+  if checkfile(testfile1,1)<128 then
+    writeln('File "'+testfile1+'" has been deleted')
+  else
+    writeln('File "'+testfile1+'" could not be deleted');
+  showresult(fileexists(testfile1),'fileexists('+testfile1+')');
+  writeln('');
+  showresult(deletefile(testfile1),'deletefile('+testfile1+')');
+  showresult(fileexists(testfile1),'fileexists('+testfile1+')');
+  writeln('');
+  showresult(fileexists(testfile2),'fileexists('+testfile2+')');
+  if renamefile(testfile2,testfile1) then
+    writeln('File "'+testfile2+'" has been renamed "'+testfile1+'"')
+  else
+    writeln('File "'+testfile2+'" could not be renamed "'+testfile1+'"');
+  showresult(fileexists(testfile1),'fileexists('+testfile1+')');
+  showresult(fileexists(testfile2),'fileexists('+testfile2+')');
+  writeln('');
+  showresult(deletefile(testfile1),'deletefile('+testfile1+')');
+  showresult(fileexists(testfile1),'fileexists('+testfile1+')')
+end.

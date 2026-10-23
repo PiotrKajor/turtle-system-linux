@@ -1,0 +1,29 @@
+program kochsnowflake;
+var
+  count:integer;
+procedure kdraw(dist,level:integer);
+begin
+  if level=0 then
+    forward(dist)
+  else
+  begin
+    kdraw(dist/3,level-1);
+    left(60);
+    kdraw(dist/3,level-1);
+    right(120);
+    kdraw(dist/3,level-1);
+    left(60);
+    kdraw(dist/3,level-1)
+  end
+end;
+begin
+  blank(black);
+  movexy(0,430);
+  left(30);
+  for count:=1 to 3 do
+  begin
+    colour(rgb(count+20));
+    kdraw(729,4);
+    right(120)
+  end
+end.

@@ -1,0 +1,153 @@
+program random_sentences;
+const
+  art=1;
+  adj=2;
+  col=3;
+  noun=4;
+  verb=5;
+  maxwords=10;
+  subdir='sentences';
+var
+  handle:array [1..5] of integer;
+  fname:array [1..5] of string;
+  wstr:array [1..5] of string [50];
+  numwords:array [1..5] of integer;
+  word:array [1..5,1..maxwords] of string;
+procedure setup;
+begin
+  fname[art]:='articles';
+  fname[adj]:='adjectives';
+  fname[col]:='colours';
+  fname[noun]:='nouns';
+  fname[verb]:='verbs';
+  wstr[art]:='the,a';
+  wstr[adj]:='hungry,quick,lazy,slow';
+  wstr[col]:='black,brown,grey,white';
+  wstr[noun]:='cat,dog,fox,monkey,rabbit';
+  wstr[verb]:='chases,jumps over,runs away from,watches'
+end;
+procedure writewordfiles;
+var
+  i,count,posn:integer;
+  s:string [50];
+begin
+  for i:=1 to 5 do
+  begin
+    handle[i]:=openfile(subdir+'\'+fname[i]+'.txt',4);
+    s:=wstr[i];
+    count:=1;
+    posn:=pos(',',s);
+    while posn>0 do
+    begin
+      inc(count);
+      fwriteln(i,copy(s,1,posn-1));
+      s:=delete(s,1,posn);
+      posn:=pos(',',s)
+    end;
+    fwriteln(i,s);
+    writeln('File "'+subdir+'\'+fname[i]+'.txt" has been created, with '+str(count)+' lines')
+  end;
+  writeln('');
+  closefile(0)
+end;
+procedure readwordfiles;
+var
+  i:integer;
+begin
+  for i:=1 to 5 do
+  begin
+    handle[i]:=openfile(subdir+'\'+fname[i]+'.txt',1);
+    if handle[i]>0 then
+    begin
+      numwords[i]:=0;
+      while not (eof(handle[i])) and (numwords[i]<maxwords) do
+      begin
+        inc(numwords[i]);
+        word[i,numwords[i]]:=freadln(handle[i])
+      end
+    end;
+    writeln(str(numwords[i])+' lines have been read from file "'+subdir+'\'+fname[i]+'.txt"')
+  end;
+  writeln('');
+  closefile(0)
+end;
+procedure generate(n:integer);
+var
+  s:string [60];
+  fhandle,i:integer;
+function rand(n:integer):string;
+begin
+  result :=word[n,random(numwords[n])+1]
+end;
+begin
+  writeln('Now up to '+str(n)+' random sentences will be generated using');
+  writeln('these words. The generation will stop if a well-known target');
+  writeln('sentence is achieved before the maximum has been reached.');
+  writeln('');
+  fhandle:=openfile(subdir+'\'+str(n)+'_sentences.txt',4);
+  i:=0;
+  cursor(11);
+  repeat
+    s:=rand(art)+' '+rand(adj)+' '+rand(col)+' '+rand(noun)+' '+rand(verb)+' '+rand(art)+' '+rand(adj)+' '+rand(noun)+'.';
+    s[1]:=chr(ord(s[1])-32);
+    fwriteln(fhandle,s);
+    inc(i)
+  until (i=n) or (s='The quick brown fox jumps over the lazy dog.');
+  cursor(1);
+  closefile(fhandle);
+  if i=n then
+    writeln(str(i)+' sentences written to "'+subdir+'\'+str(n)+'_sentences.txt'+'".')
+  else
+  begin
+    if renamefile(subdir+'\'+str(n)+'_sentences.txt',subdir+'\'+str(i)+'_sentences.txt') then
+      writeln(str(i)+' sentences written to "'+subdir+'\'+str(i)+'_sentences.txt'+'"')
+    else
+    begin
+      writeln(str(i)+' sentences written to "'+subdir+'\'+str(n)+'_sentences.txt'+'"');
+      writeln('For some reason, this file could not be renamed')
+    end
+  end;
+  if i<n then
+  begin
+    writeln('');
+    writeln('  Loop terminated early, having written:');
+    writeln('  "The quick brown fox jumps over the lazy dog."')
+  end;
+  if i<n/2 then
+  begin
+    writeln('');
+    if movefile(subdir+'\'+str(i)+'_sentences.txt',str(i)+'_sentences.txt') then
+    begin
+      writeln('File moved to base directory.');
+      if copyfile(str(i)+'_sentences.txt',subdir+'\Latest_Good_Example.txt') then
+        writeln('File then copied back as "Latest_Good_Example.txt".')
+      else
+      begin
+        writeln('But it could not be copied back as "Latest_Good_Example.txt" ...');
+        if deletefile(subdir+'\Latest_Good_Example.txt') then
+        begin
+          if copyfile(str(i)+'_sentences.txt',subdir+'\Latest_Good_Example.txt') then
+            writeln('... until the existing file with that name was deleted.')
+          else
+            writeln('... for some reason unknown.')
+        end
+        else
+          writeln('... and the existing file with that name could not be deleted')
+      end
+    end
+    else
+      writeln('For some reason, the file "'+subdir+'\'+str(i)+'_sentences.txt" '+'could not be moved to the base directory')
+  end
+end;
+begin
+  output(true,cream,true);
+  if mkdir(subdir) then
+  begin
+    setup;
+    writewordfiles;
+    readwordfiles;
+    generate(100000)
+  end
+  else
+    writeln('Subdirectory '+subdir+' could not be created')
+end.

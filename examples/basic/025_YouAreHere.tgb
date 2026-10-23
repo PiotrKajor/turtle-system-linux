@@ -1,0 +1,26 @@
+REM draw red blot
+COLOUR(RED)
+BLOT(20)
+REM print violet text, font style 4, size 36
+COLOUR(VIOLET)
+DISPLAY("You are here",4,36)
+REM draw blue multi-part "curve"
+COLOUR(BLUE)
+SETXY(790,540)
+DRAWXY(40,0)
+DRAWXY(28,-28)
+DRAWXY(0,-40)
+DRAWXY(-28,-28)
+DRAWXY(-40,0)
+REM position Turtle in centre of blot
+SETXY(500,500)
+REM draw line connecting two last points
+POLYLINE(2)
+REM visit other points of triangle head
+SETXY(530,480)
+SETXY(535,505)
+REM fill triangle of last three points
+POLYGON(3)
+REM for neatness, end up in centre
+SETXY(500,500)
+END

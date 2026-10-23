@@ -1,0 +1,98 @@
+program Hanoi;
+const
+  delay=500;
+var
+  numdisks:integer;
+  pile:array [1..3] of string;
+  x,y,top:array [1..3] of integer;
+  count:integer;
+  start,finish:integer;
+function getnum(prompt:string):integer;
+var
+  s:string;
+begin
+  write(prompt);
+  repeat
+    s:=readln;
+  until pos(s[1],'123')>0;
+  result :=ord(s[1])-48
+end;
+procedure setup(startdisk:integer);
+var
+  d,p:integer;
+begin
+  x[1]:=250;
+  x[2]:=500;
+  x[3]:=750;
+  y[1]:=800;
+  y[2]:=500;
+  y[3]:=800;
+  for p:=1 to 3 do
+  begin
+    pile[p]:='';
+    top[p]:=y[p]-numdisks*20-40
+  end;
+  for d:=1 to numdisks do
+    pile[startdisk]:=pile[startdisk]+chr(d+48);
+  writeln(pad(' ',' ',-32)+'   PILE 1   PILE 2   PILE 3');
+  writeln('');
+  write(pad('Starting position:',' ',-32));
+  writeln(pad(pile[1],' ',9)+pad(pile[2],' ',9)+pad(pile[3],' ',9));
+  writeln('')
+end;
+procedure draw;
+var
+  p,i:integer;
+begin
+  for p:=1 to 3 do
+  begin
+    setxy(x[p],y[p]);
+    for i:=length(pile[p]) downto 1 do
+    begin
+      movexy(0,-20);
+      colour(rgb(ord(pile[p,i])-47));
+      ellblot((ord(pile[p,i])-47)*20,(ord(pile[p,i])-47)*10)
+    end;
+    colour(black);
+    setxy(x[p],top[p]);
+    polyline(2)
+  end
+end;
+procedure movedisk(n,start,finish:integer);
+begin
+  pile[finish]:=pile[start,1]+pile[finish];
+  pile[start]:=delete(pile[start],1,1);
+  blank(white);
+  draw;
+  inc(count);
+  write(pad(str(count),' ',4)+'. Move disk '+str(n)+' from '+str(start)+' to '+str(finish)+':  ');
+  writeln(pad(pile[1],' ',9)+pad(pile[2],' ',9)+pad(pile[3],' ',9));
+  pause(delay)
+end;
+procedure movepile(n,start,finish:integer);
+begin
+  if n>0 then
+  begin
+    movepile(n-1,start,6-start-finish);
+    movedisk(n,start,finish);
+    movepile(n-1,6-start-finish,finish)
+  end
+end;
+begin
+  repeat
+    console(true,cream);
+    writeln('TOWER OF HANOI');
+    writeln('');
+    write('How many disks would you like in the tower? ');
+    numdisks:=val(readln);
+  until (numdisks>1);
+  start:=getnum('Start pillar (1, 2, or 3)? ');
+  finish:=getnum('Finish pillar (1, 2 or 3)? ');
+  output(true,cream,false);
+  setup(start);
+  thickness(10);
+  draw;
+  pause(1000);
+  count:=0;
+  movepile(numdisks,start,finish)
+end.

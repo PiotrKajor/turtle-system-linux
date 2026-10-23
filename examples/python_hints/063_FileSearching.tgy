@@ -1,0 +1,26 @@
+dhandle=0
+thisdir=finddir('*.*',dhandle)
+
+def showdir(d:str):
+    if d=='':
+        print('Base directory:')
+    else:
+        print('Directory "'+d+'":')
+    chdir(d)
+    fhandle=0
+    thisfile=findfirst('*.*',fhandle)
+    if thisfile=='':
+        print('  <no files>')
+    else:
+        while thisfile!='':
+            print('  '+thisfile)
+            thisfile=findnext(fhandle)
+    print('')
+
+output(True,cream,True)
+print('Turtle directories (up to first level) and their files ...')
+print('')
+showdir('')
+while thisdir!='':
+    showdir(thisdir)
+    thisdir=findnext(dhandle)

@@ -1,0 +1,44 @@
+REM do not draw as Turtle moves
+PENUP
+REM draw stars with increasing points
+FOR n%=3 TO 12
+  REM each star is a different colour
+  PROCstar(n%,RGB(n%-2))
+  REM pause to enable each to be seen
+  PAUSE(500)
+NEXT
+END
+
+REM draws a star with given points & colour
+DEF PROCstar(points%,colr%)
+  LOCAL count%
+  REM set the size of a "degree" so there
+  REM are twice as many in a complete circle
+  REM as there are points in the polygon
+  ANGLES(points%*2)
+  REM trace outline with Turtle
+  FOR count%=1 TO points%
+    REM move out to point
+    FORWARD(450)
+    REM move back to centre
+    BACK(450)
+    REM forget visit back to centre
+    FORGET(1)
+    REM turn right by 1 "degree", i.e.
+    REM halfway round to the next point
+    RIGHT(1)
+    REM move out to inner corner
+    FORWARD(200)
+    REM move back to centre
+    BACK(200)
+    REM forget visit back to centre
+    FORGET(1)
+    REM turn right by 1 "degree", i.e. the
+    REM rest of the way to the next point
+    RIGHT(1)
+  NEXT
+  REM set specified colour
+  COLOUR(colr%)
+  REM draw polygon joining remembered points
+  POLYGON(points%*2)
+ENDPROC

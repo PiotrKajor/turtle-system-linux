@@ -1,0 +1,16 @@
+REM set starting point
+SETXY(100,700)
+FOR count%=1 TO 100
+  NOUPDATE
+  REM rub out previous ball
+  COLOUR(WHITE)
+  BLOT(51)
+  REM move to next point
+  MOVEXY(8,-4)
+  REM draw new ball
+  COLOUR(RED)
+  BLOT(50)
+  UPDATE
+  PAUSE(10)
+NEXT
+END

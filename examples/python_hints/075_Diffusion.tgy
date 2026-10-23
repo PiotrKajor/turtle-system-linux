@@ -1,0 +1,122 @@
+WIDTH=100
+LEFTAXIS=21
+RIGHTAXIS=15
+TOPMARGIN=20
+GAP=10
+CONCBOTTOM=80
+CONCWIDTH=50
+COLOUR1=red
+COLOUR2=blue
+EDGECOL=black
+MOLCOL=red
+CONCCOL=seagreen
+
+xorval=COLOUR1^COLOUR2
+bottom=WIDTH*2+TOPMARGIN+GAP-1
+boundary=divmult(WIDTH,1000,707)
+num1=[]
+
+def setup():
+    canvas(0,0,WIDTH+LEFTAXIS+RIGHTAXIS,WIDTH*2+TOPMARGIN+GAP)
+    resolution(WIDTH+LEFTAXIS+RIGHTAXIS,WIDTH*2+TOPMARGIN+GAP)
+    colour(COLOUR2)
+    setxy(boundary+1+LEFTAXIS,bottom-boundary)
+    drawxy(0,boundary)
+    thickness(1)
+    setxy(boundary+LEFTAXIS,bottom-boundary-10)
+    drawxy(0,5)
+    setxy(boundary+LEFTAXIS,TOPMARGIN)
+    drawxy(0,5)
+    colour(COLOUR1)
+    setxy(boundary+LEFTAXIS-1,bottom-boundary-10)
+    drawxy(0,5)
+    setxy(boundary+LEFTAXIS-1,TOPMARGIN)
+    drawxy(0,5)
+    colour(EDGECOL)
+    setxy(LEFTAXIS-1,bottom)
+    drawxy(WIDTH+1,-WIDTH-1)
+    colour(EDGECOL)
+    drawxy(0,WIDTH+1)
+    recolour(LEFTAXIS+2,bottom,COLOUR1)
+    recolour(WIDTH+LEFTAXIS-4,bottom,COLOUR2)
+    for x1 in range (boundary):
+        num1.append((x1+1))
+    for x1 in range (boundary,WIDTH):
+        num1.append(0)
+    colour(black)
+    setxy(0,0)
+    display('Diffusion in a Tapering Tube',2,WIDTH/10)
+
+def drawaxes():
+    for n in range (-1,CONCWIDTH):
+        pixset(LEFTAXIS-1,CONCBOTTOM-n,black)
+    for n in range (WIDTH+1):
+        pixset(LEFTAXIS+WIDTH,TOPMARGIN+n,black)
+    for n in range (WIDTH+1):
+        if (n<31) or (n % 5==0):
+            pixset(LEFTAXIS+n,CONCBOTTOM+1,black)
+        pixset(LEFTAXIS+n,TOPMARGIN+WIDTH+1,black)
+    colour(CONCCOL)
+    setxy(0,CONCBOTTOM-CONCWIDTH-WIDTH/15)
+    display('100%',2,WIDTH/15)
+    setxy(0,CONCBOTTOM-WIDTH/15)
+    display('  0%',2,WIDTH/15)
+    setxy(1,TOPMARGIN+WIDTH*11/10)
+    display('Red concentration',2,WIDTH/12)
+    colour(MOLCOL)
+    setxy(WIDTH+LEFTAXIS+2,TOPMARGIN+WIDTH-boundary+1-WIDTH/15)
+    display(str(boundary-1),2,WIDTH/15)
+    setxy(WIDTH+LEFTAXIS+2,TOPMARGIN+WIDTH-WIDTH/15)
+    display('  0',2,WIDTH/15)
+    setxy(1,TOPMARGIN+WIDTH*12/10)
+    display('Red molecule count',2,WIDTH/12)
+    colour(black)
+    setxy(1,TOPMARGIN+WIDTH*13/10+5)
+    display('(at horizontal position',2,WIDTH/15)
+    setxy(1,TOPMARGIN+WIDTH*14/10+5)
+    display(' in a tapering tube)',2,WIDTH/15)
+
+def graphit(x,show):
+    if show:
+        pixset(x+LEFTAXIS,TOPMARGIN+WIDTH-num1[x],MOLCOL)
+        pixset(x+LEFTAXIS,CONCBOTTOM-divmult(num1[x],x+1,CONCWIDTH),CONCCOL)
+    else:
+        pixset(x+LEFTAXIS,TOPMARGIN+WIDTH-num1[x],white)
+        pixset(x+LEFTAXIS,CONCBOTTOM-divmult(num1[x],x+1,CONCWIDTH),white)
+
+def showswap(x,origcol):
+    graphit(x,False)
+    graphit((x+1),False)
+    if origcol==COLOUR1:
+        num1[x]-=1
+        num1[x+1]+=1
+    else:
+        num1[x]+=1
+        num1[x+1]-=1
+    graphit(x,True)
+    graphit((x+1),True)
+
+setup()
+drawaxes()
+for x1 in range (WIDTH):
+    graphit(x1,True)
+pause(2500)
+while True:
+    x1=randrange(WIDTH)
+    y1=randrange(WIDTH)
+    if y1<=x1:
+        y1=bottom-y1
+        x2=x1
+        y2=y1
+        if randrange(2)==0:
+            x2+=1
+        else:
+            y2-=1
+        temp=pixcol(x1+LEFTAXIS,y1)
+        if (pixcol(x2+LEFTAXIS,y2)^temp)==xorval:
+            noupdate()
+            pixset(x1+LEFTAXIS,y1,pixcol(x2+LEFTAXIS,y2))
+            pixset(x2+LEFTAXIS,y2,temp)
+            if x2!=x1:
+                showswap(x1,temp)
+            update()

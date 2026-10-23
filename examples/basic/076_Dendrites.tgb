@@ -1,0 +1,97 @@
+
+
+CONST HALF%=100
+CONST CRYSTAL%=CYAN
+CONST MOLECULE%=WHITE
+CONST SOLUTION%=TEAL
+CONST INITRANDOMRADIUS%=10
+CONST MAXDISTANCE%=75
+CONST CYCLEMOD%=5
+CONST MODDELAY%=0
+whole%=HALF%*2+3
+CANVAS(-HALF%,-HALF%,whole%,whole%)
+RESOLUTION(whole%,whole%)
+PENUP
+SETXY(-HALF%,-HALF%)
+BOX(whole%,whole%,SOLUTION%,TRUE)
+randomradius%=INITRANDOMRADIUS%
+PRINT("Initial randomradius = "+STR$(randomradius%))
+PIXSET(0,0,CRYSTAL%)
+numattached%=1
+PRINT("Counting molecules within growing crystal:")
+PRINTON("1 ")
+maxsofar%=1
+TIMESET(0)
+REPEAT
+  HOME
+  DIRECTION(RND(360))
+  FORWARD(HALF%)
+  IF PIXCOL(turtx%,turty%)<>SOLUTION% THEN PROCrandomwalk
+  cycle%=0
+  WHILE NOT (FNattached(turtx%,turty%))
+    PIXSET(turtx%,turty%,MOLECULE%)
+    IF cycle% MOD CYCLEMOD%=0 THEN
+      UPDATE
+      IF MODDELAY%>0 THEN
+        PAUSE(MODDELAY%)
+      ENDIF
+      NOUPDATE
+    ENDIF
+    INC(cycle%)
+    PIXSET(turtx%,turty%,SOLUTION%)
+    PROCbiasedwalk
+  ENDWHILE
+  IF numattached% MOD 10=0 THEN
+    PRINT(STR$(numattached%))
+  ELSE
+    PRINTON(STR$(numattached%)+" ")
+  ENDIF
+  IF maxsofar%>randomradius% THEN
+    randomradius%=maxsofar%
+    PRINT("")
+    PRINT("randomradius = "+STR$(randomradius%))
+  ENDIF
+UNTIL maxsofar%>=MAXDISTANCE%
+PRINT("Simulation finished ("+QSTR$(TIME,1000,2)+" seconds)")
+END
+
+DEF FNattached(x%,y%)
+  result%=FALSE
+  IF (PIXCOL(x%-1,y%)=CRYSTAL%) OR (PIXCOL(x%+1,y%)=CRYSTAL%) OR (PIXCOL(x%,y%-1)=CRYSTAL%) OR (PIXCOL(x%,y%+1)=CRYSTAL%) THEN
+    result%=TRUE
+    PIXSET(x%,y%,CRYSTAL%)
+    INC(numattached%)
+    IF HYPOT(x%,y%,1)>=maxsofar% THEN
+      maxsofar%=HYPOT(x%,y%,1)
+    ENDIF
+  ENDIF
+  =result%
+
+DEF PROCrandomwalk
+  LOCAL n%
+  REPEAT
+    n%=RND(4)*2
+    turtx%=turtx%+n% DIV 3-1
+    turty%=turty%+n% MOD 3-1
+    IF PIXCOL(turtx%,turty%)=BLACK THEN
+      turtx%=turtx%-2*(n% DIV 3-1)
+      turty%=turty%-2*(n% MOD 3-1)
+    ENDIF
+  UNTIL PIXCOL(turtx%,turty%)=SOLUTION%
+ENDPROC
+
+DEF PROCbiasedwalk
+  LOCAL distance%,turn%,range%
+  TURNXY(-turtx%,-turty%)
+  distance%=HYPOT(turtx%,turty%,1)
+  IF distance%<randomradius% THEN
+    DIRECTION(RND(360))
+  ELSE
+    range%=DIVMULT(HALF%-distance%,HALF%-randomradius%,180)
+    turn%=RND(range%*2)-range%
+    RIGHT(turn%)
+  ENDIF
+  REPEAT
+    FORWARD(1)
+  UNTIL PIXCOL(turtx%,turty%)=SOLUTION%
+ENDPROC

@@ -1,0 +1,24 @@
+WIDTH=10
+HEIGHT=15
+# set up canvas coordinates and resolution
+canvas(1,1,WIDTH,HEIGHT)
+resolution(WIDTH,HEIGHT)
+# draw coloured pixels across bottom
+for x in range (1,WIDTH+1):
+    pixset(x,HEIGHT,rgb(x))
+# now enter interactive while loop
+# until ESCAPE key is pressed
+mk=0 # not strictly necessary, but adds clarity
+while mk!=\escape:
+    # detect mouse click or key within 5 seconds
+    mk=detect(\mousekey,5000)
+    if mk==1:
+        # if left click, cell becomes turtle colour
+        pixset(?mousex,?mousey,turtc)
+    elif mk==2:
+        # if right click, turtle takes colour from cell
+        # "turtc=X" has the same effect as "colour(X)"
+        turtc=pixcol(?mousex,?mousey)
+    elif mk==4:
+        # if middle click, cell takes random colour
+        pixset(?mousex,?mousey,rgb(randint(1,10)))

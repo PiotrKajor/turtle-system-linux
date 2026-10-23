@@ -1,0 +1,8 @@
+# adjust starting position so pattern is central
+movexy(-20,80)
+# counting from 25 to 299 in steps of 1 ...
+for i in range (25,300,1):
+    # move forward by 3 times the count number
+    forward(i*3)
+    # turn right by 121 degrees
+    right(121)

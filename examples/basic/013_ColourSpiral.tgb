@@ -1,0 +1,25 @@
+REM make canvas black
+BLANK(BLACK)
+REM position Turtle so pattern fits neatly
+FORWARD(15)
+REM set line thickness and initial length
+THICKNESS(27)
+lineLength%=20
+REM repeatedly ...
+REPEAT
+  REM choose one of the first 40 Turtle colours
+  RNDCOL(40)
+  REM call lineTurn procedure, then pause
+  PROClineTurn
+  PAUSE(50)
+  REM increment lineLength value
+  lineLength%=lineLength%+10
+REM stop looping when lineLength gets to 510
+UNTIL lineLength%>500
+END
+
+REM draws a line and turns right 60 degrees
+DEF PROClineTurn
+  FORWARD(lineLength%)
+  RIGHT(60)
+ENDPROC

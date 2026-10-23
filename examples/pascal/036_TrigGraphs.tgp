@@ -1,0 +1,123 @@
+program TrigGraphs;
+const
+  xOrigin=500;
+  yOrigin=500;
+  halfWidth=400;
+  yScale=200;
+  radians=false; {make TRUE for x-axis in radians}
+
+{draws the graph axes}
+procedure drawAxes;
+begin
+  thickness(3);
+  {draw the y axis}
+  setxy(xOrigin-halfWidth,yOrigin);
+  drawxy(halfWidth*2,0);
+  {draw the x axis}
+  setxy(xOrigin,0);
+  drawxy(0,1000);
+  {draw a circle at the origin}
+  setxy(xOrigin,yOrigin);
+  circle(15);
+  {draw lines at y=1 and y=-1}
+  thickness(2);
+  setxy(xOrigin-halfWidth,yOrigin-yScale);
+  drawxy(halfWidth*2,0);
+  setxy(xOrigin-halfWidth,yOrigin+yScale);
+  drawxy(halfWidth*2,0);
+  setxy(xOrigin+halfWidth+10,yOrigin-yScale-18);
+  display('+1',0,20);
+  setxy(xOrigin+halfWidth+10,yOrigin+yScale-18);
+  display('-1',0,20);
+  {print x axis labels}
+  if radians then
+  begin
+    setxy(xOrigin-halfWidth-44,yOrigin-4);
+    display('-p',29,28);
+    setxy(xOrigin-halfWidth div 2-2,yOrigin-4);
+    display('-p/2',29,28);
+    setxy(xOrigin+halfWidth div 2-50,yOrigin-4);
+    display('p/2',29,28);
+    setxy(xOrigin+halfWidth,yOrigin-4);
+    display('p',29,28)
+  end
+  else
+  begin
+    setxy(xOrigin-halfWidth-64,yOrigin+2);
+    display('-180',0,24);
+    setxy(xOrigin-halfWidth div 2-2,yOrigin+2);
+    display('-90',0,24);
+    setxy(xOrigin+halfWidth div 2-36,yOrigin+2);
+    display('90',0,24);
+    setxy(xOrigin+halfWidth,yOrigin+2);
+    display('180',0,24)
+  end
+end;
+
+{plots a sine curve}
+procedure plotSineCurve;
+var
+  degrees,x,y:integer;
+begin
+  for degrees:=-180 to 180 do
+  begin
+    x:=xOrigin+divmult(degrees,180,halfWidth);
+    y:=yOrigin-sin(degrees,1,yScale);
+    setxy(x,y)
+  end;
+  polyline(361)
+end;
+
+{plots a cosine curve}
+procedure plotCosineCurve;
+var
+  degrees,x,y:integer;
+begin
+  for degrees:=-180 to 180 do
+  begin
+    x:=xOrigin+divmult(degrees,180,halfWidth);
+    y:=yOrigin-cos(degrees,1,yScale);
+    setxy(x,y)
+  end;
+  polyline(361)
+end;
+
+{plots a tan curve}
+procedure plotTanCurve;
+var
+  degrees,x,y:integer;
+begin
+  for degrees:=-180 to 180 do
+    if degrees=-90 then
+      polyline(90)
+  else if degrees=90 then
+    polyline(179)
+  else
+  begin
+    x:=xOrigin+divmult(degrees,180,halfWidth);
+    y:=yOrigin-tan(degrees,1,yScale);
+    setxy(x,y)
+  end;
+  polyline(90)
+end;
+begin
+  {draw axes}
+  drawAxes;
+  noupdate;
+  thickness(4);
+  {plot a sine curve in green}
+  colour(green);
+  setxy(250,700);
+  display('sine',16,40);
+  plotSineCurve;
+  {plot a cosine curve in red}
+  colour(red);
+  setxy(30,700);
+  display('cosine',16,40);
+  plotCosineCurve;
+  {plot a tan curve in blue}
+  colour(blue);
+  setxy(140,920);
+  display('tangent',16,40);
+  plotTanCurve
+end.

@@ -1,0 +1,199 @@
+program Sorting;
+const
+  methods=4;
+  n=100;
+  cols=10;
+  tries=10;
+  checking=true;
+var
+  a:array [0..n] of integer;
+  comps,swaps:integer;
+  caption:array [1..methods] of string;
+  comptotal,swaptotal:array [1..methods] of integer;
+  round,m:integer;
+procedure setup;
+begin
+  caption[1]:='Bubblesort:';
+  caption[2]:='Selectionsort:';
+  caption[3]:='Insertionsort:';
+  caption[4]:='Quicksort:'
+end;
+procedure init;
+var
+  i:integer;
+begin
+  for i:=1 to n do
+    a[i]:=i;
+  for i:=1 to methods do
+  begin
+    comptotal[i]:=0;
+    swaptotal[i]:=0
+  end
+end;
+function lessthan(x,y:integer):boolean;
+begin
+  result :=(x<y);
+  inc(comps)
+end;
+procedure swap(x,y:integer);
+var
+  t:integer;
+begin
+  t:=a[x];
+  a[x]:=a[y];
+  a[y]:=t;
+  inc(swaps)
+end;
+function ordered:boolean;
+var
+  i:integer;
+begin
+  result :=true;
+  for i:=2 to n do
+    if a[i-1]>a[i] then
+      result :=false
+end;
+procedure list;
+var
+  i:integer;
+begin
+  write('     ');
+  for i:=1 to n do
+  begin
+    write(str(a[i])+' ');
+    if i mod cols=0 then
+    begin
+      writeln('');
+      write('     ')
+    end
+  end;
+  writeln('')
+end;
+procedure randomise;
+var
+  i,j:integer;
+begin
+  for i:=1 to n do
+  begin
+    j:=random(n)+1;
+    swap(i,j)
+  end
+end;
+procedure bubblesort;
+var
+  i,numswaps:integer;
+begin
+  repeat
+    numswaps:=0;
+    for i:=1 to n-1 do
+      if lessthan(a[i+1],a[i]) then
+    begin
+      swap(i,i+1);
+      inc(numswaps)
+    end
+  until numswaps=0
+end;
+procedure selectionsort;
+var
+  i,j:integer;
+  lowsofar:integer;
+begin
+  for i:=1 to n-1 do
+  begin
+    lowsofar:=i;
+    for j:=i+1 to n do
+      if lessthan(a[j],a[lowsofar]) then
+        lowsofar:=j;
+    if lowsofar<>i then
+      swap(i,lowsofar)
+  end
+end;
+procedure insertionsort;
+var
+  i,j:integer;
+begin
+  for i:=2 to n do
+  begin
+    j:=i;
+    while (j>1) and lessthan(a[j],a[j-1]) do
+    begin
+      swap(j-1,j);
+      dec(j)
+    end
+  end
+end;
+procedure quicksort;
+procedure qsort(left,right:integer);
+var
+  m,i:integer;
+begin
+  if left<right then
+  begin
+    m:=left;
+    for i:=left+1 to right do
+      if lessthan(a[i],a[left]) then
+    begin
+      inc(m);
+      swap(m,i)
+    end;
+    swap(left,m);
+    qsort(left,m-1);
+    qsort(m+1,right)
+  end
+end;
+begin
+  qsort(1,n)
+end;
+procedure sort(method:integer);
+begin
+  comps:=0;
+  swaps:=0;
+  if method=1 then
+    bubblesort
+  else if method=2 then
+    selectionsort
+  else if method=3 then
+    insertionsort
+  else if method=4 then
+    quicksort;
+  write(pad(caption[method],' ',-17)+pad(str(comps),' ',4)+' comparisons');
+  writeln(pad(str(swaps),' ',6)+' swaps');
+  if checking then
+    if not (ordered) then
+  begin
+    writeln('     Sort failed:');
+    list;
+    halt
+  end
+end;
+begin
+  output(true,white,true);
+  setup;
+  init;
+  writeln(str(methods)+' sorting methods will be compared, each of them being used to');
+  writeln('sort randomised arrays of '+str(n)+' items ('+str(tries)+' times), while keeping');
+  writeln('track of the numbers of comparisons and swaps required.');
+  if checking then
+    writeln('If sorting fails, the program will halt and show the array.');
+  writeln('');
+  for round:=1 to tries do
+  begin
+    for m:=1 to methods do
+    begin
+      randomise;
+      sort(m);
+      comptotal[m]:=comptotal[m]+comps;
+      swaptotal[m]:=swaptotal[m]+swaps
+    end;
+    writeln('')
+  end;
+  output(true,cream,true);
+  writeln('Averages from sorting '+str(n)+' items, over '+str(tries)+' trials');
+  writeln('');
+  writeln('               COMPARISONS    SWAPS');
+  for m:=1 to methods do
+  begin
+    write(pad(caption[m],' ',-17)+pad(qstr(comptotal[m],tries,1),' ',7));
+    writeln(pad(qstr(swaptotal[m],tries,1),' ',11))
+  end
+end.

@@ -1,0 +1,89 @@
+REM show the output
+OUTPUT(TRUE,CREAM,TRUE)
+PRINT("Some User-Defined String Functions")
+REM process some example strings
+PROCprocess("CREATING is better than LEARNING")
+PROCprocess("indeed it's the Essence of Life!")
+END
+
+REM generates the reverse of a string
+DEF FNreverse$(s$)
+  LOCAL posn%,t$
+  t$=""
+  FOR posn%=1 TO LEN(s$)
+    t$=MID$(s$,posn%,1)+t$
+  NEXT
+  =t$
+
+REM generates the reverse of a string recursively
+DEF FNreverseRecursive$(s$)
+  LOCAL result$
+  IF s$="" THEN
+    result$=s$
+  ELSE
+    result$=FNreverseRecursive$(DEL$(s$,1,1))+MID$(s$,1,1)
+  ENDIF
+  =result$
+
+REM tests whether a character is uppercase (1), lowercase (0), or neither (-1)
+DEF FNtestCase(s$)
+  LOCAL result%
+  IF (ASC(s$)>=ASC("A")) AND (ASC(s$)<=ASC("Z")) THEN
+    result%=1
+  ELSE
+    IF (ASC(s$)>=ASC("a")) AND (ASC(s$)<=ASC("z")) THEN
+      result%=0
+    ELSE
+      result%=-1
+    ENDIF
+  ENDIF
+  =result%
+
+REM capitalises first letter of each word, leaving other letters unchanged and
+REM treating any non-letter as a word separator; the native TCASE function
+REM treats only spaces as word separators, making subsequent letters lowercase
+DEF FNinitcaps$(s$)
+  LOCAL posn%,newword%,t$,c$
+  newword%=TRUE
+  t$=""
+  FOR posn%=1 TO LEN(s$)
+    c$=MID$(s$,posn%,1)
+    IF newword% AND (FNtestCase(c$)=0) THEN
+      c$=CHR$(ASC(c$)-32)
+    ENDIF
+    newword%=FNtestCase(c$)=-1
+    t$=t$+c$
+  NEXT
+  =t$
+
+REM generates the Caesar cipher of a string
+DEF FNcaesar$(s$,n%)
+  LOCAL posn%,t$,c$
+  t$=""
+  FOR posn%=1 TO LEN(s$)
+    c$=MID$(s$,posn%,1)
+    IF FNtestCase(c$)=1 THEN
+      c$=CHR$(ASC(c$)+n%)
+      IF ASC(c$)>ASC("Z") THEN c$=CHR$(ASC(c$)-26)
+    ENDIF
+    IF FNtestCase(c$)=0 THEN
+      c$=CHR$(ASC(c$)+n%)
+      IF ASC(c$)>ASC("z") THEN c$=CHR$(ASC(c$)-26)
+    ENDIF
+    t$=t$+c$
+  NEXT
+  =t$
+
+REM shows the results of applying the above functions to a string
+DEF PROCprocess(s$)
+  PRINT("")
+  PRINT("ORIGINAL STRING:               '"+s$+"'")
+  PRINT("REVERSED (by iteration):       '"+FNreverse$(s$)+"'")
+  PRINT("REVERSED (by recursion):       '"+FNreverseRecursive$(s$)+"'")
+  PRINT("INITIAL CAPITAL ALL WORDS:     '"+FNinitcaps$(s$)+"'")
+  PRINT("REVERSED THEN INITIAL CAPITAL: '"+FNinitcaps$(FNreverse$(s$))+"'")
+  PRINT("CAESAR CIPHER (1 letter):      '"+FNcaesar$(s$,1)+"'")
+  PRINT("CAESAR DECRYPT (1+25 = 26):    '"+FNcaesar$(FNcaesar$(s$,1),25)+"'")
+  PRINT("CAESAR CIPHER (4 letters):     '"+FNcaesar$(s$,4)+"'")
+  PRINT("CAESAR DECRYPT (4+22 = 26):    '"+FNcaesar$(FNcaesar$(s$,4),22)+"'")
+ENDPROC

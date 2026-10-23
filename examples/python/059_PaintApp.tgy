@@ -1,0 +1,76 @@
+brushwidth=8
+brushcolour=black
+
+def setbrushwidth(wdth):
+    global brushwidth
+    brushwidth=0
+    colour(black)
+    for count in range (5):
+        setxy(625+count*50,875)
+        blot(8+count*2)
+    colour(brushcolour)
+    brushwidth=wdth
+    recolour(((brushwidth+16)*25)+25,875,lightred)
+
+def setbrushcolour(clr):
+    global brushcolour
+    brushcolour=clr
+    colour(clr)
+    setxy(975,875)
+    blot(16)
+
+def paintbrush(x,y):
+    setxy(x,y)
+    blot(brushwidth)
+
+def paintcan(x,y):
+    recolour(x,y,brushcolour)
+
+def setup():
+
+    def square(col):
+        movexy(50,0)
+        movexy(0,50)
+        movexy(-50,0)
+        movexy(0,-50)
+        colour(col)
+        polygon(4)
+
+    colour(lightred)
+    setxy(0,850)
+    drawxy(1000,0)
+    setxy(0,900)
+    drawxy(1000,0)
+    setxy(450,850)
+    drawxy(0,50)
+    setxy(850,850)
+    drawxy(0,50)
+    setxy(10,858)
+    colour(black)
+    display('Left-click to draw, right-click to fill',0,20)
+    setxy(450+10,858)
+    display('Brush width:',0,20)
+    setxy(850+10,858)
+    display('Colour:',0,20)
+    setxy(0,900)
+    for count in range (1,21):
+        square(rgb(count))
+        movexy(0,50)
+        square(rgb(count+30))
+        movexy(50,-50)
+    setbrushwidth(8)
+    setbrushcolour(black)
+
+setup()
+while True:
+    if ?lmouse>0:
+        if ?mousey>900:
+            setbrushcolour(pixcol(?mousex,?mousey))
+        else:
+            if (?mousey>850) and (?mousex>600) and (?mousex<850):
+                setbrushwidth(((?mousex//50)*2)-16)
+            else:
+                if ?mousey<850-brushwidth:
+                    paintbrush(?mousex,?mousey)
+    if (?rmouse>0) and (?mousey<850):
+        paintcan(?mousex,?mousey)

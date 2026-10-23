@@ -1,0 +1,36 @@
+def writefile():
+    handle=fopen(myfilename,3) #3 = OPEN FOR WRITING
+    if handle>0: #handle>0 means file opening has succeeded and hence file did not already exist
+        print(myfilename+' has been opened for writing ...')
+        fwriteline(handle,'This is the first line to be written.')
+        fwriteline(handle,'This is the second line to be written.')
+        fwriteline(handle,'This is the third line to be written.')
+        fclose(handle) #write lines to the file, then close it
+    else: #if file already exists, open for appending instead
+        print(myfilename+' could not be opened for writing')
+        handle=fopen(myfilename,2) #2 = OPEN FOR APPENDING
+        if handle>0: #handle>0 means file opening has succeeded and hence file already existed
+            print(myfilename+' has been opened for appending ...')
+            fwriteline(handle,'This is the first line to be written.')
+            fwriteline(handle,'This is the second line to be written.')
+            fwriteline(handle,'This is the third line to be written.')
+            fclose(handle) #write lines to the file, then close it
+        else: #means there's been some error, e.g. illegal filename
+            print('Nor could it be opened for appending')
+
+def readfile():
+    handle=fopen(myfilename,1) #1 = OPEN FOR READING
+    if handle>0: #handle>0 means file opening has succeeded and hence file exists
+        print('Contents read from '+myfilename+':')
+        while not eof(handle):    #while not end of file, ...
+            s=freadline(handle) #read the next line from the file,
+            print('  '+s)         #and write it to the output display
+        fclose(handle) #on reaching the end of file, close it
+    else:
+        print(myfilename+' could not be opened for reading')
+
+output(True,cream,True)   #initialise the output display
+myfilename='TestFile.txt' #specify chosen filename
+writefile()                 #write three lines to the file
+print('') #blank line to output display
+readfile() #read the file, displaying contents to output

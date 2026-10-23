@@ -1,0 +1,14 @@
+program Triangle1;
+begin
+  {move to the start, without drawing}
+  movexy(-100,150);
+  {draw the first side, and turn}
+  forward(256);
+  right(120);
+  {draw the second side, and turn}
+  forward(256);
+  right(120);
+  {draw the third side, and turn}
+  forward(256);
+  right(120)
+end.

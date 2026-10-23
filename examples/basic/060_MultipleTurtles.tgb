@@ -1,0 +1,85 @@
+CONST NUMTURTLES%=5
+CONST X%=0
+CONST Y%=1
+CONST D%=2
+CONST A%=3
+CONST T%=4
+CONST C%=5
+DIM turtles%(NUMTURTLES%,C%)
+CANVAS(0,0,100000,100000)
+REM print instructions
+SETXY(2500,80000)
+DISPLAY("Click on a circle to alter the ANGLES setting",0,36)
+SETXY(2500,86000)
+DISPLAY("of the corresponding turtle. Its direction will",0,36)
+SETXY(2500,92000)
+DISPLAY("then change to the closest possible angle.",0,36)
+REM draw initial paths for each turtle
+FOR i%=1 TO NUMTURTLES%
+  SETXY(10000,70000)
+  DIRECTION(35+i%*10)
+  FORWARD(110000)
+NEXT
+REM draw the menu
+PROCmenu
+REM initialise the turtles
+PROCsetupturtles
+REM repeatedly...
+REPEAT
+  REM move each turtle forward
+  FOR i%=1 TO NUMTURTLES%
+    REM select this turtle
+    NEWTURTLE(turtles%(i%))
+    REM move forward 100
+    FORWARD(100)
+  NEXT
+  PAUSE(50)
+  REM check for mouse click
+  IF ?click>128 THEN PROChandleClick
+UNTIL ?key=\escape
+END
+
+REM set initial values for each turtle
+DEF PROCsetupturtles
+  LOCAL i%
+  FOR i%=1 TO NUMTURTLES%
+    turtles%(i%,X%)=10000
+    turtles%(i%,Y%)=70000
+    turtles%(i%,D%)=35+i%*10
+    turtles%(i%,A%)=360
+    turtles%(i%,T%)=5+i%
+    turtles%(i%,C%)=RGB(i%)
+  NEXT
+ENDPROC
+
+REM draw menu (i.e. coloured blot for selecting each turtle)
+DEF PROCmenu
+  LOCAL i%
+  FOR i%=1 TO NUMTURTLES%
+    SETXY(5000,i%*10000)
+    COLOUR(RGB(i%))
+    BLOT(5000)
+  NEXT
+ENDPROC
+
+REM handle a mouse click
+DEF PROChandleClick
+  LOCAL i%,thisTurtle%
+  REM select turtle based on canvas colour at mouse location
+  thisTurtle%=0
+  FOR i%=1 TO NUMTURTLES%
+    IF PIXCOL(?mousex,?mousey)=RGB(i%) THEN thisTurtle%=i%
+  NEXT
+  IF thisTurtle%>0 THEN
+    REM select this turtle
+    NEWTURTLE(turtles%(thisTurtle%))
+    REM start logging the change in the console
+    PRINTON("Turtle "+STR$(thisTurtle%)+" changing direction,")
+    PRINTON("  from "+STR$(turtles%(thisTurtle%,D%))+"/"+STR$(turtles%(thisTurtle%,A%)))
+    REM change angles, which will set direction to the closest possible angle
+    ANGLES(RND(46)+46)
+    REM finish logging the change
+    PRINT("  to "+STR$(turtles%(thisTurtle%,D%))+"/"+STR$(turtles%(thisTurtle%,A%)))
+    PAUSE(200)
+  ENDIF
+ENDPROC

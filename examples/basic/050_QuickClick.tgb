@@ -1,0 +1,42 @@
+BLANK(CREAM)
+REM print instructions
+SETXY(15,200)
+DISPLAY("This reaction game will display a sequence",4,36)
+SETXY(20,270)
+DISPLAY("of 10 coloured circles on the Canvas. Try",4,36)
+SETXY(20,340)
+DISPLAY("to click the mouse on each circle as quickly",4,36)
+SETXY(20,410)
+DISPLAY("as you can, and see how short a total time",4,36)
+SETXY(20,480)
+DISPLAY("you can achieve for all 10.",4,36)
+SETXY(20,620)
+DISPLAY("Now wait 5 seconds or press ""Esc"" key to start ...",4,30)
+KEYECHO(FALSE)
+REM wait for escape key, 5 seconds maximum, before proceeding...
+det%=DETECT(\escape,5000)
+REM reset timer
+TIMESET(0)
+FOR count%=1 TO 10
+  REM blank the screen
+  BLANK(BLACK)
+  REM draw a blot at random coordinates
+  x%=RND(900)+50
+  y%=RND(900)+50
+  SETXY(x%,y%)
+  COLOUR(RGB(count%))
+  BLOT(50)
+  REM until the blot has been clicked...
+  REPEAT
+    REM wait for left mouse click
+    det%=DETECT(\lmouse,0)
+    REM record the colour at the cursor's coordinates
+    clickColour%=PIXCOL(?mousex,?mousey)
+  UNTIL clickColour%=turtc%
+NEXT
+REM print time taken
+BLANK(LIGHTBLUE)
+SETXY(60,460)
+COLOUR(LIGHTRED)
+DISPLAY("Your time was "+QSTR$(TIME,1000,2)+" seconds",4,50)
+END

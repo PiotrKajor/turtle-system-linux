@@ -1,0 +1,25 @@
+THICKNESS(4)
+PENUP
+REM counting from 0 to 29 ...
+FOR blotCount%=0 TO 29
+  REM set direction, multiple of 36 degrees
+  DIRECTION(blotCount%*36)
+  REM move 260 units from middle of canvas
+  FORWARD(260)
+  REM draw large black and smaller white blot
+  COLOUR(BLACK)
+  BLOT(150)
+  COLOUR(WHITE)
+  BLOT(56)
+  REM set standard Turtle colour blotCount+1
+  COLOUR(RGB(blotCount%+1))
+  REM draw 19 circles, radius 56 up to 200
+  FOR circleCount%=7 TO 25
+    CIRCLE(circleCount%*8)
+  NEXT
+  REM reposition Turtle to canvas middle
+  BACK(260)
+  REM pause for 1/5 second before continuing
+  PAUSE(200)
+NEXT
+END

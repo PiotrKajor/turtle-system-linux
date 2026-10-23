@@ -1,0 +1,43 @@
+CONST MINSIZE%=70
+CONST MAXSIZE%=130
+CONST BALLS%=10
+DIM x%(BALLS%)
+DIM y%(BALLS%)
+DIM xVelocity%(BALLS%)
+DIM yVelocity%(BALLS%)
+DIM size%(BALLS%)
+DIM colr%(BALLS%)
+REM set initial properties for each ball
+FOR n%=1 TO BALLS%
+  size%(n%)=MINSIZE%+RND(MAXSIZE%-MINSIZE%)
+  colr%(n%)=RGB(n%)
+  x%(n%)=RND(1000-2*size%(n%))+size%(n%)
+  y%(n%)=RND(1000-2*size%(n%))+size%(n%)
+  xVelocity%(n%)=RND(15)-7
+  yVelocity%(n%)=RND(15)-7
+NEXT
+REPEAT
+  NOUPDATE
+  REM rub out previous balls
+  BLANK(WHITE)
+  REM draw each ball in its next position
+  FOR n%=1 TO BALLS%
+    REM move to next position
+    x%(n%)=x%(n%)+xVelocity%(n%)
+    y%(n%)=y%(n%)+yVelocity%(n%)
+    SETXY(x%(n%),y%(n%))
+    REM draw ball
+    COLOUR(colr%(n%))
+    BLOT(size%(n%))
+    REM "bounce" (i.e. invert velocity) at canvas edges
+    IF (x%(n%)<size%(n%)) OR (x%(n%)>1000-size%(n%)) THEN
+      xVelocity%(n%)=-xVelocity%(n%)
+    ENDIF
+    IF (y%(n%)<size%(n%)) OR (y%(n%)>1000-size%(n%)) THEN
+      yVelocity%(n%)=-yVelocity%(n%)
+    ENDIF
+  NEXT
+  UPDATE
+  PAUSE(5)
+UNTIL 1=0
+END

@@ -1,0 +1,32 @@
+program RandomEllipses;
+var
+  count:integer;
+  x,y:integer;
+  nextColour:integer;
+begin
+  {draw 10 ellipses, choosing a random centre}
+  for count:=1 to 10 do
+  begin
+    {with x and y both between -250 and 1249}
+    setxy(random(1500)-250,random(1500)-250);
+    {and ellipse radii between 500 and 999}
+    ellipse(random(500)+500,random(500)+500)
+  end;
+  {initialise the colour variable}
+  nextColour:=0;
+  {try to fill all the ellipses with colours}
+  for count:=1 to 10000 do
+  begin
+    {pick a random point}
+    x:=random(1000);
+    y:=random(1000);
+    {if the pixel is in a white region}
+    if pixcol(x,y)=white then
+    begin
+      {choose the next colour in the sequence}
+      nextColour:=(nextColour mod 20)+1;
+      {recolour the region in that colour}
+      recolour(x,y,rgb(nextColour))
+    end
+  end
+end.

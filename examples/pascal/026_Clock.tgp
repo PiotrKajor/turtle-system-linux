@@ -1,0 +1,48 @@
+program Clock;
+var
+  hours:integer;
+  minutes:integer;
+
+{draws hour and minute hands on a clock face}
+procedure showHands(hours,minutes:integer);
+begin
+  {rub out previous hands}
+  colour(white);
+  blot(360);
+  {draw the hour hand and return to centre}
+  colour(red);
+  direction(hours*30);
+  thickness(10);
+  forward(250);
+  back(250);
+  {draw minute hand and return to centre}
+  direction(minutes*6);
+  thickness(6);
+  forward(350);
+  back(350)
+end;
+begin
+  {draw a black circle for the clock face}
+  thickness(10);
+  circle(400);
+  {initialise hours and minutes to zero}
+  hours:=0;
+  minutes:=0;
+  {repeatedly through the hours ...}
+  repeat
+    {repeatedly through the minutes ...}
+    repeat
+      {draw both hands in the appropriate place}
+      showHands(hours,minutes);
+      {pause 1/10 second [so clock goes 600 times too fast]}
+      pause(100);
+      {count through the minutes until it reaches 60}
+      inc(minutes)
+    until minutes=60;
+    {reinitialise minutes, and count through hours until 12}
+    minutes:=0;
+    inc(hours);
+  until hours=12;
+  {show final position}
+  showHands(hours,minutes)
+end.

@@ -1,0 +1,40 @@
+program Flashlights;
+
+{draws circle or blot at Turtle position}
+procedure drawit(doblot:boolean);
+begin
+  {doblot is equal to either true or false}
+  if doblot then
+  begin
+    {draw a randomly coloured blot}
+    {without erasing any circle}
+    randcol(10);
+    blot(25)
+  end
+  else
+  begin
+    {erase any previous blot}
+    colour(black);
+    blot(25);
+    {draw a randomly coloured circle}
+    randcol(10);
+    circle(30)
+  end
+end;
+begin
+  {blacken the entire canvas}
+  blank(black);
+  {set thickness for drawing circles}
+  thickness(10);
+  {repeatedly draw circles or blots in a grid}
+  repeat
+    {random(8) returns a value between 0 and 7}
+    {fix x coordinate from 111 to 888}
+    setx((random(8)+1)*111);
+    {fix y coordinate from 111 to 888}
+    sety((random(8)+1)*111);
+    {call drawit(true) if random(2) returns 1}
+    {or drawit(false) if random(2) returns 0}
+    drawit(random(2)=1)
+  until false
+end.

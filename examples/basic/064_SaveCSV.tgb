@@ -1,0 +1,97 @@
+
+CONST cols%=10
+CONST rows%=10
+CONST a%=3
+CONST b%=4
+CONST fname$="SaveCSV.csv"
+DIM value%(cols%,rows%)
+PROCsetup
+PROCdrawgrid
+PROClabelgrid
+PROCcalculate
+PROCdisplay
+PROCsavedata
+PRINT("File "+fname$+" has been saved")
+END
+
+DEF PROCsetup
+  colwidth%=1000 DIV (cols%+1)
+  rowheight%=900 DIV (rows%+1)
+  xmargin%=colwidth%*3/7
+  ymargin%=rowheight%/3
+  fontsize%=colwidth%/4
+ENDPROC
+
+DEF PROCdrawgrid
+  LOCAL i%,j%
+  FOR i%=0 TO cols%+1
+    IF (i%=0) OR (i%=1) OR (i%=cols%+1) THEN
+      THICKNESS(10)
+    ELSE
+      THICKNESS(2)
+    ENDIF
+    SETXY(5+i%*colwidth%,5)
+    DRAWXY(0,890)
+  NEXT
+  FOR j%=0 TO rows%+1
+    IF (j%=0) OR (j%=1) OR (j%=rows%+1) THEN
+      THICKNESS(10)
+    ELSE
+      THICKNESS(2)
+    ENDIF
+    SETXY(5,5+j%*rowheight%)
+    DRAWXY(995,0)
+  NEXT
+ENDPROC
+
+DEF PROClabelgrid
+  LOCAL i%,j%
+  SETXY(colwidth%-25,5)
+  DISPLAY("x",0,30)
+  SETXY(20,rowheight%-45)
+  DISPLAY("y",0,30)
+  SETXY(300,925)
+  DISPLAY("Table of "+STR$(a%)+"x + "+STR$(b%)+"y",0,40)
+  FOR i%=1 TO cols%
+    SETXY(i%*colwidth%+xmargin%,ymargin%)
+    DISPLAY(STR$(i%),0,fontsize%)
+  NEXT
+  FOR j%=1 TO rows%
+    SETXY(xmargin%,j%*rowheight%+ymargin%)
+    DISPLAY(STR$(j%),0,fontsize%)
+  NEXT
+ENDPROC
+
+DEF PROCcalculate
+  LOCAL i%,j%
+  FOR i%=1 TO cols%
+    FOR j%=1 TO rows%
+      value%(i%,j%)=a%*i%+b%*j%
+    NEXT
+  NEXT
+ENDPROC
+
+DEF PROCdisplay
+  LOCAL i%,j%
+  FOR i%=1 TO cols%
+    FOR j%=1 TO rows%
+      SETXY(i%*colwidth%+xmargin%,j%*rowheight%+ymargin%)
+      DISPLAY(STR$(value%(i%,j%)),0,fontsize%)
+    NEXT
+  NEXT
+ENDPROC
+
+DEF PROCsavedata
+  LOCAL handle%,i%,j%,flag%
+  IF FILEEXISTS(fname$) THEN
+    flag%=DELETEFILE(fname$)
+  ENDIF
+  handle%=OPENOUT(fname$)
+  FOR j%=1 TO rows%
+    FOR i%=1 TO cols%-1
+      PRINT#(handle%,STR$(value%(i%,j%))+",")
+    NEXT
+    PRINTLN#(handle%,STR$(value%(cols%,j%)))
+  NEXT
+  CLOSE#(handle%)
+ENDPROC

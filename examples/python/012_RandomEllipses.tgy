@@ -1,0 +1,15 @@
+# set initial colour as 0
+nextColour=0
+# draw 10 random ellipses
+for count in range (10):
+    setxy(randint(-250,1250),randint(-250,1250))
+    ellipse(randint(500,1000),randint(500,1000))
+# try to fill all the ellipses with colours
+for count in range (10000):
+    # pick a random point
+    x=randrange(1000)
+    y=randrange(1000)
+    # if it's white, set the next colour and fill the shape with it
+    if (pixcol(x,y)==white):
+        nextColour=nextColour % 20+1
+        recolour(x,y,rgb(nextColour))

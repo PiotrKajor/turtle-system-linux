@@ -1,0 +1,45 @@
+REM do not draw as Turtle moves
+PENUP
+REM thickness is used by POLYLINE command
+THICKNESS(4)
+REM place Turtle for first polygon
+SETXY(100,400)
+REM draw blue triangle
+PROCpoly(3,BLUE)
+REM place Turtle for second polygon
+SETXY(400,400)
+REM draw red square
+PROCpoly(4,RED)
+SETXY(700,400)
+REM draw yellow pentagon
+PROCpoly(5,YELLOW)
+SETXY(150,750)
+REM draw pink hexagon
+PROCpoly(6,PINK)
+SETXY(440,750)
+REM draw green heptagon
+PROCpoly(7,GREEN)
+SETXY(740,750)
+REM draw turquoise octagon
+PROCpoly(8,TURQUOISE)
+END
+
+REM draws a polygon with given sides & colour
+DEF PROCpoly(sides%,colr%)
+  LOCAL count%
+  REM point Turtle horizontally to right
+  DIRECTION(90)
+  REM trace shape with the Turtle
+  FOR count%=1 TO sides%
+    REM edge is shorter as sides increases
+    FORWARD(600 DIV sides%)
+    REM turn left by correct external angle
+    LEFT(360 DIV sides%)
+  NEXT
+  REM fill with given colour
+  COLOUR(colr%)
+  POLYGON(sides%)
+  REM draw black outline
+  COLOUR(BLACK)
+  POLYLINE(sides%+1)
+ENDPROC

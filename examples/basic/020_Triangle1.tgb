@@ -1,0 +1,12 @@
+REM move to start, without drawing
+MOVEXY(-100,150)
+REM draw first side, and turn
+FORWARD(256)
+RIGHT(120)
+REM draw second side, and turn
+FORWARD(256)
+RIGHT(120)
+REM draw third side, and turn
+FORWARD(256)
+RIGHT(120)
+END

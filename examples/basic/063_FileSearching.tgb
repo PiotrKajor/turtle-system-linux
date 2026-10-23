@@ -1,0 +1,32 @@
+OUTPUT(TRUE,CREAM,TRUE)
+PRINT("Turtle directories (up to first level) and their files ...")
+PRINT("")
+PROCshowFiles("")
+dirHandle%=0
+dirName$=FINDDIR$("*.*",dirHandle%)
+WHILE dirName$<>""
+  PROCshowFiles(dirName$)
+  dirName$=FINDNEXT$(dirHandle%)
+ENDWHILE
+END
+
+DEF PROCshowFiles(dirName$)
+  LOCAL fileHandle%,fileName$
+  IF dirName$="" THEN
+    PRINT("Base directory:")
+  ELSE
+    PRINT("Directory """+dirName$+""":")
+  ENDIF
+  CHDIR(dirName$)
+  fileHandle%=0
+  fileName$=FINDFIRST$("*.*",fileHandle%)
+  IF fileName$="" THEN
+    PRINT("  <no files>")
+  ELSE
+    WHILE fileName$<>""
+      PRINT("  "+fileName$)
+      fileName$=FINDNEXT$(fileHandle%)
+    ENDWHILE
+  ENDIF
+  PRINT("")
+ENDPROC

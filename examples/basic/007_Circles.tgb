@@ -1,0 +1,19 @@
+REM set up Turtle
+THICKNESS(6)
+PENUP
+BLANK(BLACK)
+COLOUR(ORANGE)
+REM counting from 1 to 36 ...
+FOR count%=1 TO 36
+  REM move 200 units from middle of canvas
+  FORWARD(200)
+  REM draw circle radius 200 centred there
+  CIRCLE(200)
+  REM move back to middle of canvas
+  BACK(200)
+  REM turn right 10 degrees - 1/36 of full turn
+  RIGHT(10)
+  REM pause 25 milliseconds before next circle
+  PAUSE(25)
+NEXT
+END

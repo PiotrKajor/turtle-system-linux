@@ -1,0 +1,31 @@
+program Recolouring;
+var
+  x,y:integer;
+begin
+  {blue canvas}
+  blank(blue);
+  {white circle in background}
+  colour(white);
+  blot(360);
+  {thick blue line down the middle}
+  setxy(500,0);
+  colour(blue);
+  thickness(20);
+  drawxy(0,1000);
+  {draw array of blots in 5 random colours}
+  for x:=1 to 8 do
+    for y:=1 to 8 do
+  begin
+    setxy(x*111,y*111);
+    randcol(5);
+    blot(25)
+  end;
+
+  {recolour left white area to magenta}
+  pause(2000);
+  recolour(250,500,magenta);
+
+  {fill right in cyan up to blue boundary}
+  pause(2000);
+  fill(750,500,cyan,blue)
+end.

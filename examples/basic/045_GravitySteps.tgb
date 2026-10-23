@@ -1,0 +1,44 @@
+REM draw steps
+PROCsteps(10)
+REM set starting point
+SETXY(950,75)
+REM throw ball down each step
+REPEAT
+  PROCthrowBall(-2,-22,1,turty%+100)
+UNTIL turtx%<75
+REM bounce ball on the ground
+FOR bounce%=1 TO 10
+  PROCthrowBall(0,bounce%*2-20,1,turty%)
+NEXT
+END
+
+REM draws n steps
+DEF PROCsteps(n%)
+  LOCAL size%,count%
+  size%=1000/n%
+  SETXY(0,1000)
+  THICKNESS(1)
+  FOR count%=1 TO n%*2
+    IF count% MOD 2=0 THEN MOVEXY(0,-size%) ELSE MOVEXY(size%,0)
+  NEXT
+  MOVEXY(0,n%*size%)
+  MOVEXY(-n%*size%,0)
+  COLOUR(BLUE)
+  POLYGON(n%*2+2)
+ENDPROC
+
+REM simulates the movement of a ball with the effect of gravity
+DEF PROCthrowBall(xVelocity%,yVelocity%,gravity%,floor%)
+  REPEAT
+    COLOUR(WHITE)
+    BLOT(25)
+    MOVEXY(xVelocity%,yVelocity%)
+    yVelocity%=yVelocity%+gravity%
+    IF turty%>floor% THEN turty%=floor%
+    COLOUR(RED)
+    BLOT(24)
+    UPDATE
+    PAUSE(10)
+    NOUPDATE
+  UNTIL turty%=floor%
+ENDPROC

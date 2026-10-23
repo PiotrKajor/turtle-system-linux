@@ -1,0 +1,49 @@
+program Polygons;
+
+{draws a polygon with given sides & colour}
+procedure poly(sides,colr:integer);
+var
+  count:integer;
+begin
+  {point turtle horizontally to right}
+  direction(90);
+  {trace the shape with the turtle}
+  for count:=1 to sides do
+  begin
+    {edge is shorter as sides increases}
+    forward(600/sides);
+    {turn left by correct external angle}
+    left(360/sides)
+  end;
+  {fill with the given colour}
+  colour(colr);
+  polygon(sides);
+  {draw a black outline}
+  colour(black);
+  polyline(sides+1)
+end;
+begin
+  {do not draw as turtle moves}
+  penup;
+  {thickness is used by polyline command}
+  thickness(4);
+  {place the Turtle for the first polygon}
+  setxy(100,400);
+  {draw a blue triangle}
+  poly(3,blue);
+  {place the Turtle for the second polygon}
+  setxy(400,400);
+  {draw a red square}
+  poly(4,red);
+  setxy(700,400);
+  {draw a yellow pentagon}
+  poly(5,yellow);
+  setxy(150,750);
+  {draw a pink hexagon}
+  poly(6,pink);
+  setxy(440,750);
+  {draw a green heptagon}
+  poly(7,green);
+  setxy(740,750);
+  poly(8,turquoise)
+end.                        {raw a turquoise octagon}

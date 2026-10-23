@@ -1,0 +1,27 @@
+REM blue canvas
+BLANK(BLUE)
+REM white circle in background
+COLOUR(WHITE)
+BLOT(360)
+REM thick blue line down the middle
+SETXY(500,0)
+COLOUR(BLUE)
+THICKNESS(20)
+DRAWXY(0,1000)
+REM draw array of blots in 5 random colours
+FOR x%=111 TO 888 STEP 111
+  FOR y%=111 TO 888 STEP 111
+    SETXY(x%,y%)
+    RNDCOL(5)
+    BLOT(25)
+  NEXT
+NEXT
+
+REM recolour left white area to magenta
+PAUSE(2000)
+RECOLOUR(250,500,MAGENTA)
+
+REM fill right in cyan up to blue boundary
+PAUSE(2000)
+FILL(750,500,CYAN,BLUE)
+END

@@ -1,0 +1,79 @@
+program MathFunctions;
+const
+  dpl=4;       {decimal places for display of values}
+  den=1000000; {denominator gives level of precision}
+var
+  a,b:integer;
+
+{Writes to the output the value of a mathematical function of a/b,}
+{or - in the case of HYPOT (where OP is "," not "/") - of a and b;}
+{chr(176) is the degree symbol for sin/cos/tan and their inverses.}
+procedure show(fn:string;op:char;value:integer;degrees:integer);
+begin
+  if degrees=1 then
+    writeln(fn+'('+str(a)+op+str(b)+chr(176)+') = '+qstr(value,den,dpl))
+  else if degrees=2 then
+    writeln(fn+'('+str(a)+op+str(b)+') = '+qstr(value,den,dpl)+chr(176))
+  else
+    writeln(fn+'('+str(a)+op+str(b)+') = '+qstr(value,den,dpl))
+end;
+begin
+  {show the output and display information about the program}
+  output(true,white,true);
+  writeln('This program selects two random numbers a and b, in the');
+  writeln('range 100-999, and then outputs various mathematical');
+  writeln('functions of the fraction a/b. The results are expressed');
+  writeln('to '+str(dpl)+' decimal places, and a denominator of '+str(den)+' is');
+  writeln('used in the calculations to provide precision, even');
+  writeln('though the Turtle functions strictly operate only on');
+  writeln('integers and produce integer results.');
+  writeln('');
+  {set a and b to random values, and display their values and quotient}
+  a:=random(900)+100;
+  b:=random(900)+100;
+  writeln('a = '+str(a)+'; b = '+str(b));
+  writeln('a/b = '+str(a)+'/'+str(b)+' = '+qstr(a,b,dpl));
+  writeln('');
+  {display the square, square root, cube, and cube root of a/b}
+  show('square','/',power(a,b,2,1,den),0);
+  show('square root','/',power(a,b,1,2,den),0);
+  show('cube','/',power(a,b,3,1,den),0);
+  show('cube root','/',power(a,b,1,3,den),0);
+  writeln('');
+  {display hypotenuse of right-angled triangle with shorter sides a and b}
+  show('hypot',',',hypot(a,b,den),0);
+  show('calculated hypot',',',sqrt(a*a+b*b,den),0);
+  writeln('');
+  {display sin, cos, and tan of a/b, interpreted in degrees}
+  show('sin','/',sin(a,b,den),1);
+  show('cos','/',cos(a,b,den),1);
+  show('tan','/',tan(a,b,den),1);
+  writeln('');
+  {display ln, exp, log10, and antilog of a/b}
+  show('ln','/',ln(a,b,den),0);
+  if divmult(a,b,1000)+ln(den,1,1000)>ln(maxint,1,1000) then
+  begin
+    writeln('EXP('+str(a)+'/'+str(b)+') would give numerical overflow, because');
+    writeln('the result*'+str(den)+' would be greater than '+str(maxint))
+  end
+  else
+    show('exp','/',exp(a,b,den),0);
+  show('log10','/',log10(a,b,den),0);
+  if divmult(a,b,1000)+log10(den,1,1000)>log10(maxint,1,1000) then
+  begin
+    writeln('ANTILOG('+str(a)+'/'+str(b)+') would give numerical overflow, because');
+    writeln('the result*'+str(den)+' would be greater than '+str(maxint))
+  end
+  else
+    show('antilog','/',antilog(a,b,den),0);
+  writeln('');
+  {display arccos, arcsin, and arctan of a/b, in degrees}
+  if a>b then
+    writeln('ARCCOS and ARCSIN are not defined for '+str(a)+'/'+str(b)+' = '+qstr(a,b,dpl))
+  else
+  begin
+    show('arccos','/',arccos(a,b,den),2);
+    show('arcsin','/',arcsin(a,b,den),2)
+  end;
+  show('arctan','/',arctan(a,b,den),2)
+end.

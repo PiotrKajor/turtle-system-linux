@@ -1,0 +1,49 @@
+program DigitalClock;
+var
+  hours:integer;
+  minutes:integer;
+
+{prints the specified time inside a white box in the canvas}
+procedure showTime(hours,minutes:integer);
+var
+  timeString:string;
+begin
+  {draw a white box, erasing the previous time}
+  setxy(300,430);
+  box(400,130,white,false);
+  {print the specified time}
+  timeString:=pad(str(hours),'0',2)+':'+pad(str(minutes),'0',2);
+  display(timeString,21,100)
+end;
+begin
+  {set up the canvas with a box for displaying the time}
+  blank(lightgreen);
+  setxy(250,390);
+  {Turtle maroon pen thickness 10 will be used for the border of the box}
+  colour(maroon);
+  thickness(10);
+  {box will be size 500x210, filled in lightbrown with a border}
+  box(500,210,lightbrown,true);
+  colour(black);
+  {initialise hours and minutes to zero}
+  hours:=0;
+  minutes:=0;
+  {repeatedly through the hours ...}
+  while hours<12 do
+  begin
+    {display the current time}
+    showTime(hours,minutes);
+    {pause 1/10 second [so clock goes 600 times too fast]}
+    pause(100);
+    {increment the minutes, ...}
+    inc(minutes);
+    if minutes=60 then
+    {if necessary, move on to the next hour}
+    begin
+      inc(hours);
+      minutes:=0
+    end
+  end;
+  {show final time}
+  showTime(hours,minutes)
+end.

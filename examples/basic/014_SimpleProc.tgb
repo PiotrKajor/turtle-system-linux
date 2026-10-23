@@ -1,0 +1,16 @@
+REM repeatedly draw prongs in random colours ...
+REPEAT
+  RNDCOL(10)
+  PROCprong
+  REM right turn gives impression of motion
+  RIGHT(61)
+REM ... until Turtle is pointing north again
+UNTIL turtd%=0
+END
+
+REM draws a single "prong" and then returns
+DEF PROCprong
+  FORWARD(400)
+  BLOT(20)
+  BACK(400)
+ENDPROC

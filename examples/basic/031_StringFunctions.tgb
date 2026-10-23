@@ -1,0 +1,45 @@
+CONST DELAY%=500
+OUTPUT(TRUE,CREAM,TRUE)
+REM set initial string
+s1$="Turtle BASIC"
+REM illustrate use of MID$ function ...
+s2$=MID$(s1$,1,6)
+PRINT(s2$+" is the name of a small animal.")
+PAUSE(DELAY%)
+s3$=MID$(s1$,8,5)
+PRINT(s3$+" was invented in the 1960s.")
+PAUSE(DELAY%)
+REM illustrate use of INS$ function ...
+s4$=INSERT$(s3$,2,"BC B")
+PRINT(""""+s4$+""" is the name of a 1980s variant.")
+PAUSE(DELAY%)
+REM illustrate use of LEN function ...
+PRINT("'"+s1$+"' has "+STR$(LEN(s1$))+" characters.")
+PAUSE(DELAY%)
+REM illustrate use of LCASE and UCASE functions ...
+PRINT("In lower case it is '"+LCASE$(s1$)+"'.")
+PRINT("In upper case it is '"+UCASE$(s1$)+"'.")
+PAUSE(DELAY%)
+REM illustrate use of INSTR function ...
+posn%=INSTR(s1$,s3$)
+IF posn%>0 THEN
+  PRINT("'"+s3$+"' occurs within '"+s1$+"' at position "+STR$(posn%)+".")
+ENDIF
+PAUSE(DELAY%)
+REM illustrate use of QVAL function, converting a decimal string to an integer ...
+s5$="3.14159"
+PRINT(s5$+" times 100000 = "+STR$(QVAL(s5$,100000,-1))+".")
+n%=QVAL(s5$,100000,-1)
+PAUSE(DELAY%)
+PRINT(STR$(n%)+" divided by 100000 = "+QSTR$(n%,100000,5)+".")
+PRINT("")
+PAUSE(DELAY%*5)
+REM illustrate use of OUTPUT and CONSOLE commands ...
+PRINT("Now back to the Canvas and Console ...")
+OUTPUT(FALSE,PEACH,TRUE)
+PAUSE(DELAY%*5)
+OUTPUT(FALSE,LIGHTRED,FALSE)
+PAUSE(DELAY%*5)
+CONSOLE(TRUE,LIGHTBLUE)
+PRINT("You will see this on a clear light blue Console")
+END

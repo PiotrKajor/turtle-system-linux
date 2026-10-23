@@ -1,0 +1,22 @@
+REM move to start, without drawing
+MOVEXY(-100,150)
+REM draw a recursive triangle of size 256
+PROCtriangle(256)
+END
+
+REM draws triangles recursively, starting with
+REM one of the given size, but then also making
+REM half-sized triangles at each triangle point
+DEF PROCtriangle(size%)
+  IF size%>1 THEN
+    FORWARD(size%)
+    PROCtriangle(size%/2)
+    RIGHT(120)
+    FORWARD(size%)
+    PROCtriangle(size%/2)
+    RIGHT(120)
+    FORWARD(size%)
+    PROCtriangle(size%/2)
+    RIGHT(120)
+  ENDIF
+ENDPROC

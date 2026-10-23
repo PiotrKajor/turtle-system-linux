@@ -1,0 +1,25 @@
+REM draw 30 random lines
+FOR count%=1 TO 30
+  REM pick a random point and move to it
+  x%=RND(1000)
+  y%=RND(1000)
+  SETXY(x%,y%)
+  REM set a random direction
+  turtd%=RND(360)
+  REM draw black line, first 1500 forward
+  FORWARD(1500)
+  REM then 3000 back - to reach canvas edge
+  BACK(3000)
+NEXT
+REM now colour resulting spaces ...
+FOR count%=1 TO 10000
+  REM pick 10000 random points in turn
+  x%=RND(1000)
+  y%=RND(1000)
+  REM if point is currently white ...
+  IF PIXCOL(x%,y%)=WHITE THEN
+    REM recolour in one of 20 random colours
+    RECOLOUR(x%,y%,RGB(RND(20)+1))
+  ENDIF
+NEXT
+END

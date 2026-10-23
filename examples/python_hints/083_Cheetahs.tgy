@@ -1,0 +1,364 @@
+# PREDATOR AND PREY
+# A cheetah catches a gazelle only if it is at least CATCHMARGIN faster, so
+# both species are under selection pressure to run faster, and the two speed
+# distributions push each other upwards, illustrating co-evolution as offspring
+# inherit their (single) parent's speed with a small random variation.
+# Meanwhile, the population numbers often exhibit Lotka-Volterra oscilations.
+
+# POPULATION SIZE SETTINGS
+MAXANIMALS=500 # size of the arrays holding each species
+MINGAZELLES=10 # hunting stops below this - gazelles become too hard to find!
+STARTCHEETAHS=50
+STARTGAZELLES=50
+
+# SPEED SETTINGS
+MAXSPEED=999 # maximum animal speed - must be less than maximum list capacity.
+STARTSLOW=30 # initial speeds are spread evenly
+STARTFAST=70 # between STARTSLOW and STARTFAST
+RANDMARGINC=5 # a child's speed is its parent's, with random variation
+RANDMARGING=5 # (up or down) within the relevant margin
+CATCHMARGIN=3 # a cheetah must beat a gazelle by this much to catch it
+
+# CHEETAH HUNTING AND FOOD NEEDS
+HUNTINGTRIES=100 # attempts to find an occupied slot when looking for prey
+CFOODADD=5 # amount of food gained from one kill, and lost at 1 per generation
+CBREEDFOOD=10 # food a cheetah must have in hand before it will breed
+
+# RATES OF HUNTING AND MATING (e.g. 3 means 1/3 probability in each generation)
+CHUNTINGRATIO=1 # how often a cheetah hunts
+CMATINGRATIO=1 # how often a well-fed cheetah breeds
+GMATINGRATIO=3 # how often a gazelle breeds
+
+# LIMITS OF CAPACITY AND AGE
+SHOOTING=400 # beyond this number, cheetahs can be shot - 40 brings relative stability
+GCAPACITY=400 # beyond this number, gazelles compete for food and some starve
+SLOWAGE=20  # at this age, animals die (if AGEFACTOR=0) or start slowing down
+AGEFACTOR=0 # percentage of speed retained each generation after SLOWAGE
+MINSPEED=10 # if speed falls below this, animal dies
+
+# GRAPH LAYOUT
+GRAPHLEFT=60 # horizontal position of origin of each graph
+GRAPHWIDTH=900 # width of each graph
+SPEEDBASE=805 # vertical position of the mirror line of the speed graph
+SPEEDHEIGHT=190 # how far the speed display can reach above or below the mirror line
+YMAX=40 # animals per speed value at full bar height; taller bars are clipped
+TIMEBASE=460 # vertical position of the origin of the population graph
+TIMEHEIGHT=400 # height of the population graph
+POINTS=450 # plotting points on the population graph x-axis (should be even and <=900)
+
+# POSITIONS OF THE HEADINGS AND CAPTIONS
+SPEEDTITLETOP=SPEEDBASE-SPEEDHEIGHT-10
+POPTITLETOP=TIMEBASE-TIMEHEIGHT-60
+GENLEFT=GRAPHLEFT+80 # the generation counter, between the two graphs
+GENTOP=TIMEBASE+70
+CAPTIONLEFT=GRAPHLEFT+340 # the two lines of statistics, to its right
+CAPTIONTOP=TIMEBASE+40
+CAPTIONSTEP=45 # vertical gap between those two lines
+NOTICELEFT=150 # where an extinction is announced
+NOTICETOP=200
+
+gen=0
+cnum=STARTCHEETAHS
+gnum=STARTGAZELLES
+# an animal occupies slot n of these arrays; speed 0 means the slot is empty
+cspeed=[0]*MAXANIMALS
+gspeed=[0]*MAXANIMALS
+# genetic speed, inherited, as distinct from current speed
+cgenspeed=[0]*MAXANIMALS
+ggenspeed=[0]*MAXANIMALS
+# age of the animals, and food status of cheetahs
+cage=[0]*MAXANIMALS
+gage=[0]*MAXANIMALS
+cfood=[0]*MAXANIMALS
+# how many animals currently have each speed
+cspeednum=[0]*(MAXSPEED+1)
+gspeednum=[0]*(MAXSPEED+1)
+# the population history, stored by points on the population over time graph
+cpop=[0]*POINTS
+gpop=[0]*POINTS
+numpoints=0 # how many point samples are currently held
+interval=1 # generations between samples - doubled if graphing points are exceeded
+# the summed speeds of each species, used to calculate averages
+ctotal=0
+gtotal=0
+
+# creates the starting populations, and empties every other slot
+def setup():
+    for n in range (cnum):
+        cgenspeed[n]=randrange(STARTFAST+1-STARTSLOW)+STARTSLOW
+        cspeed[n]=cgenspeed[n]
+        cage[n]=randrange(SLOWAGE)
+        cfood[n]=randrange(CFOODADD)+1
+        cspeednum[cspeed[n]]+=1
+    for n in range (cnum,MAXANIMALS,1):
+        cspeed[n]=0
+    for n in range (gnum):
+        ggenspeed[n]=randrange(STARTFAST+1-STARTSLOW)+STARTSLOW
+        gspeed[n]=ggenspeed[n]
+        gage[n]=randrange(SLOWAGE)
+        gspeednum[gspeed[n]]+=1
+    for n in range (gnum,MAXANIMALS,1):
+        gspeed[n]=0
+
+# Records population sizes. When points fill, interval is doubled and alternate records deleted
+def record():
+    global numpoints,interval
+    if gen % interval==0:
+        if numpoints==POINTS:
+            for n in range (POINTS/2):
+                cpop[n]=cpop[n*2]
+                gpop[n]=gpop[n*2]
+            numpoints=POINTS/2
+            interval=interval*2
+        cpop[numpoints]=cnum
+        gpop[numpoints]=gnum
+        numpoints+=1
+
+# adds up the speeds of each species, for calculation of average speeds
+def totals():
+    global ctotal,gtotal
+    ctotal=0
+    gtotal=0
+    for n in range (1,MAXSPEED+1):
+        ctotal=ctotal+n*cspeednum[n]
+        gtotal=gtotal+n*gspeednum[n]
+
+
+# THE POPULATION OVER TIME GRAPH
+
+# draws the axes of the population graph, and labels them
+def timeaxis():
+    colour(black)
+    setxy(GRAPHLEFT,TIMEBASE-TIMEHEIGHT)
+    drawxy(0,TIMEHEIGHT)
+    drawxy(GRAPHWIDTH,0)
+    for n in range (0,6,1):
+        setxy(5,TIMEBASE-n*TIMEHEIGHT/5-10)
+        display(str(n*MAXANIMALS/5),0,20)
+    setxy(GRAPHLEFT,TIMEBASE+10)
+    display('0',0,20)
+
+# plots one population history using Turtle movements and POLYLINE
+def popline(pop:list [int],linecolour:int):
+    if numpoints>1:
+        colour(linecolour)
+        for n in range (numpoints):
+            setxy(GRAPHLEFT+divmult(n,POINTS,GRAPHWIDTH),TIMEBASE-divmult(pop[n],MAXANIMALS,TIMEHEIGHT))
+        polyline(numpoints)
+
+# draws the whole population graph: axes, both lines (cheetahs over gazelles), and heading.
+def popgraph():
+    timeaxis()
+    popline(gpop,green)
+    popline(cpop,red)
+    colour(black)
+    setxy(GRAPHLEFT,POPTITLETOP)
+    display('Population over time',4,30)
+
+# THE SPEED DISTRIBUTION GRAPH
+
+# draws the mirror line of the speed graph, and labels it
+def speedaxis():
+    colour(black)
+    setxy(GRAPHLEFT,SPEEDBASE)
+    drawxy(GRAPHWIDTH,0)
+    for n in range (1,11,1):
+        setxy(GRAPHLEFT+n*GRAPHWIDTH/10-20,SPEEDBASE+30)
+        display(str(n*(MAXSPEED+1)/10),0,20)
+
+# draws one species' speed distribution from the mirror line (upwards is -ve, down +ve)
+def speedbars(speednum:list [int],upwards:int):
+    for n in range (1,MAXSPEED+1):
+        if speednum[n]>0: # nearly every speed is empty, so this is worth testing
+            barheight=speednum[n]
+            if barheight>YMAX: # clip, or a crowded speed runs off the graph
+                barheight=YMAX
+            setxy(GRAPHLEFT+divmult(n,MAXSPEED,GRAPHWIDTH),SPEEDBASE)
+            drawxy(0,upwards*divmult(barheight,YMAX,SPEEDHEIGHT))
+
+# draws the whole speed distribution graph: mirror line, both sets of bars, and heading
+def speedgraph():
+    speedaxis()
+    colour(red)
+    speedbars(cspeednum,-1)
+    colour(green)
+    speedbars(gspeednum,1)
+    colour(black)
+    setxy(GRAPHLEFT,SPEEDTITLETOP)
+    display('Speed distribution',4,30)
+
+
+# WRITTEN REPORTS, ON SCREEN AND TO THE OUTPUT TAB
+
+# writes the generation number and the two lines of statistics between the graphs
+def captions():
+    colour(blue)
+    setxy(GENLEFT,GENTOP)
+    display('Generation '+str(gen),0,25)
+    colour(red)
+    setxy(CAPTIONLEFT,CAPTIONTOP)
+    display(str(cnum)+' cheetahs:  average speed '+qstr(ctotal,cnum,1),4,25)
+    colour(green)
+    setxy(CAPTIONLEFT,CAPTIONTOP+CAPTIONSTEP)
+    display(str(gnum)+' gazelles:  average speed '+qstr(gtotal,gnum,1),4,25)
+
+# adds this generation's figures to the running record in the Output tab
+def report():
+    print()
+    print('generation '+pad(str(gen),' ',-5)+' Cheetahs: '+pad(str(cnum),' ',3)+' avspeed: '+qstr(ctotal,cnum,2))
+    print(pad('Gazelles: ',' ',27)+pad(str(gnum),' ',3)+' avspeed: '+qstr(gtotal,gnum,2))
+
+# announces an extinction and stops
+def extinct(species:str):
+    setxy(NOTICELEFT,NOTICETOP)
+    colour(magenta)
+    display('All '+species+' Have Died',4,50)
+    update()
+    halt()
+
+# redraws both graphs, captions them, and reports to the console
+def graph():
+    noupdate()
+    blank(white)
+    totals()
+    speedgraph()
+    popgraph()
+    if cnum<1:
+        extinct('Cheetahs')
+    if gnum<1:
+        extinct('Gazelles')
+    captions()
+    update()
+    report()
+
+
+# BIRTHS AND DEATHS
+
+# empties slot c, removing that cheetah from the speed tally
+def deadcheetah(c:int):
+    global cnum
+    cspeednum[cspeed[c]]-=1
+    cspeed[c]=0
+    cnum-=1
+
+# empties slot g, removing that gazelle from the speed tally
+def deadgazelle(g:int):
+    global gnum
+    gspeednum[gspeed[g]]-=1
+    gspeed[g]=0
+    gnum-=1
+
+# puts a baby into the lowest empty slot, with a mutated version of SPEED
+def babycheetah(speed:int):
+    global cnum
+    b=0
+    while (cspeed[b]!=0) and (b!=MAXANIMALS-1):
+        b+=1
+    if cspeed[b]==0: # if search fails, array is full and no baby is born
+        cnum+=1
+        cgenspeed[b]=speed+randrange(2*RANDMARGINC+1)-RANDMARGINC
+        cgenspeed[b]=max(1,min(MAXSPEED,cgenspeed[b]))
+        cspeed[b]=cgenspeed[b]
+        cage[b]=0
+        cfood[b]=CFOODADD
+        cspeednum[cspeed[b]]+=1
+
+# the same for a gazelle, which needs no food of its own
+def babygazelle(speed:int):
+    global gnum
+    b=0
+    while (gspeed[b]!=0) and (b!=MAXANIMALS-1):
+        b+=1
+    if gspeed[b]==0: # if search fails, array is full and no baby is born
+        gnum+=1
+        ggenspeed[b]=speed+randrange(2*RANDMARGING+1)-RANDMARGING
+        ggenspeed[b]=max(1,min(MAXSPEED,ggenspeed[b]))
+        gspeed[b]=ggenspeed[b]
+        gage[b]=0
+        gspeednum[gspeed[b]]+=1
+
+
+# ONE GENERATION, IN FOUR STAGES
+
+# every live cheetah gets a chance to hunt, unless the number of gazelles falls below MINGAZELLES
+def hunting():
+    for c in range (MAXANIMALS): # so cheetahs early in the order are more likely to be able to hunt
+        if (cspeed[c]>0) and (gnum>MINGAZELLES) and (randrange(CHUNTINGRATIO)==0):
+            tries=1
+            g=randrange(MAXANIMALS)
+            while (gspeed[g]<=0) and (tries!=HUNTINGTRIES):
+                tries+=1
+                g=randrange(MAXANIMALS)
+            # cheetah is less likely to find a meal when gazelles are scarce
+            if (gspeed[g]>0) and (cspeed[c]>=gspeed[g]+CATCHMARGIN):
+                deadgazelle(g)
+                cfood[c]=cfood[c]+CFOODADD
+
+def cheetahbreeding():
+    cparent=[]
+    for c in range (MAXANIMALS):
+        if (cspeed[c]>0) and (cfood[c]>=CBREEDFOOD) and (randrange(CMATINGRATIO)==0):
+            cparent.append(c)
+    for c in cparent: # parents are listed initially, so no baby can breed immediately
+        if cnum<MAXANIMALS:
+            babycheetah(cgenspeed[c])
+            cfood[c]=cfood[c]-CBREEDFOOD
+
+def gazellebreeding():
+    gparent=[]
+    for g in range (MAXANIMALS):
+        if (gspeed[g]>0) and (randrange(GMATINGRATIO)==0):
+            gparent.append(g)
+    for g in gparent:
+        if gnum<MAXANIMALS:
+            babygazelle(ggenspeed[g])
+
+# animals age, cheetahs eat into their food reserves, the unlucky die or are shot
+def ageing():
+    for n in range (MAXANIMALS):
+        if cspeed[n]>0:
+            cage[n]+=1
+            # as cheetah numbers exceed SHOOTING, they are increasingly likely to be shot
+            if (cnum>SHOOTING) and (randrange(MAXANIMALS)<cnum-SHOOTING):
+                deadcheetah(n)
+            else:
+                if cage[n]>SLOWAGE:
+                    cspeednum[cspeed[n]]-=1
+                    cspeed[n]=cspeed[n]*AGEFACTOR/100
+                    if cspeed[n]<MINSPEED:
+                        cspeed[n]=0
+                    cspeednum[cspeed[n]]+=1
+                cfood[n]-=1
+                if (cspeed[n]==0) or (cfood[n]<0): # died of old age, or starved
+                    deadcheetah(n)
+        if gspeed[n]>0:
+            gage[n]+=1
+            # as herd size grows beyond GCAPACITY, gazelle becomes more likely to starve
+            if (gnum>GCAPACITY) and (randrange(MAXANIMALS)<gnum-GCAPACITY):
+                deadgazelle(n)
+            elif gage[n]>SLOWAGE:
+                gspeednum[gspeed[n]]-=1
+                gspeed[n]=gspeed[n]*AGEFACTOR/100
+                if gspeed[n]<MINSPEED:
+                    gspeed[n]=0
+                gspeednum[gspeed[n]]+=1
+                if gspeed[n]==0:
+                    deadgazelle(n)
+
+# runs one generation: hunting, then breeding, then ageing and death
+def generation():
+    hunting()
+    cheetahbreeding()
+    gazellebreeding()
+    ageing()
+
+# MAIN PROGRAM
+setup()
+record()
+print('SEE OUTPUT TAB FOR COMPLETE RECORD OF STATISTICS OVER GENERATIONS')
+graph()
+while True:
+    gen+=1
+    generation()
+    record()
+    graph()

@@ -1,0 +1,50 @@
+# All-capitals at start indicates a CONSTANT
+DELAY=500 # DELAY's value cannot be changed
+
+# Clear the "Output" tab, colour it cream and bring to the front
+output(True,cream,True)
+
+# set initial string
+s1='Turtle Python'
+
+# illustrate use of SLICE function
+s2=s1[0:6]
+print(s2+' is the name of a small animal.')
+pause(DELAY)
+s3=s1[7:13]
+print(s3+' is a large snake.')
+pause(DELAY)
+
+# illustrate insertion of one string into another
+s4=s3[0:1]+'onty M'+s3[1:len(s3)]
+print('\''+s4+'\' is a silly name.')
+pause(DELAY)
+
+# illustrate use of LEN function
+print('"'+s1+'" has '+str(len(s1))+' characters.')
+pause(DELAY)
+
+# illustrate use of LOWER and UPPER functions
+print('In lower case it is "'+s1.lower()+'".')
+print('In upper case it is "'+s1.upper()+'".')
+pause(DELAY)
+posn=s1.find(s3)
+if posn>=0:
+    print('"'+s3+'" occurs within "'+s1+'" at position '+str(posn)+'.')
+pause(DELAY)
+s5='3.14159'
+print(s5+' times 100000 = '+str(qint(s5,100000,-1))+'.')
+pause(DELAY)
+n=qint(s5,100000,-1)
+print(str(n)+' divided by 100000 = '+qstr(n,100000,5)+'.')
+print('')
+pause(DELAY*5)
+
+# illustrate OUTPUT (again) and CONSOLE
+print('Now back to the Canvas and Console ...')
+output(False,peach,True) # Don't clear "Output" tab, recolour it peach, leave it in front
+pause(DELAY*5)
+output(False,lightred,False) # Don't clear "Output", recolour it, bring Canvas in front
+pause(DELAY*5)
+console(True,lightblue) # Clear the Console, recolour it lightblue
+print('You will see this on a clear light blue Console')

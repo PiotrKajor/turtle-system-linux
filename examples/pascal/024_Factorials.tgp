@@ -1,0 +1,18 @@
+program Factorials;
+var
+  n:integer;
+
+{calculates n! recursively - both the}
+{parameter n and the result are integers}
+function factorial(n:integer):integer;
+begin
+  if n=0 then
+    result :=1
+  else
+    result :=n*factorial(n-1)
+end;
+begin
+  output(true,cream,true);
+  for n:=1 to 10 do
+    writeln(str(n)+'! = '+str(factorial(n)))
+end.

@@ -1,0 +1,35 @@
+# This illustrates integer parameters that are "called by reference",
+# which is relatively standard in Pascal and BASIC, but not in Python.
+# The ADDRESS of the integer variable gets passed into the function,
+# enabling the parameter's value to be changed within the function.
+
+def lines(addr,isColour):
+    # draw 8 short lines, modifying passed-in Turtle property each time
+    for n in range (1,9,1):
+        if isColour:
+            # set property value to nth standard Turtle colour
+            poke(addr,rgb(n))
+        else:
+            # set property value to n
+            poke(addr,n)
+        forward(50)
+        pause(100)
+
+def dots(addr):
+    # draw 8 blots, modifying passed-in Turtle property each time
+    for n in range (1,9,1):
+        # increment property value by 100
+        poke(addr,peek(addr)+100)
+        blot(40)
+        pause(100)
+
+# set initial position
+setxy(100,900)
+# draw lines of varying thickness - TURTT property is modified
+lines(address(turtt),False)
+# draw lines of varying colour - TURTC property is modified
+lines(address(turtc),True)
+# draw dots with different x coordinates - TURTX property is modified
+dots(address(turtx))
+# draw dots with different y coordinates - TURTY property is modified
+dots(address(turty))

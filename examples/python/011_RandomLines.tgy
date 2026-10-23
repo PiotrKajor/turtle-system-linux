@@ -1,0 +1,18 @@
+# draw 30 random lines
+for count in range (30):
+    # pick a random point and angle
+    x=randrange(1000)
+    y=randrange(1000)
+    setxy(x,y)
+    turtd=randrange(360)
+    # draw a black line through that point, at that angle
+    forward(1500)
+    back(3000)
+# try to fill all the resulting shapes
+for count in range (10000):
+    # pick a random point
+    x=randrange(1000)
+    y=randrange(1000)
+    # if it's white, fill the surrounding shape with a random colour
+    if pixcol(x,y)==white:
+        recolour(x,y,rgb(randrange(20)+1))

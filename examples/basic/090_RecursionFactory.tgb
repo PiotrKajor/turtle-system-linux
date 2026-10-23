@@ -1,0 +1,66 @@
+
+
+CONST NUMSIDES%=6
+CONST INITSIZE%=240
+CONST SHRINK%=40
+CONST RANGLE%=180
+CONST POLYGAP%=0
+CONST LEVELS%=5
+CONST SLOWDRAW%=3
+CONST MODE%=1
+CONST FIRSTCOL%=1
+CONST COLINC%=2
+CONST MINTHICK%=2
+CONST ADDTHICK%=6
+CONST CIRCSIZE%=60
+BLANK(BLACK)
+IF 180 MOD NUMSIDES%=0 THEN
+  halfangle%=90-(180/NUMSIDES%)
+  slowlev%=LEVELS%+1-SLOWDRAW%
+  IF slowlev%>LEVELS%-1 THEN slowlev%=LEVELS%-1
+  MOVEXY(0,INITSIZE%)
+  PROCrecurse(1,INITSIZE%,LEVELS%,FIRSTCOL%)
+ENDIF
+END
+
+DEF PROCrecurse(flag%,size%,depth%,col%)
+  LOCAL storex%,storey%,sides%
+  IF depth%>0 THEN
+    IF depth%<slowlev% THEN NOUPDATE ELSE UPDATE
+    IF flag%=1 THEN
+      FOR flag%=2 TO 3
+        storex%=turtx%
+        storey%=turty%
+        FOR sides%=1 TO NUMSIDES%
+          PROCrecurse(flag%,size%,depth%,col%)
+        NEXT
+        turtx%=storex%
+        turty%=storey%
+      NEXT
+    ELSE
+      PENUP
+      IF flag%=2 THEN
+        COLOUR(RGB(col%))
+        THICKNESS(MINTHICK%+((depth%-1)*ADDTHICK%)/12)
+        IF MODE%=1 THEN
+          PENDOWN
+        ELSE
+          IF MODE%=2 THEN
+            BLOT(size%*CIRCSIZE%/120)
+          ELSE
+            CIRCLE(size%*CIRCSIZE%/120)
+          ENDIF
+        ENDIF
+      ENDIF
+      LEFT(halfangle%)
+      FORWARD(size%)
+      RIGHT(180-halfangle%+RANGLE%)
+      IF flag%=3 THEN
+        FORWARD(size%*POLYGAP%/120)
+        PROCrecurse(1,(size%*SHRINK%)/120,depth%-1,((col%+COLINC%-1) MOD 7)+1)
+        BACK(size%*POLYGAP%/120)
+      ENDIF
+      LEFT(RANGLE%)
+    ENDIF
+  ENDIF
+ENDPROC

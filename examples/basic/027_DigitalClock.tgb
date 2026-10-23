@@ -1,0 +1,40 @@
+REM set up canvas with box for displaying time
+BLANK(LIGHTGREEN)
+SETXY(250,390)
+REM Turtle maroon pen thickness 10 will be used for box border
+COLOUR(MAROON)
+THICKNESS(10)
+REM box will be size 500x2010, filled in lightbrown with a border
+BOX(500,210,LIGHTBROWN,TRUE)
+COLOUR(BLACK)
+REM initialise hours and minutes to zero
+hours%=0
+minutes%=0
+REM repeatedly through the hours ...
+WHILE hours%<12
+  REM display the current time
+  PROCshowTime(hours%,minutes%)
+  REM pause 1/10 second [so clock goes 600 times too fast]
+  PAUSE(100)
+  REM increment the minutes, ...
+  minutes%=minutes%+1
+  IF minutes%=60 THEN
+    REM if necessary, move on to the next hour
+    hours%=hours%+1
+    minutes%=0
+  ENDIF
+ENDWHILE
+REM show final time
+PROCshowTime(hours%,minutes%)
+END
+
+REM prints the specified time inside a white box in the canvas
+DEF PROCshowTime(hours%,minutes%)
+  LOCAL timeString$
+  REM draw white box, erasing previous time
+  SETXY(300,430)
+  BOX(400,130,WHITE,FALSE)
+  REM print specified time
+  timeString$=PAD$(STR$(hours%),"0",2)+":"+PAD$(STR$(minutes%),"0",2)
+  DISPLAY(timeString$,21,100)
+ENDPROC

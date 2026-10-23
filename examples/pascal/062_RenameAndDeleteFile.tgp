@@ -1,0 +1,58 @@
+program RenameAndDeleteFile;
+var
+  origfname:string; {original filename}
+  newfname:string;  {new filename}
+  handle:integer;   {"file handle" assigned for accessing file}
+  i:integer;        {count iterations}
+procedure readfile(fname:string);
+var
+  s:string [255];
+begin
+  handle:=openfile(fname,1); {1 = OPEN FOR READING}
+  if handle>0 then {handle>0 means file opening has succeeded}
+  begin           {and hence file already exists}
+    writeln('Contents read from '+fname+':');
+    while not (eof(handle)) do {while not end of file}
+    begin
+      s:=freadln(handle);     {read the next line}
+      writeln('  '+s)         {write it to the output display}
+    end;
+    closefile(handle)         {close the file}
+  end
+  else
+    writeln('  '+fname+' could not be opened for reading')
+end;
+begin
+  origfname:='TestFile.txt';  {file created by previous example program}
+  newfname:='TestRename.txt'; {new filename to be given}
+  output(true,cream,true);   {initialise the output display}
+  for i:=1 to 3 do
+  begin
+    writeln('LOOP '+str(i)+' ...');
+    writeln('');
+    writeln('ABOUT TO TRY TO READ '+origfname+' ...');
+    readfile(origfname);
+    writeln('');
+    writeln('ABOUT TO TRY TO READ '+newfname+' ...');
+    readfile(newfname);
+    writeln('');
+    if i=1 then
+    begin
+      writeln('RENAMING '+origfname+' TO '+newfname);
+      if renamefile(origfname,newfname) then
+        writeln('  succeeded')
+      else
+        writeln('  failed');
+      writeln('')
+    end
+    else if i=2 then
+    begin
+      writeln('DELETING '+newfname);
+      if deletefile(newfname) then
+        writeln('  file no longer exists')
+      else
+        writeln('  failed');
+      writeln('')
+    end
+  end
+end.

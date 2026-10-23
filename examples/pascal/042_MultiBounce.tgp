@@ -1,0 +1,45 @@
+program MultiBounce;
+const
+  minSize=70;
+  maxSize=130;
+  balls=10;
+var
+  x,y:array [1..balls] of integer;
+  xVelocity,yVelocity:array [1..balls] of integer;
+  size,colr:array [1..balls] of integer;
+  n:integer;
+begin
+  {set initial properties for each ball}
+  for n:=1 to balls do
+  begin
+    size[n]:=minSize+random(maxSize-minSize);
+    colr[n]:=rgb(n);
+    x[n]:=random(1000-2*size[n])+size[n];
+    y[n]:=random(1000-2*size[n])+size[n];
+    xVelocity[n]:=random(15)-7;
+    yVelocity[n]:=random(15)-7
+  end;
+  repeat
+    noupdate;
+    {rub out previous balls}
+    blank(white);
+    {draw each ball in its next position}
+    for n:=1 to balls do
+    begin
+      {move to next position}
+      x[n]:=x[n]+xVelocity[n];
+      y[n]:=y[n]+yVelocity[n];
+      setxy(x[n],y[n]);
+      {draw ball}
+      colour(colr[n]);
+      blot(size[n]);
+      {"bounce" (i.e. invert velocity) at canvas edges}
+      if (x[n]<size[n]) or (x[n]>1000-size[n]) then
+        xVelocity[n]:=-xVelocity[n];
+      if (y[n]<size[n]) or (y[n]>1000-size[n]) then
+        yVelocity[n]:=-yVelocity[n]
+    end;
+    update;
+    pause(5)
+  until 1=0
+end.

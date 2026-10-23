@@ -1,0 +1,28 @@
+program TurtleBounce;
+var
+  xVelocity,yVelocity:integer;
+begin
+  {set starting point and velocity}
+  setxy(100,700);
+  xVelocity:=8;
+  yVelocity:=-4;
+  while 0<1 do
+  begin
+    noupdate;
+    {rub out existing ball}
+    colour(white);
+    blot(51);
+    {move to next location}
+    movexy(xVelocity,yVelocity);
+    {draw new ball}
+    colour(red);
+    blot(50);
+    update;
+    pause(10);
+    {"bounce" (i.e. invert velocity) at canvas edges}
+    if (turtx<50) or (turtx>949) then
+      xVelocity:=-xVelocity;
+    if (turty<50) or (turty>949) then
+      yVelocity:=-yVelocity
+  end
+end.

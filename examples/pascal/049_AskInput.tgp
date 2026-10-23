@@ -1,0 +1,14 @@
+program AskInput;
+var
+  name:string;
+begin
+  {write question to console}
+  write('What is your name?  ');
+  {read characters from keybuffer until ENTER key is pressed}
+  name:=readln;
+  {write a greeting (on a new line)}
+  writeln('');
+  write('Hello, '+name+', ...  ');
+  pause(500);
+  writeln('How are you?')
+end.

@@ -1,0 +1,2138 @@
+{
+ "python": {
+  "groups": [
+   {
+    "name": "Drawing",
+    "title": "Examples 1 - drawing and counting loops",
+    "first": 1,
+    "last": 12
+   },
+   {
+    "name": "Functions",
+    "title": "Examples 2 - functions and simple recursion",
+    "first": 13,
+    "last": 24
+   },
+   {
+    "name": "Further",
+    "title": "Examples 3 - further commands and structures",
+    "first": 25,
+    "last": 36
+   },
+   {
+    "name": "Movement",
+    "title": "Examples 4 - smooth movement and bouncing",
+    "first": 37,
+    "last": 48
+   },
+   {
+    "name": "Interaction",
+    "title": "Examples 5 - user input, interaction and games",
+    "first": 49,
+    "last": 60
+   },
+   {
+    "name": "Files",
+    "title": "Examples 6 - file and directory handling",
+    "first": 61,
+    "last": 68
+   },
+   {
+    "name": "Cellular",
+    "title": "Examples 7 - cellular models",
+    "first": 69,
+    "last": 78
+   },
+   {
+    "name": "Models",
+    "title": "Examples 8 - other models",
+    "first": 79,
+    "last": 89
+   },
+   {
+    "name": "Fractals",
+    "title": "Examples 9 - self-similarity and chaos",
+    "first": 90,
+    "last": 105
+   },
+   {
+    "name": "Logic&CS",
+    "title": "Examples 10 - computer science and logic",
+    "first": 106,
+    "last": 117
+   }
+  ],
+  "examples": [
+   {
+    "n": 1,
+    "name": "DrawPause",
+    "title": "Simple drawing with pauses",
+    "file": "001_DrawPause.tgy"
+   },
+   {
+    "n": 2,
+    "name": "SmileyFace",
+    "title": "Smiley face [PENUP, ELLBLOT]",
+    "file": "002_SmileyFace.tgy"
+   },
+   {
+    "n": 3,
+    "name": "ThePlough",
+    "title": "The plough [SETXY, POLYLINE]",
+    "file": "003_ThePlough.tgy"
+   },
+   {
+    "n": 4,
+    "name": "OlympicRings",
+    "title": "Olympic rings (uses a variable)",
+    "file": "004_OlympicRings.tgy"
+   },
+   {
+    "n": 5,
+    "name": "ForLoop",
+    "title": "FOR loop (uses a counting variable)",
+    "file": "005_ForLoop.tgy"
+   },
+   {
+    "n": 6,
+    "name": "TriangleSpin",
+    "title": "Spinning triangle pattern [MOVEXY]",
+    "file": "006_TriangleSpin.tgy"
+   },
+   {
+    "n": 7,
+    "name": "Circles",
+    "title": "Circling circles [epicircles]",
+    "file": "007_Circles.tgy"
+   },
+   {
+    "n": 8,
+    "name": "NestedLoops",
+    "title": "Nested FOR loops [DIRECTION, RGB]",
+    "file": "008_NestedLoops.tgy"
+   },
+   {
+    "n": 9,
+    "name": "CycleColours",
+    "title": "Cycling colours [%, RANDRANGE, RANDINT]",
+    "file": "009_CycleColours.tgy"
+   },
+   {
+    "n": 10,
+    "name": "Recolouring",
+    "title": "Recolouring [RANDCOL, RECOLOUR, FILL]",
+    "file": "010_Recolouring.tgy"
+   },
+   {
+    "n": 11,
+    "name": "RandomLines",
+    "title": "Random lines pattern [IF, PIXCOL]",
+    "file": "011_RandomLines.tgy"
+   },
+   {
+    "n": 12,
+    "name": "RandomEllipses",
+    "title": "Random ellipses pattern [ELLIPSE]",
+    "file": "012_RandomEllipses.tgy"
+   },
+   {
+    "n": 13,
+    "name": "ColourSpiral",
+    "title": "Spiral of colours [WHILE]",
+    "file": "013_ColourSpiral.tgy"
+   },
+   {
+    "n": 14,
+    "name": "SimpleProc",
+    "title": "Simple function [TURTD]",
+    "file": "014_SimpleProc.tgy"
+   },
+   {
+    "n": 15,
+    "name": "ParameterProc",
+    "title": "Function with parameter [counting down]",
+    "file": "015_ParameterProc.tgy"
+   },
+   {
+    "n": 16,
+    "name": "Polygons",
+    "title": "Polygons (uses 2 parameters) [POLYGON]",
+    "file": "016_Polygons.tgy"
+   },
+   {
+    "n": 17,
+    "name": "Stars",
+    "title": "Stars [ANGLES, FORGET]",
+    "file": "017_Stars.tgy"
+   },
+   {
+    "n": 18,
+    "name": "PolygonRings",
+    "title": "Polygon rings (uses 3 parameters)",
+    "file": "018_PolygonRings.tgy"
+   },
+   {
+    "n": 19,
+    "name": "ResizableFace",
+    "title": "Resizable face (hierarchical functions)",
+    "file": "019_ResizableFace.tgy"
+   },
+   {
+    "n": 20,
+    "name": "Triangle1",
+    "title": "Simple triangle",
+    "file": "020_Triangle1.tgy"
+   },
+   {
+    "n": 21,
+    "name": "Triangle2",
+    "title": "Triangle function",
+    "file": "021_Triangle2.tgy"
+   },
+   {
+    "n": 22,
+    "name": "Triangle3",
+    "title": "Triangle function with limit",
+    "file": "022_Triangle3.tgy"
+   },
+   {
+    "n": 23,
+    "name": "Triangles",
+    "title": "Recursive triangles",
+    "file": "023_Triangles.tgy"
+   },
+   {
+    "n": 24,
+    "name": "Factorials",
+    "title": "Recursive factorials [RETURN, OUTPUT]",
+    "file": "024_Factorials.tgy"
+   },
+   {
+    "n": 25,
+    "name": "YouAreHere",
+    "title": "Text and arrow [DISPLAY]",
+    "file": "025_YouAreHere.tgy"
+   },
+   {
+    "n": 26,
+    "name": "Clock",
+    "title": "Analogue clock (nested While loops)",
+    "file": "026_Clock.tgy"
+   },
+   {
+    "n": 27,
+    "name": "DigitalClock",
+    "title": "Digital clock [BOX]",
+    "file": "027_DigitalClock.tgy"
+   },
+   {
+    "n": 28,
+    "name": "Flashlights",
+    "title": "Flashlights (using Booleans)",
+    "file": "028_Flashlights.tgy"
+   },
+   {
+    "n": 29,
+    "name": "RefParams",
+    "title": "Reference parameters [ADDRESS, PEEK, POKE]",
+    "file": "029_RefParams.tgy"
+   },
+   {
+    "n": 30,
+    "name": "Balls3D",
+    "title": "3D colour effects",
+    "file": "030_Balls3D.tgy"
+   },
+   {
+    "n": 31,
+    "name": "StringFunctions",
+    "title": "Standard string functions and methods",
+    "file": "031_StringFunctions.tgy"
+   },
+   {
+    "n": 32,
+    "name": "StringFunctions",
+    "title": "Built-in string functions (functional form)",
+    "file": "032_StringFunctions.tgy"
+   },
+   {
+    "n": 33,
+    "name": "UserStringFunctions",
+    "title": "User-defined string functions",
+    "file": "033_UserStringFunctions.tgy"
+   },
+   {
+    "n": 34,
+    "name": "ListFunctions",
+    "title": "Python list functions",
+    "file": "034_ListFunctions.tgy"
+   },
+   {
+    "n": 35,
+    "name": "MathFunctions",
+    "title": "Mathematical functions",
+    "file": "035_MathFunctions.tgy"
+   },
+   {
+    "n": 36,
+    "name": "TrigGraphs",
+    "title": "Trigonometric graphs",
+    "file": "036_TrigGraphs.tgy"
+   },
+   {
+    "n": 37,
+    "name": "MovingBall",
+    "title": "Moving ball (using variables) [NOUPDATE, UPDATE]",
+    "file": "037_MovingBall.tgy"
+   },
+   {
+    "n": 38,
+    "name": "BouncingBall",
+    "title": "Bouncing ball (using variables)",
+    "file": "038_BouncingBall.tgy"
+   },
+   {
+    "n": 39,
+    "name": "TurtleMove",
+    "title": "Moving ball (using Turtle)",
+    "file": "039_TurtleMove.tgy"
+   },
+   {
+    "n": 40,
+    "name": "TurtleBounce",
+    "title": "Bouncing ball (using Turtle)",
+    "file": "040_TurtleBounce.tgy"
+   },
+   {
+    "n": 41,
+    "name": "BouncingFace",
+    "title": "Bouncing face",
+    "file": "041_BouncingFace.tgy"
+   },
+   {
+    "n": 42,
+    "name": "MultiBounce",
+    "title": "Multiple bouncing balls",
+    "file": "042_MultiBounce.tgy"
+   },
+   {
+    "n": 43,
+    "name": "BouncingTriangle",
+    "title": "Bouncing triangle",
+    "file": "043_BouncingTriangle.tgy"
+   },
+   {
+    "n": 44,
+    "name": "BouncingShapes",
+    "title": "Multiple bouncing shapes",
+    "file": "044_BouncingShapes.tgy"
+   },
+   {
+    "n": 45,
+    "name": "GravitySteps",
+    "title": "Movement under gravity",
+    "file": "045_GravitySteps.tgy"
+   },
+   {
+    "n": 46,
+    "name": "SolarSystem",
+    "title": "Solar system",
+    "file": "046_SolarSystem.tgy"
+   },
+   {
+    "n": 49,
+    "name": "AskInput",
+    "title": "Asking for typed input",
+    "file": "049_AskInput.tgy"
+   },
+   {
+    "n": 50,
+    "name": "QuickClick",
+    "title": "Mouse reaction game",
+    "file": "050_QuickClick.tgy"
+   },
+   {
+    "n": 51,
+    "name": "TypingTest",
+    "title": "Typing test (checking characters)",
+    "file": "051_TypingTest.tgy"
+   },
+   {
+    "n": 52,
+    "name": "TypingTestKeys",
+    "title": "Typing test (checking keys)",
+    "file": "052_TypingTestKeys.tgy"
+   },
+   {
+    "n": 53,
+    "name": "IterationGame",
+    "title": "Iteration game (Collatz sequence)",
+    "file": "053_IterationGame.tgy"
+   },
+   {
+    "n": 54,
+    "name": "SpongeThrow",
+    "title": "Throwing sponges at a moving face",
+    "file": "054_SpongeThrow.tgy"
+   },
+   {
+    "n": 55,
+    "name": "Arcade",
+    "title": "Arcade shooting game",
+    "file": "055_Arcade.tgy"
+   },
+   {
+    "n": 56,
+    "name": "ColourCells",
+    "title": "Colouring cells [CANVAS, RESOLUTION, DETECT, RGB, PIXCOL, PIXSET etc.]",
+    "file": "056_ColourCells.tgy"
+   },
+   {
+    "n": 57,
+    "name": "SnakeGame",
+    "title": "Snake (classic game)",
+    "file": "057_SnakeGame.tgy"
+   },
+   {
+    "n": 58,
+    "name": "SimpleDraw",
+    "title": "Drawing to the mouse",
+    "file": "058_SimpleDraw.tgy"
+   },
+   {
+    "n": 59,
+    "name": "PaintApp",
+    "title": "Painting application",
+    "file": "059_PaintApp.tgy"
+   },
+   {
+    "n": 61,
+    "name": "WriteAndReadFile",
+    "title": "Writing and reading a text file",
+    "file": "061_WriteAndReadFile.tgy"
+   },
+   {
+    "n": 62,
+    "name": "RenameAndDeleteFile",
+    "title": "Renaming and deleting a file",
+    "file": "062_RenameAndDeleteFile.tgy"
+   },
+   {
+    "n": 63,
+    "name": "FileSearching",
+    "title": "File searching",
+    "file": "063_FileSearching.tgy"
+   },
+   {
+    "n": 64,
+    "name": "SaveCSV",
+    "title": "Saving a CSV file",
+    "file": "064_SaveCSV.tgy"
+   },
+   {
+    "n": 65,
+    "name": "ReadCSV",
+    "title": "Reading a CSV file",
+    "file": "065_ReadCSV.tgy"
+   },
+   {
+    "n": 66,
+    "name": "RandomSentences",
+    "title": "Random sentences (using files)",
+    "file": "066_RandomSentences.tgy"
+   },
+   {
+    "n": 67,
+    "name": "FileCommands",
+    "title": "File commands",
+    "file": "067_FileCommands.tgy"
+   },
+   {
+    "n": 68,
+    "name": "DirectoryCommands",
+    "title": "Directory commands",
+    "file": "068_DirectoryCommands.tgy"
+   },
+   {
+    "n": 69,
+    "name": "TippingPoint",
+    "title": "Tipping point (city epidemic)",
+    "file": "069_TippingPoint.tgy"
+   },
+   {
+    "n": 70,
+    "name": "Disease",
+    "title": "Spread of disease",
+    "file": "070_Disease.tgy"
+   },
+   {
+    "n": 71,
+    "name": "GameOfLife",
+    "title": "Conway's Game of Life",
+    "file": "071_GameOfLife.tgy"
+   },
+   {
+    "n": 72,
+    "name": "GameOfLifeSetup",
+    "title": "Game of Life with user setup",
+    "file": "072_GameOfLifeSetup.tgy"
+   },
+   {
+    "n": 73,
+    "name": "LifeLists",
+    "title": "Game of Life, using lists",
+    "file": "073_LifeLists.tgy"
+   },
+   {
+    "n": 74,
+    "name": "Automata",
+    "title": "One-dimensional cellular automata",
+    "file": "074_Automata.tgy"
+   },
+   {
+    "n": 75,
+    "name": "Diffusion",
+    "title": "Diffusion in a tapering tube",
+    "file": "075_Diffusion.tgy"
+   },
+   {
+    "n": 76,
+    "name": "Dendrites",
+    "title": "Dendritic crystal growth",
+    "file": "076_Dendrites.tgy"
+   },
+   {
+    "n": 77,
+    "name": "Schelling",
+    "title": "Schelling's segregation model",
+    "file": "077_Schelling.tgy"
+   },
+   {
+    "n": 78,
+    "name": "IteratedPD",
+    "title": "Iterated Prisoner's Dilemma",
+    "file": "078_IteratedPD.tgy"
+   },
+   {
+    "n": 79,
+    "name": "AimCannon",
+    "title": "Firing a cannon (manual)",
+    "file": "079_AimCannon.tgy"
+   },
+   {
+    "n": 80,
+    "name": "AutoCannon",
+    "title": "Firing a cannon (automatic)",
+    "file": "080_AutoCannon.tgy"
+   },
+   {
+    "n": 81,
+    "name": "Launch",
+    "title": "Launching a rocket into orbit",
+    "file": "081_Launch.tgy"
+   },
+   {
+    "n": 82,
+    "name": "BrownianMotion",
+    "title": "Brownian motion",
+    "file": "082_BrownianMotion.tgy"
+   },
+   {
+    "n": 83,
+    "name": "Cheetahs",
+    "title": "Cheetahs and gazelles",
+    "file": "083_Cheetahs.tgy"
+   },
+   {
+    "n": 84,
+    "name": "SexRatio",
+    "title": "Evolution of sex ratio",
+    "file": "084_SexRatio.tgy"
+   },
+   {
+    "n": 85,
+    "name": "Flocking",
+    "title": "Flocking behaviour",
+    "file": "085_Flocking.tgy"
+   },
+   {
+    "n": 86,
+    "name": "Roads",
+    "title": "Town road simulation",
+    "file": "086_Roads.tgy"
+   },
+   {
+    "n": 87,
+    "name": "Interference",
+    "title": "Wave interference tutor",
+    "file": "087_Interference.tgy"
+   },
+   {
+    "n": 88,
+    "name": "TwoSlits",
+    "title": "Interference from two slits",
+    "file": "088_TwoSlits.tgy"
+   },
+   {
+    "n": 90,
+    "name": "RecursionFactory",
+    "title": "Recursion factory",
+    "file": "090_RecursionFactory.tgy"
+   },
+   {
+    "n": 91,
+    "name": "RecursiveTree",
+    "title": "Recursive tree",
+    "file": "091_RecursiveTree.tgy"
+   },
+   {
+    "n": 92,
+    "name": "KochSnowflake",
+    "title": "Koch snowflake",
+    "file": "092_KochSnowflake.tgy"
+   },
+   {
+    "n": 93,
+    "name": "SquareKoch",
+    "title": "Square Koch fractal curves",
+    "file": "093_SquareKoch.tgy"
+   },
+   {
+    "n": 94,
+    "name": "Sierpinski",
+    "title": "Sierpinski triangle (by deletion)",
+    "file": "094_Sierpinski.tgy"
+   },
+   {
+    "n": 95,
+    "name": "SierpinskiDots",
+    "title": "Sierpinski triangle (by random dots)",
+    "file": "095_SierpinskiDots.tgy"
+   },
+   {
+    "n": 96,
+    "name": "SierpinskiIFS",
+    "title": "Sierpinski triangle (by iterated functions)",
+    "file": "096_SierpinskiIFS.tgy"
+   },
+   {
+    "n": 97,
+    "name": "DragonIFS",
+    "title": "Dragon curve (by iterated functions)",
+    "file": "097_DragonIFS.tgy"
+   },
+   {
+    "n": 98,
+    "name": "IFSbackground",
+    "title": "Iterated function systems (IFS) background",
+    "file": "098_IFSbackground.tgy"
+   },
+   {
+    "n": 99,
+    "name": "IFScolour",
+    "title": "IFS mappings on coloured background",
+    "file": "099_IFScolour.tgy"
+   },
+   {
+    "n": 100,
+    "name": "IFSdemonstrator",
+    "title": "IFS demonstrator program",
+    "file": "100_IFSdemonstrator.tgy"
+   },
+   {
+    "n": 101,
+    "name": "Logistic",
+    "title": "Logistic equation",
+    "file": "101_Logistic.tgy"
+   },
+   {
+    "n": 102,
+    "name": "LogisticSpider",
+    "title": "Logistic spider",
+    "file": "102_LogisticSpider.tgy"
+   },
+   {
+    "n": 103,
+    "name": "MandelbrotDemo",
+    "title": "Mandelbrot multi-colour",
+    "file": "103_MandelbrotDemo.tgy"
+   },
+   {
+    "n": 104,
+    "name": "MandelbrotSpectrumDemo",
+    "title": "Mandelbrot spectral colours",
+    "file": "104_MandelbrotSpectrumDemo.tgy"
+   },
+   {
+    "n": 106,
+    "name": "Hanoi",
+    "title": "Tower of Hanoi by recursion",
+    "file": "106_Hanoi.tgy"
+   },
+   {
+    "n": 107,
+    "name": "BinarySearch",
+    "title": "Binary search guessing game",
+    "file": "107_BinarySearch.tgy"
+   },
+   {
+    "n": 108,
+    "name": "IterateRoot",
+    "title": "Square roots by iteration",
+    "file": "108_IterateRoot.tgy"
+   },
+   {
+    "n": 109,
+    "name": "Fibonaccis",
+    "title": "Fibonacci recursion and iteration [dynamic programming]",
+    "file": "109_Fibonaccis.tgy"
+   },
+   {
+    "n": 110,
+    "name": "Sorting",
+    "title": "Comparison of sorting methods",
+    "file": "110_Sorting.tgy"
+   },
+   {
+    "n": 111,
+    "name": "SortingStrings",
+    "title": "Comparison of sorting methods (strings)",
+    "file": "111_SortingStrings.tgy"
+   },
+   {
+    "n": 112,
+    "name": "NoughtsAndCrosses",
+    "title": "Tic Tac Toe (Noughts and Crosses)",
+    "file": "112_NoughtsAndCrosses.tgy"
+   },
+   {
+    "n": 113,
+    "name": "NimLearn",
+    "title": "Nim learning program",
+    "file": "113_NimLearn.tgy"
+   },
+   {
+    "n": 115,
+    "name": "KnightsTour",
+    "title": "Knights Tour program",
+    "file": "115_KnightsTour.tgy"
+   },
+   {
+    "n": 116,
+    "name": "TuringMachines",
+    "title": "Turing Machine simulator",
+    "file": "116_TuringMachines.tgy"
+   }
+  ]
+ },
+ "pascal": {
+  "groups": [
+   {
+    "name": "Drawing",
+    "title": "Examples 1 - drawing and counting loops",
+    "first": 1,
+    "last": 12
+   },
+   {
+    "name": "Procedures",
+    "title": "Examples 2 - procedures and simple recursion",
+    "first": 13,
+    "last": 24
+   },
+   {
+    "name": "Further",
+    "title": "Examples 3 - further commands and structures",
+    "first": 25,
+    "last": 36
+   },
+   {
+    "name": "Movement",
+    "title": "Examples 4 - smooth movement and bouncing",
+    "first": 37,
+    "last": 48
+   },
+   {
+    "name": "Interaction",
+    "title": "Examples 5 - user input, interaction and games",
+    "first": 49,
+    "last": 60
+   },
+   {
+    "name": "Files",
+    "title": "Examples 6 - file and directory handling",
+    "first": 61,
+    "last": 68
+   },
+   {
+    "name": "Cellular",
+    "title": "Examples 7 - cellular models",
+    "first": 69,
+    "last": 78
+   },
+   {
+    "name": "Models",
+    "title": "Examples 8 - other models",
+    "first": 79,
+    "last": 89
+   },
+   {
+    "name": "Fractals",
+    "title": "Examples 9 - self-similarity and chaos",
+    "first": 90,
+    "last": 105
+   },
+   {
+    "name": "Logic&CS",
+    "title": "Examples 10 - computer science and logic",
+    "first": 106,
+    "last": 117
+   }
+  ],
+  "examples": [
+   {
+    "n": 1,
+    "name": "DrawPause",
+    "title": "Simple drawing with pauses",
+    "file": "001_DrawPause.tgp"
+   },
+   {
+    "n": 2,
+    "name": "SmileyFace",
+    "title": "Smiley face [PENUP, ELLBLOT]",
+    "file": "002_SmileyFace.tgp"
+   },
+   {
+    "n": 3,
+    "name": "ThePlough",
+    "title": "The plough [SETXY, POLYLINE]",
+    "file": "003_ThePlough.tgp"
+   },
+   {
+    "n": 4,
+    "name": "OlympicRings",
+    "title": "Olympic rings (uses a variable)",
+    "file": "004_OlympicRings.tgp"
+   },
+   {
+    "n": 5,
+    "name": "ForLoop",
+    "title": "FOR loop (uses a counting variable)",
+    "file": "005_ForLoop.tgp"
+   },
+   {
+    "n": 6,
+    "name": "TriangleSpin",
+    "title": "Spinning triangle pattern [MOVEXY]",
+    "file": "006_TriangleSpin.tgp"
+   },
+   {
+    "n": 7,
+    "name": "Circles",
+    "title": "Circling circles",
+    "file": "007_Circles.tgp"
+   },
+   {
+    "n": 8,
+    "name": "NestedLoops",
+    "title": "Nested FOR loops [DIRECTION, RGB]",
+    "file": "008_NestedLoops.tgp"
+   },
+   {
+    "n": 9,
+    "name": "CycleColours",
+    "title": "Cycling colours [RANDOM, MOD]",
+    "file": "009_CycleColours.tgp"
+   },
+   {
+    "n": 10,
+    "name": "Recolouring",
+    "title": "Recolouring [RANDCOL, RECOLOUR, FILL]",
+    "file": "010_Recolouring.tgp"
+   },
+   {
+    "n": 11,
+    "name": "RandomLines",
+    "title": "Random lines pattern [IF, PIXCOL, RECOLOUR]",
+    "file": "011_RandomLines.tgp"
+   },
+   {
+    "n": 12,
+    "name": "RandomEllipses",
+    "title": "Random ellipses pattern",
+    "file": "012_RandomEllipses.tgp"
+   },
+   {
+    "n": 13,
+    "name": "ColourSpiral",
+    "title": "Spiral of colours [REPEAT, RANDCOL]",
+    "file": "013_ColourSpiral.tgp"
+   },
+   {
+    "n": 14,
+    "name": "SimpleProc",
+    "title": "Simple procedure [REPEAT, TURTD]",
+    "file": "014_SimpleProc.tgp"
+   },
+   {
+    "n": 15,
+    "name": "ParameterProc",
+    "title": "Procedure with parameter",
+    "file": "015_ParameterProc.tgp"
+   },
+   {
+    "n": 16,
+    "name": "Polygons",
+    "title": "Polygons (uses 2 parameters) [POLYGON, POLYLINE]",
+    "file": "016_Polygons.tgp"
+   },
+   {
+    "n": 17,
+    "name": "Stars",
+    "title": "Stars [ANGLES, FORGET]",
+    "file": "017_Stars.tgp"
+   },
+   {
+    "n": 18,
+    "name": "PolygonRings",
+    "title": "Polygon rings (uses 3 parameters) [MOD]",
+    "file": "018_PolygonRings.tgp"
+   },
+   {
+    "n": 19,
+    "name": "ResizableFace",
+    "title": "Resizable face (nested procedures)",
+    "file": "019_ResizableFace.tgp"
+   },
+   {
+    "n": 20,
+    "name": "Triangle1",
+    "title": "Simple triangle",
+    "file": "020_Triangle1.tgp"
+   },
+   {
+    "n": 21,
+    "name": "Triangle2",
+    "title": "Triangle procedure",
+    "file": "021_Triangle2.tgp"
+   },
+   {
+    "n": 22,
+    "name": "Triangle3",
+    "title": "Triangle procedure with limit",
+    "file": "022_Triangle3.tgp"
+   },
+   {
+    "n": 23,
+    "name": "Triangles",
+    "title": "Recursive triangles",
+    "file": "023_Triangles.tgp"
+   },
+   {
+    "n": 24,
+    "name": "Factorials",
+    "title": "Recursive factorials [FUNCTION, OUTPUT]",
+    "file": "024_Factorials.tgp"
+   },
+   {
+    "n": 25,
+    "name": "YouAreHere",
+    "title": "Text and arrow [DISPLAY]",
+    "file": "025_YouAreHere.tgp"
+   },
+   {
+    "n": 26,
+    "name": "Clock",
+    "title": "Analogue clock (nested Repeat loops)",
+    "file": "026_Clock.tgp"
+   },
+   {
+    "n": 27,
+    "name": "DigitalClock",
+    "title": "Digital clock [IF, WHILE, BOX]",
+    "file": "027_DigitalClock.tgp"
+   },
+   {
+    "n": 28,
+    "name": "Flashlights",
+    "title": "Flashlights (using Booleans)",
+    "file": "028_Flashlights.tgp"
+   },
+   {
+    "n": 29,
+    "name": "RefParams",
+    "title": "Reference parameters",
+    "file": "029_RefParams.tgp"
+   },
+   {
+    "n": 30,
+    "name": "Balls3D",
+    "title": "3D colour effects",
+    "file": "030_Balls3D.tgp"
+   },
+   {
+    "n": 31,
+    "name": "StringFunctions",
+    "title": "Standard string functions",
+    "file": "031_StringFunctions.tgp"
+   },
+   {
+    "n": 33,
+    "name": "UserStringFunctions",
+    "title": "User-defined string functions",
+    "file": "033_UserStringFunctions.tgp"
+   },
+   {
+    "n": 35,
+    "name": "MathFunctions",
+    "title": "Mathematical functions",
+    "file": "035_MathFunctions.tgp"
+   },
+   {
+    "n": 36,
+    "name": "TrigGraphs",
+    "title": "Trigonometric graphs",
+    "file": "036_TrigGraphs.tgp"
+   },
+   {
+    "n": 37,
+    "name": "MovingBall",
+    "title": "Moving ball (using variables)",
+    "file": "037_MovingBall.tgp"
+   },
+   {
+    "n": 38,
+    "name": "BouncingBall",
+    "title": "Bouncing ball (using variables)",
+    "file": "038_BouncingBall.tgp"
+   },
+   {
+    "n": 39,
+    "name": "TurtleMove",
+    "title": "Moving ball (using Turtle)",
+    "file": "039_TurtleMove.tgp"
+   },
+   {
+    "n": 40,
+    "name": "TurtleBounce",
+    "title": "Bouncing ball (using Turtle)",
+    "file": "040_TurtleBounce.tgp"
+   },
+   {
+    "n": 41,
+    "name": "BouncingFace",
+    "title": "Bouncing face",
+    "file": "041_BouncingFace.tgp"
+   },
+   {
+    "n": 42,
+    "name": "MultiBounce",
+    "title": "Multiple bouncing balls",
+    "file": "042_MultiBounce.tgp"
+   },
+   {
+    "n": 43,
+    "name": "BouncingTriangle",
+    "title": "Bouncing triangle",
+    "file": "043_BouncingTriangle.tgp"
+   },
+   {
+    "n": 44,
+    "name": "BouncingShapes",
+    "title": "Multiple bouncing shapes",
+    "file": "044_BouncingShapes.tgp"
+   },
+   {
+    "n": 45,
+    "name": "GravitySteps",
+    "title": "Movement under gravity",
+    "file": "045_GravitySteps.tgp"
+   },
+   {
+    "n": 46,
+    "name": "SolarSystem",
+    "title": "Solar system",
+    "file": "046_SolarSystem.tgp"
+   },
+   {
+    "n": 47,
+    "name": "BirdTree",
+    "title": "Bird and tree - student example",
+    "file": "047_BirdTree.tgp"
+   },
+   {
+    "n": 48,
+    "name": "ChickenCoop",
+    "title": "Chicken coop - student example",
+    "file": "048_ChickenCoop.tgp"
+   },
+   {
+    "n": 49,
+    "name": "AskInput",
+    "title": "Asking for typed input",
+    "file": "049_AskInput.tgp"
+   },
+   {
+    "n": 50,
+    "name": "QuickClick",
+    "title": "Mouse reaction game",
+    "file": "050_QuickClick.tgp"
+   },
+   {
+    "n": 51,
+    "name": "TypingTest",
+    "title": "Typing test (checking characters)",
+    "file": "051_TypingTest.tgp"
+   },
+   {
+    "n": 52,
+    "name": "TypingTestKeys",
+    "title": "Typing test (checking keys)",
+    "file": "052_TypingTestKeys.tgp"
+   },
+   {
+    "n": 53,
+    "name": "IterationGame",
+    "title": "Iteration game (Collatz sequence)",
+    "file": "053_IterationGame.tgp"
+   },
+   {
+    "n": 54,
+    "name": "SpongeThrow",
+    "title": "Throwing sponges at a moving face",
+    "file": "054_SpongeThrow.tgp"
+   },
+   {
+    "n": 55,
+    "name": "Arcade",
+    "title": "Arcade shooting game",
+    "file": "055_Arcade.tgp"
+   },
+   {
+    "n": 56,
+    "name": "ColourCells",
+    "title": "Colouring cells [CANVAS, RESOLUTION, DETECT, RGB, PIXCOL, PIXSET etc.]",
+    "file": "056_ColourCells.tgp"
+   },
+   {
+    "n": 57,
+    "name": "SnakeGame",
+    "title": "Snake (classic game)",
+    "file": "057_SnakeGame.tgp"
+   },
+   {
+    "n": 58,
+    "name": "SimpleDraw",
+    "title": "Drawing to the mouse",
+    "file": "058_SimpleDraw.tgp"
+   },
+   {
+    "n": 59,
+    "name": "PaintApp",
+    "title": "Painting application",
+    "file": "059_PaintApp.tgp"
+   },
+   {
+    "n": 60,
+    "name": "MultipleTurtles",
+    "title": "Multiple turtles and varying ANGLES",
+    "file": "060_MultipleTurtles.tgp"
+   },
+   {
+    "n": 61,
+    "name": "WriteAndReadFile",
+    "title": "Writing and reading a text file",
+    "file": "061_WriteAndReadFile.tgp"
+   },
+   {
+    "n": 62,
+    "name": "RenameAndDeleteFile",
+    "title": "Renaming and deleting a file",
+    "file": "062_RenameAndDeleteFile.tgp"
+   },
+   {
+    "n": 63,
+    "name": "FileSearching",
+    "title": "File searching",
+    "file": "063_FileSearching.tgp"
+   },
+   {
+    "n": 64,
+    "name": "SaveCSV",
+    "title": "Saving a CSV file",
+    "file": "064_SaveCSV.tgp"
+   },
+   {
+    "n": 65,
+    "name": "ReadCSV",
+    "title": "Reading a CSV file",
+    "file": "065_ReadCSV.tgp"
+   },
+   {
+    "n": 66,
+    "name": "RandomSentences",
+    "title": "Random sentences (using files)",
+    "file": "066_RandomSentences.tgp"
+   },
+   {
+    "n": 67,
+    "name": "FileCommands",
+    "title": "File commands",
+    "file": "067_FileCommands.tgp"
+   },
+   {
+    "n": 68,
+    "name": "DirectoryCommands",
+    "title": "Directory commands",
+    "file": "068_DirectoryCommands.tgp"
+   },
+   {
+    "n": 69,
+    "name": "TippingPoint",
+    "title": "Tipping point (city epidemic)",
+    "file": "069_TippingPoint.tgp"
+   },
+   {
+    "n": 70,
+    "name": "Disease",
+    "title": "Spread of disease",
+    "file": "070_Disease.tgp"
+   },
+   {
+    "n": 71,
+    "name": "GameOfLife",
+    "title": "Conway's Game of Life",
+    "file": "071_GameOfLife.tgp"
+   },
+   {
+    "n": 72,
+    "name": "GameOfLifeSetup",
+    "title": "Game of Life with user setup",
+    "file": "072_GameOfLifeSetup.tgp"
+   },
+   {
+    "n": 73,
+    "name": "LifeArrays",
+    "title": "Game of Life, using arrays",
+    "file": "073_LifeArrays.tgp"
+   },
+   {
+    "n": 74,
+    "name": "Automata",
+    "title": "One-dimensional cellular automata",
+    "file": "074_Automata.tgp"
+   },
+   {
+    "n": 75,
+    "name": "Diffusion",
+    "title": "Diffusion in a tapering tube",
+    "file": "075_Diffusion.tgp"
+   },
+   {
+    "n": 76,
+    "name": "Dendrites",
+    "title": "Dendritic crystal growth",
+    "file": "076_Dendrites.tgp"
+   },
+   {
+    "n": 77,
+    "name": "Schelling",
+    "title": "Schelling's segregation model",
+    "file": "077_Schelling.tgp"
+   },
+   {
+    "n": 78,
+    "name": "IteratedPD",
+    "title": "Iterated Prisoner's Dilemma",
+    "file": "078_IteratedPD.tgp"
+   },
+   {
+    "n": 79,
+    "name": "AimCannon",
+    "title": "Firing a cannon (manual)",
+    "file": "079_AimCannon.tgp"
+   },
+   {
+    "n": 80,
+    "name": "AutoCannon",
+    "title": "Firing a cannon (automatic)",
+    "file": "080_AutoCannon.tgp"
+   },
+   {
+    "n": 81,
+    "name": "Launch",
+    "title": "Launching a rocket into orbit",
+    "file": "081_Launch.tgp"
+   },
+   {
+    "n": 82,
+    "name": "BrownianMotion",
+    "title": "Brownian motion",
+    "file": "082_BrownianMotion.tgp"
+   },
+   {
+    "n": 83,
+    "name": "Cheetahs",
+    "title": "Cheetahs and gazelles",
+    "file": "083_Cheetahs.tgp"
+   },
+   {
+    "n": 84,
+    "name": "SexRatio",
+    "title": "Evolution of sex ratio",
+    "file": "084_SexRatio.tgp"
+   },
+   {
+    "n": 85,
+    "name": "Flocking",
+    "title": "Flocking behaviour",
+    "file": "085_Flocking.tgp"
+   },
+   {
+    "n": 86,
+    "name": "Roads",
+    "title": "Town road simulation",
+    "file": "086_Roads.tgp"
+   },
+   {
+    "n": 87,
+    "name": "Interference",
+    "title": "Wave interference tutor",
+    "file": "087_Interference.tgp"
+   },
+   {
+    "n": 88,
+    "name": "TwoSlits",
+    "title": "Interference from two slits",
+    "file": "088_TwoSlits.tgp"
+   },
+   {
+    "n": 89,
+    "name": "WaveSuperposer",
+    "title": "Hugh Wallis's wave superposer",
+    "file": "089_WaveSuperposer.tgp"
+   },
+   {
+    "n": 90,
+    "name": "RecursionFactory",
+    "title": "Recursion factory",
+    "file": "090_RecursionFactory.tgp"
+   },
+   {
+    "n": 91,
+    "name": "RecursiveTree",
+    "title": "Recursive tree",
+    "file": "091_RecursiveTree.tgp"
+   },
+   {
+    "n": 92,
+    "name": "KochSnowflake",
+    "title": "Koch snowflake",
+    "file": "092_KochSnowflake.tgp"
+   },
+   {
+    "n": 93,
+    "name": "SquareKoch",
+    "title": "Square Koch fractal curves",
+    "file": "093_SquareKoch.tgp"
+   },
+   {
+    "n": 94,
+    "name": "Sierpinski",
+    "title": "Sierpinski triangle (by deletion)",
+    "file": "094_Sierpinski.tgp"
+   },
+   {
+    "n": 95,
+    "name": "SierpinskiDots",
+    "title": "Sierpinski triangle (by random dots)",
+    "file": "095_SierpinskiDots.tgp"
+   },
+   {
+    "n": 98,
+    "name": "IFSbackground",
+    "title": "Iterated function systems (IFS) background",
+    "file": "098_IFSbackground.tgp"
+   },
+   {
+    "n": 99,
+    "name": "IFScolour",
+    "title": "IFS mappings on coloured background",
+    "file": "099_IFScolour.tgp"
+   },
+   {
+    "n": 100,
+    "name": "IFSdemonstrator",
+    "title": "IFS demonstrator program",
+    "file": "100_IFSdemonstrator.tgp"
+   },
+   {
+    "n": 101,
+    "name": "Logistic",
+    "title": "Logistic equation",
+    "file": "101_Logistic.tgp"
+   },
+   {
+    "n": 102,
+    "name": "LogisticSpider",
+    "title": "Logistic spider",
+    "file": "102_LogisticSpider.tgp"
+   },
+   {
+    "n": 103,
+    "name": "MandelbrotDemo",
+    "title": "Mandelbrot multi-colour",
+    "file": "103_MandelbrotDemo.tgp"
+   },
+   {
+    "n": 104,
+    "name": "MandelbrotSpectrumDemo",
+    "title": "Mandelbrot spectral colours",
+    "file": "104_MandelbrotSpectrumDemo.tgp"
+   },
+   {
+    "n": 105,
+    "name": "Quine",
+    "title": "Quine (self-replicating) program",
+    "file": "105_Quine.tgp"
+   },
+   {
+    "n": 106,
+    "name": "Hanoi",
+    "title": "Tower of Hanoi by recursion",
+    "file": "106_Hanoi.tgp"
+   },
+   {
+    "n": 107,
+    "name": "BinarySearch",
+    "title": "Binary search guessing game",
+    "file": "107_BinarySearch.tgp"
+   },
+   {
+    "n": 108,
+    "name": "IterateRoot",
+    "title": "Square roots by iteration",
+    "file": "108_IterateRoot.tgp"
+   },
+   {
+    "n": 109,
+    "name": "Fibonaccis",
+    "title": "Fibonacci recursion and iteration [dynamic programming]",
+    "file": "109_Fibonaccis.tgp"
+   },
+   {
+    "n": 110,
+    "name": "Sorting",
+    "title": "Comparison of sorting methods",
+    "file": "110_Sorting.tgp"
+   },
+   {
+    "n": 111,
+    "name": "SortingStrings",
+    "title": "Comparison of sorting methods (strings)",
+    "file": "111_SortingStrings.tgp"
+   },
+   {
+    "n": 112,
+    "name": "NoughtsAndCrosses",
+    "title": "Tic Tac Toe (Noughts and Crosses)",
+    "file": "112_NoughtsAndCrosses.tgp"
+   },
+   {
+    "n": 113,
+    "name": "NimLearn",
+    "title": "Nim learning program",
+    "file": "113_NimLearn.tgp"
+   },
+   {
+    "n": 114,
+    "name": "MultiNim",
+    "title": "Nim with multiple piles",
+    "file": "114_MultiNim.tgp"
+   },
+   {
+    "n": 115,
+    "name": "KnightsTour",
+    "title": "Knights Tour program",
+    "file": "115_KnightsTour.tgp"
+   },
+   {
+    "n": 116,
+    "name": "TuringMachines",
+    "title": "Turing Machine simulator",
+    "file": "116_TuringMachines.tgp"
+   },
+   {
+    "n": 117,
+    "name": "Syllogisms",
+    "title": "Syllogism testing program",
+    "file": "117_Syllogisms.tgp"
+   }
+  ]
+ },
+ "basic": {
+  "groups": [
+   {
+    "name": "Drawing",
+    "title": "Examples 1 - drawing and counting loops",
+    "first": 1,
+    "last": 12
+   },
+   {
+    "name": "Procedures",
+    "title": "Examples 2 - procedures and simple recursion",
+    "first": 13,
+    "last": 24
+   },
+   {
+    "name": "Further",
+    "title": "Examples 3 - further commands and structures",
+    "first": 25,
+    "last": 36
+   },
+   {
+    "name": "Movement",
+    "title": "Examples 4 - smooth movement and bouncing",
+    "first": 37,
+    "last": 48
+   },
+   {
+    "name": "Interaction",
+    "title": "Examples 5 - user input, interaction and games",
+    "first": 49,
+    "last": 60
+   },
+   {
+    "name": "Files",
+    "title": "Examples 6 - file and directory handling",
+    "first": 61,
+    "last": 68
+   },
+   {
+    "name": "Cellular",
+    "title": "Examples 7 - cellular models",
+    "first": 69,
+    "last": 78
+   },
+   {
+    "name": "Models",
+    "title": "Examples 8 - other models",
+    "first": 79,
+    "last": 89
+   },
+   {
+    "name": "Fractals",
+    "title": "Examples 9 - self-similarity and chaos",
+    "first": 90,
+    "last": 105
+   },
+   {
+    "name": "Logic&CS",
+    "title": "Examples 10 - computer science and logic",
+    "first": 106,
+    "last": 117
+   }
+  ],
+  "examples": [
+   {
+    "n": 1,
+    "name": "DrawPause",
+    "title": "Simple drawing with pauses",
+    "file": "001_DrawPause.tgb"
+   },
+   {
+    "n": 2,
+    "name": "SmileyFace",
+    "title": "Smiley face [PENUP, ELLBLOT]",
+    "file": "002_SmileyFace.tgb"
+   },
+   {
+    "n": 3,
+    "name": "ThePlough",
+    "title": "The plough [SETXY, POLYLINE]",
+    "file": "003_ThePlough.tgb"
+   },
+   {
+    "n": 4,
+    "name": "OlympicRings",
+    "title": "Olympic rings (uses a variable)",
+    "file": "004_OlympicRings.tgb"
+   },
+   {
+    "n": 5,
+    "name": "ForLoop",
+    "title": "FOR loop (uses a counting variable)",
+    "file": "005_ForLoop.tgb"
+   },
+   {
+    "n": 6,
+    "name": "TriangleSpin",
+    "title": "Spinning triangle pattern [MOVEXY]",
+    "file": "006_TriangleSpin.tgb"
+   },
+   {
+    "n": 7,
+    "name": "Circles",
+    "title": "Circling circles",
+    "file": "007_Circles.tgb"
+   },
+   {
+    "n": 8,
+    "name": "NestedLoops",
+    "title": "Nested FOR loops [DIRECTION, RGB]",
+    "file": "008_NestedLoops.tgb"
+   },
+   {
+    "n": 9,
+    "name": "CycleColours",
+    "title": "Cycling colours [RND, MOD]",
+    "file": "009_CycleColours.tgb"
+   },
+   {
+    "n": 10,
+    "name": "Recolouring",
+    "title": "Recolouring [RNDCOL, RECOLOUR, FILL]",
+    "file": "010_Recolouring.tgb"
+   },
+   {
+    "n": 11,
+    "name": "RandomLines",
+    "title": "Random lines pattern [IF, PIXCOL, RECOLOUR]",
+    "file": "011_RandomLines.tgb"
+   },
+   {
+    "n": 12,
+    "name": "RandomEllipses",
+    "title": "Random ellipses pattern",
+    "file": "012_RandomEllipses.tgb"
+   },
+   {
+    "n": 13,
+    "name": "ColourSpiral",
+    "title": "Spiral of colours [REPEAT, RNDCOL]",
+    "file": "013_ColourSpiral.tgb"
+   },
+   {
+    "n": 14,
+    "name": "SimpleProc",
+    "title": "Simple procedure [REPEAT, TURTD]",
+    "file": "014_SimpleProc.tgb"
+   },
+   {
+    "n": 15,
+    "name": "ParameterProc",
+    "title": "Procedure with parameter",
+    "file": "015_ParameterProc.tgb"
+   },
+   {
+    "n": 16,
+    "name": "Polygons",
+    "title": "Polygons (uses 2 parameters) [POLYGON, POLYLINE]",
+    "file": "016_Polygons.tgb"
+   },
+   {
+    "n": 17,
+    "name": "Stars",
+    "title": "Stars [ANGLES, FORGET]",
+    "file": "017_Stars.tgb"
+   },
+   {
+    "n": 18,
+    "name": "PolygonRings",
+    "title": "Polygon rings (uses 3 parameters) [MOD]",
+    "file": "018_PolygonRings.tgb"
+   },
+   {
+    "n": 19,
+    "name": "ResizableFace",
+    "title": "Resizable face (hierarchical procedures)",
+    "file": "019_ResizableFace.tgb"
+   },
+   {
+    "n": 20,
+    "name": "Triangle1",
+    "title": "Simple triangle",
+    "file": "020_Triangle1.tgb"
+   },
+   {
+    "n": 21,
+    "name": "Triangle2",
+    "title": "Triangle procedure",
+    "file": "021_Triangle2.tgb"
+   },
+   {
+    "n": 22,
+    "name": "Triangle3",
+    "title": "Triangle procedure with limit",
+    "file": "022_Triangle3.tgb"
+   },
+   {
+    "n": 23,
+    "name": "Triangles",
+    "title": "Recursive triangles",
+    "file": "023_Triangles.tgb"
+   },
+   {
+    "n": 24,
+    "name": "Factorials",
+    "title": "Recursive factorials [Function, OUTPUT]",
+    "file": "024_Factorials.tgb"
+   },
+   {
+    "n": 25,
+    "name": "YouAreHere",
+    "title": "Text and arrow [DISPLAY]",
+    "file": "025_YouAreHere.tgb"
+   },
+   {
+    "n": 26,
+    "name": "Clock",
+    "title": "Analogue clock (nested Repeat loops)",
+    "file": "026_Clock.tgb"
+   },
+   {
+    "n": 27,
+    "name": "DigitalClock",
+    "title": "Digital clock [IF, WHILE, BOX]",
+    "file": "027_DigitalClock.tgb"
+   },
+   {
+    "n": 28,
+    "name": "Flashlights",
+    "title": "Flashlights (using Booleans)",
+    "file": "028_Flashlights.tgb"
+   },
+   {
+    "n": 29,
+    "name": "RefParams",
+    "title": "Reference parameters (using RETURN)",
+    "file": "029_RefParams.tgb"
+   },
+   {
+    "n": 30,
+    "name": "Balls3D",
+    "title": "3D colour effects",
+    "file": "030_Balls3D.tgb"
+   },
+   {
+    "n": 31,
+    "name": "StringFunctions",
+    "title": "Standard string functions",
+    "file": "031_StringFunctions.tgb"
+   },
+   {
+    "n": 33,
+    "name": "UserStringFunctions",
+    "title": "User-defined string functions",
+    "file": "033_UserStringFunctions.tgb"
+   },
+   {
+    "n": 35,
+    "name": "MathFunctions",
+    "title": "Mathematical functions",
+    "file": "035_MathFunctions.tgb"
+   },
+   {
+    "n": 36,
+    "name": "TrigGraphs",
+    "title": "Trigonometric graphs",
+    "file": "036_TrigGraphs.tgb"
+   },
+   {
+    "n": 37,
+    "name": "MovingBall",
+    "title": "Moving ball (using variables)",
+    "file": "037_MovingBall.tgb"
+   },
+   {
+    "n": 38,
+    "name": "BouncingBall",
+    "title": "Bouncing ball (using variables)",
+    "file": "038_BouncingBall.tgb"
+   },
+   {
+    "n": 39,
+    "name": "TurtleMove",
+    "title": "Moving ball (using Turtle)",
+    "file": "039_TurtleMove.tgb"
+   },
+   {
+    "n": 40,
+    "name": "TurtleBounce",
+    "title": "Bouncing ball (using Turtle)",
+    "file": "040_TurtleBounce.tgb"
+   },
+   {
+    "n": 41,
+    "name": "BouncingFace",
+    "title": "Bouncing face",
+    "file": "041_BouncingFace.tgb"
+   },
+   {
+    "n": 42,
+    "name": "MultiBounce",
+    "title": "Multiple bouncing balls",
+    "file": "042_MultiBounce.tgb"
+   },
+   {
+    "n": 43,
+    "name": "BouncingTriangle",
+    "title": "Bouncing triangle",
+    "file": "043_BouncingTriangle.tgb"
+   },
+   {
+    "n": 44,
+    "name": "BouncingShapes",
+    "title": "Multiple bouncing shapes",
+    "file": "044_BouncingShapes.tgb"
+   },
+   {
+    "n": 45,
+    "name": "GravitySteps",
+    "title": "Movement under gravity",
+    "file": "045_GravitySteps.tgb"
+   },
+   {
+    "n": 46,
+    "name": "SolarSystem",
+    "title": "Solar system",
+    "file": "046_SolarSystem.tgb"
+   },
+   {
+    "n": 49,
+    "name": "AskInput",
+    "title": "Asking for typed input",
+    "file": "049_AskInput.tgb"
+   },
+   {
+    "n": 50,
+    "name": "QuickClick",
+    "title": "Mouse reaction game",
+    "file": "050_QuickClick.tgb"
+   },
+   {
+    "n": 51,
+    "name": "TypingTest",
+    "title": "Typing test (checking characters)",
+    "file": "051_TypingTest.tgb"
+   },
+   {
+    "n": 52,
+    "name": "TypingTestKeys",
+    "title": "Typing test (checking keys)",
+    "file": "052_TypingTestKeys.tgb"
+   },
+   {
+    "n": 53,
+    "name": "IterationGame",
+    "title": "Iteration game (Collatz sequence)",
+    "file": "053_IterationGame.tgb"
+   },
+   {
+    "n": 54,
+    "name": "SpongeThrow",
+    "title": "Throwing sponges at a moving face",
+    "file": "054_SpongeThrow.tgb"
+   },
+   {
+    "n": 55,
+    "name": "Arcade",
+    "title": "Arcade shooting game",
+    "file": "055_Arcade.tgb"
+   },
+   {
+    "n": 56,
+    "name": "ColourCells",
+    "title": "Colouring cells [CANVAS, RESOLUTION, DETECT, RGB, PIXCOL, PIXSET etc.]",
+    "file": "056_ColourCells.tgb"
+   },
+   {
+    "n": 57,
+    "name": "SnakeGame",
+    "title": "Snake (classic game)",
+    "file": "057_SnakeGame.tgb"
+   },
+   {
+    "n": 58,
+    "name": "SimpleDraw",
+    "title": "Drawing to the mouse",
+    "file": "058_SimpleDraw.tgb"
+   },
+   {
+    "n": 59,
+    "name": "PaintApp",
+    "title": "Painting application",
+    "file": "059_PaintApp.tgb"
+   },
+   {
+    "n": 60,
+    "name": "MultipleTurtles",
+    "title": "Multiple turtles and varying ANGLES",
+    "file": "060_MultipleTurtles.tgb"
+   },
+   {
+    "n": 61,
+    "name": "WriteAndReadFile",
+    "title": "Writing and reading a text file",
+    "file": "061_WriteAndReadFile.tgb"
+   },
+   {
+    "n": 62,
+    "name": "RenameAndDeleteFile",
+    "title": "Renaming and deleting a file",
+    "file": "062_RenameAndDeleteFile.tgb"
+   },
+   {
+    "n": 63,
+    "name": "FileSearching",
+    "title": "File searching",
+    "file": "063_FileSearching.tgb"
+   },
+   {
+    "n": 64,
+    "name": "SaveCSV",
+    "title": "Saving a CSV file",
+    "file": "064_SaveCSV.tgb"
+   },
+   {
+    "n": 65,
+    "name": "ReadCSV",
+    "title": "Reading a CSV file",
+    "file": "065_ReadCSV.tgb"
+   },
+   {
+    "n": 66,
+    "name": "RandomSentences",
+    "title": "Random sentences (using files)",
+    "file": "066_RandomSentences.tgb"
+   },
+   {
+    "n": 67,
+    "name": "FileCommands",
+    "title": "File commands",
+    "file": "067_FileCommands.tgb"
+   },
+   {
+    "n": 68,
+    "name": "DirectoryCommands",
+    "title": "Directory commands",
+    "file": "068_DirectoryCommands.tgb"
+   },
+   {
+    "n": 69,
+    "name": "TippingPoint",
+    "title": "Tipping point (city epidemic)",
+    "file": "069_TippingPoint.tgb"
+   },
+   {
+    "n": 70,
+    "name": "Disease",
+    "title": "Spread of disease",
+    "file": "070_Disease.tgb"
+   },
+   {
+    "n": 71,
+    "name": "GameOfLife",
+    "title": "Conway's Game of Life",
+    "file": "071_GameOfLife.tgb"
+   },
+   {
+    "n": 72,
+    "name": "GameOfLifeSetup",
+    "title": "Game of Life with user setup",
+    "file": "072_GameOfLifeSetup.tgb"
+   },
+   {
+    "n": 73,
+    "name": "LifeArrays",
+    "title": "Game of Life, using arrays",
+    "file": "073_LifeArrays.tgb"
+   },
+   {
+    "n": 74,
+    "name": "Automata",
+    "title": "One-dimensional cellular automata",
+    "file": "074_Automata.tgb"
+   },
+   {
+    "n": 75,
+    "name": "Diffusion",
+    "title": "Diffusion in a tapering tube",
+    "file": "075_Diffusion.tgb"
+   },
+   {
+    "n": 76,
+    "name": "Dendrites",
+    "title": "Dendritic crystal growth",
+    "file": "076_Dendrites.tgb"
+   },
+   {
+    "n": 77,
+    "name": "Schelling",
+    "title": "Schelling's segregation model",
+    "file": "077_Schelling.tgb"
+   },
+   {
+    "n": 78,
+    "name": "IteratedPD",
+    "title": "Iterated Prisoner's Dilemma",
+    "file": "078_IteratedPD.tgb"
+   },
+   {
+    "n": 79,
+    "name": "AimCannon",
+    "title": "Firing a cannon (manual)",
+    "file": "079_AimCannon.tgb"
+   },
+   {
+    "n": 80,
+    "name": "AutoCannon",
+    "title": "Firing a cannon (automatic)",
+    "file": "080_AutoCannon.tgb"
+   },
+   {
+    "n": 81,
+    "name": "Launch",
+    "title": "Launching a rocket into orbit",
+    "file": "081_Launch.tgb"
+   },
+   {
+    "n": 82,
+    "name": "BrownianMotion",
+    "title": "Brownian motion",
+    "file": "082_BrownianMotion.tgb"
+   },
+   {
+    "n": 83,
+    "name": "Cheetahs",
+    "title": "Cheetahs and gazelles",
+    "file": "083_Cheetahs.tgb"
+   },
+   {
+    "n": 84,
+    "name": "SexRatio",
+    "title": "Evolution of sex ratio",
+    "file": "084_SexRatio.tgb"
+   },
+   {
+    "n": 85,
+    "name": "Flocking",
+    "title": "Flocking behaviour",
+    "file": "085_Flocking.tgb"
+   },
+   {
+    "n": 86,
+    "name": "Roads",
+    "title": "Town road simulation",
+    "file": "086_Roads.tgb"
+   },
+   {
+    "n": 90,
+    "name": "RecursionFactory",
+    "title": "Recursion factory",
+    "file": "090_RecursionFactory.tgb"
+   },
+   {
+    "n": 91,
+    "name": "RecursiveTree",
+    "title": "Recursive tree",
+    "file": "091_RecursiveTree.tgb"
+   },
+   {
+    "n": 92,
+    "name": "KochSnowflake",
+    "title": "Koch snowflake",
+    "file": "092_KochSnowflake.tgb"
+   },
+   {
+    "n": 93,
+    "name": "SquareKoch",
+    "title": "Square Koch fractal curves",
+    "file": "093_SquareKoch.tgb"
+   },
+   {
+    "n": 94,
+    "name": "Sierpinski",
+    "title": "Sierpinski triangle (by deletion)",
+    "file": "094_Sierpinski.tgb"
+   },
+   {
+    "n": 95,
+    "name": "SierpinskiDots",
+    "title": "Sierpinski triangle (by random dots)",
+    "file": "095_SierpinskiDots.tgb"
+   },
+   {
+    "n": 98,
+    "name": "IFSbackground",
+    "title": "Iterated function systems (IFS) background",
+    "file": "098_IFSbackground.tgb"
+   },
+   {
+    "n": 99,
+    "name": "IFScolour",
+    "title": "IFS mappings on coloured background",
+    "file": "099_IFScolour.tgb"
+   },
+   {
+    "n": 100,
+    "name": "IFSdemonstrator",
+    "title": "IFS demonstrator program",
+    "file": "100_IFSdemonstrator.tgb"
+   },
+   {
+    "n": 101,
+    "name": "Logistic",
+    "title": "Logistic equation",
+    "file": "101_Logistic.tgb"
+   },
+   {
+    "n": 102,
+    "name": "LogisticSpider",
+    "title": "Logistic spider",
+    "file": "102_LogisticSpider.tgb"
+   },
+   {
+    "n": 103,
+    "name": "MandelbrotDemo",
+    "title": "Mandelbrot multi-colour",
+    "file": "103_MandelbrotDemo.tgb"
+   },
+   {
+    "n": 104,
+    "name": "MandelbrotSpectrumDemo",
+    "title": "Mandelbrot spectral colours",
+    "file": "104_MandelbrotSpectrumDemo.tgb"
+   },
+   {
+    "n": 109,
+    "name": "Fibonaccis",
+    "title": "Fibonacci recursion and iteration [dynamic programming]",
+    "file": "109_Fibonaccis.tgb"
+   },
+   {
+    "n": 110,
+    "name": "Sorting",
+    "title": "Comparison of sorting methods",
+    "file": "110_Sorting.tgb"
+   },
+   {
+    "n": 111,
+    "name": "SortingStrings",
+    "title": "Comparison of sorting methods (strings)",
+    "file": "111_SortingStrings.tgb"
+   },
+   {
+    "n": 112,
+    "name": "NoughtsAndCrosses",
+    "title": "Tic Tac Toe (Noughts and Crosses)",
+    "file": "112_NoughtsAndCrosses.tgb"
+   },
+   {
+    "n": 114,
+    "name": "MultiNim",
+    "title": "Nim with multiple piles",
+    "file": "114_MultiNim.tgb"
+   }
+  ]
+ }
+}

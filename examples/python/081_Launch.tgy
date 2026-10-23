@@ -1,0 +1,83 @@
+EARTHRADIUS=6371000
+EARTHGM=398600442
+ANGLEPRECISION=1296000
+INITDIRECTION=2000
+INITTHRUST=20000
+THRUSTTIME=500
+
+def drawrocket():
+    noupdate()
+    blank(black)
+    colour(teal)
+    setxy(0,0)
+    blot(EARTHRADIUS/1000)
+    setxy(x/1000,y/1000)
+    direction(d)
+    thickness(4)
+    colour(silver)
+    forward(200)
+    back(200)
+    if thrust>0:
+        thickness(8)
+        colour(yellow)
+        back(200)
+        forward(200)
+    update()
+
+def report():
+    print('')
+    print('TIME = '+str(t))
+    print(' Xposition = '+str(x)+' metres')
+    print(' Yposition = '+str(y)+' metres')
+    print(' Height = '+qstr(dist-EARTHRADIUS,1000,2)+' km')
+    print(' Direction = '+qstr(d,3600,1)+' degrees')
+    print(' Thrust = '+qstr(thrust,1000,1)+' newtons per kg')
+    print('  Xthrust = '+qstr(xthrust,1000,1)+' newtons per kg')
+    print('  Ythrust = '+qstr(ythrust,1000,1)+' newtons per kg')
+    print(' Gravity = '+qstr(gravity,1000,1)+' newtons per kg')
+    print('  Xgravity = '+qstr(xgravity,1000,1)+' newtons per kg')
+    print('  Ygravity = '+qstr(ygravity,1000,1)+' newtons per kg')
+    print(' Xvelocity = '+qstr(xvel,1000,1)+' metres per s')
+    print(' Yvelocity = '+qstr(yvel,1000,1)+' metres per s')
+
+canvas(-20000,-20000,40000,40000)
+angles(ANGLEPRECISION)
+x=0
+y=-EARTHRADIUS
+xvel=0
+yvel=0
+d=INITDIRECTION
+t=0
+prevdiff=1
+thrust=INITTHRUST
+dist=EARTHRADIUS
+while (dist>=EARTHRADIUS) and (dist<40000000):
+    drawrocket()
+    prevdist=dist
+    dist=hypot(x,y,1)
+    if ((dist-prevdist)*prevdiff<=0) and (t>0):
+        report()
+    prevdiff=dist-prevdist
+    gravity=divmult(EARTHGM,divmult(dist,1000000,dist),1000)
+    xgravity=divmult(gravity,dist,-x)
+    ygravity=divmult(gravity,dist,-y)
+    xthrust=sin(d,1,thrust)
+    ythrust=-cos(d,1,thrust)
+    xvel=xvel+xgravity+xthrust
+    yvel=yvel+ygravity+ythrust
+    x=x+xvel/1000
+    y=y+yvel/1000
+    if yvel>0:
+        d=ANGLEPRECISION/2-atan(xvel,yvel,1)
+    else:
+        d=atan(xvel,-yvel,1)
+    t+=1
+    if t==THRUSTTIME:
+        thrust=0
+if dist<EARTHRADIUS:
+    colour(yellow)
+    for explosion in range (100,200):
+        blot(explosion)
+        pause(3)
+    colour(black)
+    blot(200)

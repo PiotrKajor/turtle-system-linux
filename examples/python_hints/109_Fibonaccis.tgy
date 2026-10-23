@@ -1,0 +1,35 @@
+# specify number of values to be calculated
+LASTNUM=25
+fibSave=[1]*(LASTNUM+1)
+
+# calculates nth Fibonacci number recursively
+def fibRecursive(n:int):
+    if (n==1) or (n==2):
+        return 1
+    else:
+        return fibRecursive(n-1)+fibRecursive(n-2)
+
+# calculates nth Fibonacci number iteratively,
+# assuming the n-1 and n-2 values have already
+# been calculated and stored in fibSave list
+def fibIterative(n:int):
+    if (n==1) or (n==2):
+        fibSave[n]=1
+    else:
+        fibSave[n]=fibSave[n-1]+fibSave[n-2]
+    return fibSave[n]
+
+# set up and show the output display
+output(True,cream,True)
+# calculate 25 Fibonacci values recursively (slow)
+print('First, by recursion:')
+timeset(0)
+for count in range (1,LASTNUM+1):
+    print('fib('+str(count)+') = '+str(fibRecursive(count)))
+print('Time taken: '+qstr(time(),1000,2)+' seconds')
+print()
+print('Then, by iteration:')
+timeset(0)
+for count in range (1,LASTNUM+1):
+    print('fib('+str(count)+') = '+str(fibIterative(count)))
+print('Time taken: '+qstr(time(),1000,2)+' seconds')

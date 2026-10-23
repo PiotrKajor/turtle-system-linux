@@ -1,0 +1,59 @@
+# THESE INITIAL CONSTANTS AND PARAMETERS CAN ALL BE ADAPTED TO ACHIEVE DIFFERENT PATTERNS ...
+xcanvas=256 # width of canvas
+ycanvas=256 # height of canvas
+live=black  # colour to use for "live" cells
+mappings=3  # number of mappings
+coeffdiv=2  # dividing factor for all x and y coefficients - hence "/2" below
+mapxx=[1,1,1] # (x,y) is mapped to (1/2 x + ?/2 y + xc, --) for all three mappings
+mapxy=[0,0,0] # (x,y) is mapped to (1/2 x + 0/2 y + xc, --) for all three mappings
+mapxc=[xcanvas/4,0,xcanvas/2] # xc is the horizontal offset for the three mappings
+mapyx=[0,0,0] # (x,y) is mapped to (-- , 0/2 x + ?/2 y + yc) for all three mappings
+mapyy=[1,1,1] # (x,y) is mapped to (-- , 0/2 x + 1/2 y + yc) for all three mappings
+mapyc=[0,ycanvas/2,ycanvas/2] # yc is the vertical offset for the three mappings
+
+def domap(mapnum):
+    global numborn
+    noupdate()
+    for y in range (1,ycanvas+1):        # scanning down the Canvas,
+        for x in range (1,xcanvas+1):      # then across ...
+            if pixcol(x,y)!=white:          # if pixel is not WHITE, calculate its mapped location ...
+                newx=(x*mapxx[mapnum]/coeffdiv)+(y*mapxy[mapnum]/coeffdiv)+mapxc[mapnum]
+                newy=(x*mapyx[mapnum]/coeffdiv)+(y*mapyy[mapnum]/coeffdiv)+mapyc[mapnum]
+                if pixcol(newx,newy)==white:    # if mapped location is WHITE, increment NUMBORN
+                    numborn+=1
+                pixset(newx,newy,rgb(mapnum+1)) # colour pixel by mapping number, i.e. green, red, blue etc.
+    update()
+
+def cleanup():
+    global numkilled
+    noupdate()
+    for y in range (1,ycanvas+1):   # scanning down the Canvas,
+        for x in range (1,xcanvas+1): # then across ...
+            if pixcol(x,y)==live:      # if pixel is (still) LIVE, kill it and increment NUMKILLED
+                pixset(x,y,white)
+                numkilled+=1
+            elif pixcol(x,y)!=white:   # otherwise, if pixel is not WHITE, make it LIVE
+                pixset(x,y,live)
+    update()
+
+canvas(1,1,xcanvas,ycanvas) # Canvas starts at (1,1) to achieve neat rounding
+resolution(xcanvas,ycanvas)
+blank(live)
+iteration=0          # to count iterations
+timeset(0)           # set TIME to zero to count time from beginning
+flag=True            # set FLAG true to ensure that loop is performed first time around
+while flag or (numborn+numkilled>0):
+    flag=False       # set FLAG false so it has no effect on subsequent loops
+    starttime=time() # set STARTTIME to current TIME, to count time of this iteration
+    iteration+=1
+    print('Iteration '+str(iteration)+':')
+    numborn=0
+    for count in range (mappings):
+        domap(count) # perform each mapping in turn, counting NUMBORN meanwhile
+    numkilled=0
+    cleanup()        # kill pixels that haven't been recopied, counting NUMKILLED
+    print('  '+str(numborn)+' pixels born; '+str(numkilled)+' pixels killed')
+    print('  (took '+str((time()-starttime)/1000)+' seconds - total '+str(time()/1000)+' seconds so far)')
+print('FINISH - fixed point of iterative mapping has been reached')
+for count in range (mappings):
+    domap(count)     # finish off by showing final mappings in different colours

@@ -1,0 +1,56 @@
+FACESIZE=100
+SPONGESIZE=40
+
+def face(size:int):
+
+    def eye():
+        colour(white)
+        ellblot(size*3/20,size/10)
+        colour(emerald)
+        blot(size*9/100)
+        colour(black)
+        blot(size/25)
+
+    direction(0)
+    colour(peach)
+    blot(size)
+    colour(darkred)
+    blot(size*7/10)
+    forward(size*3/20)
+    colour(peach)
+    blot(size*3/4)
+    back(size*3/10)
+    colour(royal)
+    blot(size*3/20)
+    penup()
+    forward(size*9/20)
+    left(90)
+    forward(size*2/5)
+    eye()
+    back(size*4/5)
+    eye()
+
+x=300
+y=700
+xvel=8
+yvel=-4
+while 0<1:
+    noupdate()
+    colour(white)
+    setxy(x,y)
+    blot(FACESIZE+SPONGESIZE)
+    x=x+xvel
+    y=y+yvel
+    setxy(x,y)
+    face(FACESIZE)
+    update()
+    pause(10)
+    if (?lmouse>0) and (hypot(?mousex-x,?mousey-y,1)<FACESIZE):
+        setxy(?mousex,?mousey)
+        randcol(4)
+        blot(SPONGESIZE)
+        pause(100)
+    if (x<FACESIZE) or (x>999-FACESIZE):
+        xvel=-xvel
+    if (y<FACESIZE) or (y>999-FACESIZE):
+        yvel=-yvel

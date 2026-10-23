@@ -1,0 +1,95 @@
+program UserStringFunctions;
+
+{generates the reverse of a string}
+function reverse(s:string):string;
+var
+  posn:integer;
+begin
+  result :='';
+  for posn:=1 to length(s) do
+    result :=s[posn]+result
+end;
+
+{generates the reverse of a string recursively}
+function reverseRecursive(s:string):string;
+begin
+  if s='' then
+    result :=s
+  else
+    result :=reverseRecursive(delete(s,1,1))+s[1]
+end;
+
+{tests whether a character is uppercase (1), lowercase (0), or neither (-1)}
+function testCase(c:char):integer;
+begin
+  if (c>='A') and (c<='Z') then
+    result :=1
+  else if (c>='a') and (c<='z') then
+    result :=0
+  else
+    result :=-1
+end;
+
+{capitalises first letter of each word, leaving other letters unchanged and}
+{treating any non-letter as a word separator; the native TITLECASE function}
+{treats only spaces as word separators, making subsequent letters lowercase}
+function initCaps(s:string):string;
+var
+  posn:integer;
+  newword:boolean;
+begin
+  newword:=true;
+  for posn:=1 to length(s) do
+  begin
+    if newword and (testCase(s[posn])=0) then
+      s[posn]:=chr(ord(s[posn])-32);
+    newword:=(testCase(s[posn])=-1)
+  end;
+  result :=s
+end;
+
+{generates the Caesar cipher of a string}
+function caesar(s:string;n:integer):string;
+var
+  posn:integer;
+begin
+  for posn:=1 to length(s) do
+  begin
+    if testCase(s[posn])=1 then
+    begin
+      s[posn]:=chr(ord(s[posn])+n);
+      if s[posn]>'Z' then
+        s[posn]:=chr(ord(s[posn])-26)
+    end
+    else if testCase(s[posn])=0 then
+    begin
+      s[posn]:=chr(ord(s[posn])+n);
+      if s[posn]>'z' then
+        s[posn]:=chr(ord(s[posn])-26)
+    end
+  end;
+  result :=s
+end;
+
+{shows the results of applying the above functions to a string}
+procedure process(s:string);
+begin
+  writeln('');
+  writeln('ORIGINAL STRING:               "'+s+'"');
+  writeln('REVERSED (by iteration):       "'+reverse(s)+'"');
+  writeln('REVERSED (by recursion):       "'+reverseRecursive(s)+'"');
+  writeln('INITIAL CAPITAL ALL WORDS:     "'+initCaps(s)+'"');
+  writeln('REVERSED THEN INITIAL CAPITAL: "'+initCaps(reverse(s))+'"');
+  writeln('CAESAR CIPHER (1 letter):      "'+caesar(s,1)+'"');
+  writeln('CAESAR DECRYPT (1+25 = 26):    "'+caesar(caesar(s,1),25)+'"');
+  writeln('CAESAR CIPHER (4 letters):     "'+caesar(s,4)+'"');
+  writeln('CAESAR DECRYPT (4+22 = 26):    "'+caesar(caesar(s,4),22)+'"')
+end;
+begin
+  {show the output}
+  output(true,cream,true);
+  writeln('Some User-Defined String Functions');
+  {process some example strings}
+  process('CREATING is better than LEARNING;');
+  process('indeed it''s the Essence of Life!')
+end.

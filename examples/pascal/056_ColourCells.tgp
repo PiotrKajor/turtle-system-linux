@@ -1,0 +1,33 @@
+program ColourCells;
+const
+  width=10;
+  height=15;
+var
+  x:integer;  {to count across width}
+  mk:integer; {to identify mouse/keypress}
+begin
+ {set up canvas coordinates and resolution}
+  canvas(1,1,width,height);
+  resolution(width,height);
+ {draw coloured pixels across bottom}
+  for x:=1 to width do
+    pixset(x,height,rgb(x));
+ {now enter interactive repeat loop}
+  repeat
+    {detect mouse click or key within 5 seconds}
+    mk:=detect(\mousekey,5000);
+    {if left click, cell becomes turtle colour}
+    if mk=1 then
+      pixset(?mousex,?mousey,turtc)
+    else
+    {if right click, turtle takes colour from cell}
+    {"turtc:=X" has the same effect as "colour(X)"}
+    if mk=2 then
+      turtc:=pixcol(?mousex,?mousey)
+    else
+    {if middle click, cell takes random colour}
+    if mk=4 then
+      pixset(?mousex,?mousey,rgb(random(10)+1))
+ {continue until ESCAPE key is pressed}
+  until mk=\escape
+end.

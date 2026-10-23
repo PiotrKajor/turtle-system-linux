@@ -1,0 +1,86 @@
+# Constants
+GUNLENGTH=1000
+DISTANCECOL=green
+TIMECOL=red
+
+# Draw axes of graph
+def graphaxes():
+    thickness(5)
+    setxy(9700,600)
+    drawxy(0,3900)
+    drawxy(-9000,0) # x axis 700 to 9700
+    drawxy(0,-3900) # y axis 4500 to 600
+    for n in range (0,91,5):
+        setxy(650+n*100,4600)
+        display(str(n),2,16)
+    for n in range (10):
+        setxy(100,4350-n*400)
+        display(str(n*1000),2,16)
+    for n in range (10):
+        setxy(9900,4380-n*400)
+        display(str(n*20),2,16)
+    setxy(4000,4900)
+    display("Angle of elevation",2,24)
+    colour(DISTANCECOL)
+    setxy(0,100)
+    display("Distance",2,24)
+    colour(TIMECOL)
+    setxy(9600,100)
+    display("Time",2,24)
+
+# Plot coloured point on graph
+def plot(x,y,col):
+    setxy(700+x*100,4500-y*2/5)
+    colour(col)
+    blot(40)
+
+# Draw cannon at given elevation
+def aim(elevation):
+    noupdate()
+    setxy(0,10000)
+    colour(cream)
+    blot(1600)
+    colour(yellowgreen)
+    blot(1400)
+    colour(maroon)
+    setxy(250,9750)
+    blot(250)
+    direction(90-elevation)
+    forward(GUNLENGTH)
+    setxy(250,9750)
+    colour(red)
+    blot(100)
+    update()
+
+# Fire the cannon
+def fire(xvel,yvel,gravity,floor):
+    global steps # turty is automatically treated as global
+    setxy(250,9750)
+    steps=0
+    while turty!=floor:
+        steps=steps+1
+        if pixcol(turtx,turty)==black:
+            colour(white)
+            blot(90)
+        movexy(xvel,yvel)
+        yvel=yvel+gravity
+        if turty>floor:
+            turty=floor
+        if (pixcol(turtx,turty)==white) or (turty==floor):
+            colour(black)
+            blot(75)
+        update()
+        pause(10)
+        noupdate()
+
+# Set up Canvas, loop through angles from 0 to 90 and fire
+canvas(0,0,10500,10000)
+graphaxes()
+thickness(20)
+for n in range (91):
+    aim(n)
+    print("Elevation: "+str(90-turtd),end ="")
+    fire(cos(90-turtd,1,96),sin(90-turtd,1,-96),1,9950)
+    print("  Distance: "+str(turtx)," Time: "+str(steps))
+    plot(90-turtd,turtx,DISTANCECOL)
+    plot(90-turtd,steps*50,TIMECOL)

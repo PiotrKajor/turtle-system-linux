@@ -1,0 +1,38 @@
+# PLANETS and SUNRADIUS are constants
+PLANETS=8
+SUNRADIUS=50000
+# Lists cannot be constants in Turtle Python
+radius=[2440,6052,6371,3390,69911,58232,25362,24622] # km
+distanceFromSun=[5791,10821,14960,22796,77848,143204,286704,451495] # 10000 km
+angvel=[4152,1626,1000,532,84,34,12,6] # angular velocity, Earth=1000
+colr=[white,ochre,blue,orangered,lightred,cream,cyan,royal]
+rotation=[0]*PLANETS
+
+# multiply canvas dimensions by 1000
+angles(360000)
+canvas(0,0,1000000,1000000)
+penup()
+while 1>0:
+    noupdate()
+    # rub out previous frame
+    blank(black)
+    # draw sun
+    home()
+    colour(yellow)
+    blot(SUNRADIUS)
+    # draw each planet
+    for i in range (PLANETS):
+        home()
+        # draw a white circle for the orbit
+        colour(white)
+        circle(distanceFromSun[i]+SUNRADIUS)
+        # move to next position and draw the planet
+        right(rotation[i])
+        forward(distanceFromSun[i]+SUNRADIUS)
+        rotation[i]=(rotation[i]+angvel[i])% 360000
+        colour(colr[i])
+        if i<=3:
+            blot(radius[i]*2) # make inner planets double scale
+        else:
+            blot(radius[i]/2) # make outer planets half scale
+    update()

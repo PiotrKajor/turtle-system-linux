@@ -1,0 +1,95 @@
+
+CONST testFile1$="testFile1$.txt"
+CONST testFile2$="testFile2$.txt"
+CONST enquire%=0
+CONST delete%=1
+CONST create%=2
+CONST recreate%=3
+CONST tNotify%=4
+CONST fNotify%=16
+CONST tOnEntry%=64
+CONST tOnExit%=128
+
+OUTPUT(TRUE,CREAM,TRUE)
+PROCcheckFileAndDisplay(testFile1$)
+PROCshowResult(FILEEXISTS(testFile1$),"FILEEXISTS("+testFile1$+")")
+PRINT("")
+PROCdeleteFileAndDisplay(testFile1$)
+
+IF CHECKFILE(testFile1$,create%)>127 THEN
+  PRINT("File "" + testFile1$ + "" has been created")
+ELSE
+  PRINT("File "" + testFile1$ + "" could not be created")
+ENDIF
+PROCshowResult(FILEEXISTS(testFile1$),"FILEEXISTS("+testFile1$+")")
+PROCshowResult(FILEEXISTS(testFile2$),"FILEEXISTS("+testFile2$+")")
+PRINT("")
+
+IF COPYFILE(testFile1$,testFile2$) THEN
+  PRINT("File "" + testFile1$ + "" has been copied to "" + testFile2$ + """)
+ELSE
+  PRINT("File "" + testFile1$ + "" could not be copied to "" + testFile2$ + """)
+ENDIF
+PROCshowResult(FILEEXISTS(testFile1$),"FILEEXISTS("+testFile1$+")")
+PROCshowResult(FILEEXISTS(testFile2$),"FILEEXISTS("+testFile2$+")")
+PRINT("")
+
+IF CHECKFILE(testFile1$,delete%)<128 THEN
+  PRINT("File "" + testFile1$ + "" has been deleted")
+ELSE
+  PRINT("File "" + testFile1$ + "" could not be deleted")
+ENDIF
+PROCshowResult(FILEEXISTS(testFile1$),"FILEEXISTS("+testFile1$+")")
+PRINT("")
+
+PROCdeleteFileAndDisplay(testFile1$)
+
+PROCshowResult(FILEEXISTS(testFile2$),"FILEEXISTS("+testFile2$+")")
+IF RENAMEFILE(testFile2$,testFile1$) THEN
+  PRINT("File "" + testFile2$ + "" has been renamed "" + testFile1$ + """)
+ELSE
+  PRINT("File "" + testFile2$ + "" could not be renamed"" + testFile1$ + """)
+ENDIF
+PROCshowResult(FILEEXISTS(testFile1$),"FILEEXISTS("+testFile1$+")")
+PROCshowResult(FILEEXISTS(testFile2$),"FILEEXISTS("+testFile2$+")")
+PRINT("")
+
+PROCdeleteFileAndDisplay(testFile1$)
+END
+
+
+DEF PROCshowResult(value%,commandText$)
+  IF value% THEN
+    PRINT(UCASE$(commandText$)+" returns TRUE")
+  ELSE
+    PRINT(UCASE$(commandText$)+" returns FALSE")
+  ENDIF
+ENDPROC
+
+
+DEF PROCcheckFileAndDisplay(filename$)
+  LOCAL code%
+  code%=create%+tNotify%+fNotify%
+  PRINT("Code on entry = $"+HEX$(code%,2))
+  PRINT("The initial CHECKFILE command will invoke a message window ...")
+  code%=CHECKFILE(filename$,code%)
+  PRINT("Code on exit = $"+HEX$(code%,2))
+  IF (code% AND tOnEntry%)>0 THEN
+    PRINT("File existed on entry")
+  ELSE
+    PRINT("No file on entry")
+  ENDIF
+  IF (code% AND tOnExit%)>0 THEN
+    PRINT("File existed on exit")
+  ELSE
+    PRINT("No file on exit")
+  ENDIF
+  PRINT("")
+ENDPROC
+
+
+DEF PROCdeleteFileAndDisplay(filename$)
+  PROCshowResult(DELETEFILE(testFile1$),"DELETEFILE("+testFile1$+")")
+  PROCshowResult(FILEEXISTS(testFile1$),"FILEEXISTS("+testFile1$+")")
+  PRINT("")
+ENDPROC

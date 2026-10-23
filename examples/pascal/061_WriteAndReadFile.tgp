@@ -1,0 +1,56 @@
+program WriteAndReadFile;
+var
+  myfilename:string; {holds chosen filename}
+  handle:integer; {"file handle" assigned for accessing file}
+procedure writefile;
+begin
+  handle:=openfile(myfilename,3); {3 = OPEN FOR WRITING}
+  if handle>0 then {handle>0 means file opening has succeeded}
+  begin           {and hence file does not already exist}
+    writeln(myfilename+' has been opened for writing ...');
+    fwriteln(handle,'This is the first line to be written.');
+    fwriteln(handle,'This is the second line to be written.');
+    fwriteln(handle,'This is the third line to be written.');
+    closefile(handle) {write lines to the file, then close it}
+  end
+  else
+  begin {if file already exists, open for appending instead}
+    writeln(myfilename+' could not be opened for writing');
+    handle:=openfile(myfilename,2); {2 = OPEN FOR APPENDING}
+    if handle>0 then {handle>0 means file opening has succeeded}
+    begin           {and hence file already exists}
+      writeln(myfilename+' has been opened for appending ...');
+      fwriteln(handle,'This is the first line to be written.');
+      fwriteln(handle,'This is the second line to be written.');
+      fwriteln(handle,'This is the third line to be written.');
+      closefile(handle) {write lines to the file, then close it}
+    end
+    else {means there's been some error, e.g. illegal filename}
+      writeln('Nor could it be opened for appending')
+  end
+end;
+procedure readfile;
+var
+  s:string [255];
+begin
+  handle:=openfile(myfilename,1); {1 = OPEN FOR READING}
+  if handle>0 then {handle>0 means file opening has succeeded}
+  begin           {and hence file already exists}
+    writeln('Contents read from '+myfilename+':');
+    while not (eof(handle)) do
+    begin             {while not end of file, ...}
+      s:=freadln(handle); {read the next line from the file,}
+      writeln('  '+s)     {and write it to the output display}
+    end;
+    closefile(handle)  {on reaching the end of file, close it}
+  end
+  else
+    writeln(myfilename+' could not be opened for reading')
+end;
+begin
+  output(true,cream,true);    {initialise the output display}
+  myfilename:='TestFile.txt'; {specify chosen filename}
+  writefile;                  {write three lines to the file}
+  writeln(''); {blank line to output display}
+  readfile     {read the file, displaying contents to output}
+end.

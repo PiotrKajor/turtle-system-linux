@@ -1,0 +1,44 @@
+program BinarySearch;
+var
+  lowest,highest,middle:integer;
+  typed:string;
+  det:integer;
+begin
+  output(true,cream,true);
+  lowest:=1;
+  highest:=1000;
+  writeln('Please choose a number between '+str(lowest)+' and '+str(highest));
+  pause(1000);
+  writeln('Then after each guess, type C/H/L to indicate Correct/High/Low');
+  writeln('');
+  pause(1000);
+  repeat
+    middle:=(lowest+highest) div 2;
+    write('I guess '+str(middle)+'    ');
+    repeat
+      det:=detect(\keybuffer,0);
+      typed:=uppercase(read(1))
+    until pos(typed,'CHL')>0;
+    if typed='C' then
+      writeln('SUCCESS!')
+    else
+    begin
+      if typed='H' then
+      begin
+        write('MY GUESS WAS TOO HIGH ');
+        highest:=middle-1
+      end
+      else if typed='L' then
+      begin
+        write('MY GUESS WAS TOO LOW ');
+        lowest:=middle+1
+      end;
+      writeln('(range is now '+str(lowest)+'-'+str(highest)+')')
+    end;
+    writeln('')
+  until (lowest>=highest) or (typed='C');
+  if lowest=highest then
+    writeln('Your number must be '+str(lowest))
+  else if typed<>'C' then
+    writeln('Impossible!')
+end.

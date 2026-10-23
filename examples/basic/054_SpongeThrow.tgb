@@ -1,0 +1,78 @@
+CONST FACERADIUS%=100
+CONST SPONGERADIUS%=40
+REM set initial face location and velocity
+x%=300
+y%=700
+xVelocity%=8
+yVelocity%=-4
+REM repeatedly...
+WHILE 0<1
+  NOUPDATE
+  REM rub out previous face
+  COLOUR(WHITE)
+  SETXY(x%,y%)
+  BLOT(FACERADIUS%+SPONGERADIUS%)
+  REM move to next location and draw new face
+  x%=x%+xVelocity%
+  y%=y%+yVelocity%
+  SETXY(x%,y%)
+  PROCface(FACERADIUS%)
+  UPDATE
+  PAUSE(10)
+  REM if left click detected within the face...
+  IF (?lmouse>0) AND (HYPOT(?mousex-x%,?mousey-y%,1)<FACERADIUS%) THEN
+    REM draw a randomly coloured sponge and pause
+    SETXY(?mousex,?mousey)
+    RNDCOL(4)
+    BLOT(SPONGERADIUS%)
+    PAUSE(100)
+  ENDIF
+  REM "bounce" (i.e. invert velocity) at canvas edges
+  IF (x%<FACERADIUS%) OR (x%>999-FACERADIUS%) THEN
+    xVelocity%=-xVelocity%
+  ENDIF
+  IF (y%<FACERADIUS%) OR (y%>999-FACERADIUS%) THEN
+    yVelocity%=-yVelocity%
+  ENDIF
+ENDWHILE
+END
+
+REM draws a face of the given radius
+REM N.B. copied from the Resizable face example
+DEF PROCface(radius%)
+  DIRECTION(0)
+  REM draw head
+  COLOUR(PEACH)
+  BLOT(radius%)
+  REM draw mouth
+  COLOUR(DARKRED)
+  BLOT(radius%*7/10)
+  FORWARD(radius%*3/20)
+  COLOUR(PEACH)
+  BLOT(radius%*3/4)
+  REM draw nose
+  BACK(radius%*3/10)
+  COLOUR(ROYAL)
+  BLOT(radius%*3/20)
+  REM move to left eye position (without drawing)
+  PENUP
+  FORWARD(radius%*9/20)
+  LEFT(90)
+  FORWARD(radius%*2/5)
+  REM draw left eye
+  PROCeye(radius%)
+  REM move to right eye position (without drawing)
+  BACK(radius%*4/5)
+  REM draw right eye
+  PROCeye(radius%)
+ENDPROC
+
+REM draws an eye sized to fit the given face radius
+DEF PROCeye(faceRadius%)
+  COLOUR(WHITE)
+  ELLBLOT(faceRadius%*3/20,faceRadius%/10)
+  COLOUR(EMERALD)
+  BLOT(faceRadius%*9/100)
+  COLOUR(BLACK)
+  BLOT(faceRadius%/25)
+ENDPROC

@@ -1,0 +1,73 @@
+CONST MINSIZE%=70
+CONST MAXSIZE%=130
+CONST SHAPES%=6
+DIM x%(SHAPES%)
+DIM y%(SHAPES%)
+DIM d%(SHAPES%)
+DIM xVelocity%(SHAPES%)
+DIM yVelocity%(SHAPES%)
+DIM dVelocity%(SHAPES%)
+DIM sides%(SHAPES%)
+DIM size%(SHAPES%)
+DIM colr%(SHAPES%)
+REM set initial properties for each shape
+FOR n%=1 TO SHAPES%
+  sides%(n%)=n%+2
+  size%(n%)=MINSIZE%+RND(MAXSIZE%-MINSIZE%)
+  colr%(n%)=RGB(n%)
+  x%(n%)=RND(1000-2*size%(n%))+size%(n%)
+  y%(n%)=RND(1000-2*size%(n%))+size%(n%)
+  d%(n%)=RND(360)
+  xVelocity%(n%)=RND(15)-7
+  yVelocity%(n%)=RND(15)-7
+  dVelocity%(n%)=RND(4)+3
+NEXT
+WHILE 0<1
+  NOUPDATE
+  REM rub out previous shapes
+  BLANK(WHITE)
+  REM draw each shape in its next position
+  FOR n%=1 TO SHAPES%
+    REM move to next position
+    x%(n%)=x%(n%)+xVelocity%(n%)
+    y%(n%)=y%(n%)+yVelocity%(n%)
+    d%(n%)=(d%(n%)+dVelocity%(n%)) MOD 360
+    SETXY(x%(n%),y%(n%))
+    DIRECTION(d%(n%))
+    REM draw shape
+    PROCdrawShape(sides%(n%),size%(n%),colr%(n%))
+    REM "bounce" (i.e. invert velocity) at canvas edges
+    IF xEdge% THEN
+      xVelocity%(n%)=-xVelocity%(n%)
+      dVelocity%(n%)=-dVelocity%(n%)
+    ENDIF
+    IF yEdge% THEN
+      yVelocity%(n%)=-yVelocity%(n%)
+      dVelocity%(n%)=-dVelocity%(n%)
+    ENDIF
+  NEXT
+  UPDATE
+  PAUSE(5)
+ENDWHILE
+END
+
+REM draws a polygon, and checks whether it meets the edge of the canvas
+DEF PROCdrawShape(sides%,size%,colr%)
+  LOCAL count%
+  xEdge%=FALSE
+  yEdge%=FALSE
+  COLOUR(colr%)
+  FOR count%=1 TO sides%
+    FORWARD(size%)
+    IF ABS(turtx%-500)>495 THEN
+      xEdge%=TRUE
+    ENDIF
+    IF ABS(turty%-500)>495 THEN
+      yEdge%=TRUE
+    ENDIF
+    BACK(size%)
+    FORGET(1)
+    RIGHT(360/sides%)
+  NEXT
+  POLYGON(sides%)
+ENDPROC

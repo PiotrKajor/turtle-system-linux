@@ -1,0 +1,23 @@
+program ParameterProc;
+var
+  count:integer;
+
+{draws a prong of the given size}
+procedure prong(size:integer);
+begin
+  forward(size);
+  {blot radius is 1/20 of prong length}
+  blot(size/20);
+  back(size)
+end;
+begin
+  {draw 360 prongs of decreasing size}
+  for count:=360 downto 1 do
+  begin
+    randcol(10);
+    {longest is 460, smallest is 101}
+    prong(count+100);
+    {61 degrees gives six-arm spiral}
+    right(61)
+  end
+end.

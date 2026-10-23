@@ -1,0 +1,62 @@
+# disable key output in the console
+keyecho(False)
+# repeatedly...
+while True:
+    # rub out previous frame
+    blank(white)
+    setxy(50,20)
+    colour(blue)
+    display('Type in a starting integer (>1):',4,36)
+    setxy(800,20)
+    colour(black)
+    # while waiting for input of integer greater than 1...
+    first=-1
+    while first<=1:
+        # empty the keybuffer
+        reset(\keybuffer)
+        # print contents of keybuffer on canvas
+        while abs(?key)!=\return:
+            box(200,60,white,False)
+            display(read(0),4,36)
+            pause(100)
+        # read value of keybuffer into String
+        s=input()
+        # try to convert s to integer
+        first=intdef(s,-1)
+        # reset key input value
+        reset(\key)
+    # set latest number to user's input
+    latest=first
+    # initialise count variable
+    count=0
+    # print first number in blue
+    colour(blue)
+    # until the sequence reaches 1...
+    while latest!=1:
+        # print the latest number
+        setxy((count % 10)*100+20,(count//10)*45+300) # // rounds down to integer, hence
+        display(str(latest),4,24)                   # count//10 gives row number from 0
+        # move to the next number in COLLATZ SEQUENCE:
+        if latest % 2==0:
+            latest=latest/2          # if latest number is even, halve it
+        else:
+            latest=3*latest+1        # if latest is odd, multiply by 3 and add 1
+        # increment the count variable
+        count=count+1
+        # print subsequent numbers in green
+        colour(green)
+    # print final number (1) in red
+    setxy((count % 10)*100+20,(count//10)*45+300) # // rounds down to integer
+    colour(red)
+    display(str(latest),4,24)
+    # print length of sequence
+    setxy(100,100)
+    display('That took '+str(count)+' iterations to reach 1',4,36)
+    colour(black)
+    setxy(250,200)
+    # wait for key press to start again
+    display('[Press a key to continue]',4,30)
+    while ?key<=0:
+        pass
+    # reset key input value
+    reset(\key)

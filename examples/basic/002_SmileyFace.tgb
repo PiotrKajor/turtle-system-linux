@@ -1,0 +1,37 @@
+REM avoid drawing lines as Turtle moves
+PENUP
+REM draw head
+COLOUR(PEACH)
+BLOT(200)
+REM draw mouth using overlapping blots
+COLOUR(DARKRED)
+BLOT(140)
+FORWARD(30)
+COLOUR(PEACH)
+BLOT(150)
+REM draw blue nose
+BACK(60)
+COLOUR(ROYAL)
+BLOT(30)
+REM move to left eye position
+FORWARD(90)
+LEFT(90)
+REM Turtle is now pointing leftwards
+FORWARD(80)
+REM draw left eye
+COLOUR(WHITE)
+ELLBLOT(30,20)
+COLOUR(EMERALD)
+BLOT(18)
+COLOUR(BLACK)
+BLOT(8)
+REM move to right eye position
+BACK(160)
+REM draw right eye
+COLOUR(WHITE)
+ELLBLOT(30,20)
+COLOUR(EMERALD)
+BLOT(18)
+COLOUR(BLACK)
+BLOT(8)
+END

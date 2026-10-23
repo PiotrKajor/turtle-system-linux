@@ -1,0 +1,84 @@
+# Set up map dimensions and colours
+WIDTH=100
+HEIGHT=100
+SUSCEPTIBLE=lightgreen
+INFECTED=red
+RECOVERED=blue
+
+# Set up disease parameters
+startradius=10
+initprob=1
+immuneprob=2
+recoverprob=15
+
+# Do cells move?  Should the numbers be continuously reported?
+movement=False
+report=False
+
+# Function that infects cell (x,y)
+def infect(x:int,y:int):
+    global numinfected,numinfectious
+    pixset(x,y,INFECTED)
+    numinfected+=1
+    numinfectious+=1
+    if report:
+        print('Infected: '+pad(str(numinfected),' ',4)+'      Infectious: '+pad(str(numinfectious),' ',4))
+
+# Main program: set up Canvas and timer, and initialise counts
+canvas(0,0,WIDTH,HEIGHT)
+resolution(WIDTH,HEIGHT)
+timeset(0)
+numimmune=0
+numinfected=0
+numinfectious=0
+
+# Set initial infection around the centre of the Canvas
+noupdate()
+for x in range (WIDTH):
+    for y in range (HEIGHT):
+        if (randrange(100)<initprob) and (hypot(x-WIDTH/2,y-HEIGHT/2,1)<=startradius):
+            infect(x,y)
+        elif randrange(100)<immuneprob:
+            pixset(x,y,RECOVERED)
+            numimmune+=1
+        else:
+            pixset(x,y,SUSCEPTIBLE)
+update()
+
+#Main loop while any infection persists
+while numinfectious>0:
+
+    #Pick a random cell
+    x=randrange(WIDTH)
+    y=randrange(HEIGHT)
+
+    # If it's infected, it may recover
+    if pixcol(x,y)==INFECTED:
+        if randrange(100)<recoverprob:
+            pixset(x,y,RECOVERED)
+            numinfectious-=1
+            if report:
+                print('                    Infectious: '+pad(str(numinfectious),' ',4))
+
+        # But otherwise, it may infect an adjacent cell
+        else:
+            n=randrange(4)*2+1 # Selects a movement W/N/S/E - can go over Canvas edge?!
+            x=x+n//3-1
+            y=y+n % 3-1
+            if pixcol(x,y)==SUSCEPTIBLE:
+                infect(x,y)
+
+    # If movement is enabled, pick a random cell and if not susceptible, swap it
+    if movement:
+        x=randrange(WIDTH)
+        y=randrange(HEIGHT)
+        if pixcol(x,y)!=SUSCEPTIBLE:
+            x2=randrange(WIDTH)
+            y2=randrange(HEIGHT)
+            swapcol=pixcol(x,y)
+            pixset(x,y,pixcol(x2,y2))
+            pixset(x2,y2,swapcol)
+
+# When all infection has died down, display the overall figures and timing
+print('Total infected overall: '+str(numinfected)+' ('+qstr(time(),1000,2)+' sec)')
+print('Proportion infected:    '+qstr(numinfected*100,WIDTH*HEIGHT-numimmune,2)+'%')

@@ -1,0 +1,44 @@
+program Fibonaccis;
+{specify number of values to be calculated}
+const
+  lastnum=25;
+var
+  count:integer;
+  fibSave:array [1..lastnum] of integer;
+
+{calculates nth Fibonacci number recursively}
+function fibRecursive(n:integer):integer;
+begin
+  if (n=1) or (n=2) then
+    result :=1
+  else
+    result :=fibRecursive(n-1)+fibRecursive(n-2)
+end;
+
+{calculates nth Fibonacci number iteratively,}
+{assuming the n-1 and n-2 values have already}
+{been calculated and stored in fibSave array }
+function fibIterative(n:integer):integer;
+begin
+  if (n=1) or (n=2) then
+    fibSave[n]:=1
+  else
+    fibSave[n]:=fibSave[n-1]+fibSave[n-2];
+  result :=fibSave[n]
+end;
+begin
+  {set up and show the output display}
+  output(true,cream,true);
+  {calculate 25 Fibonacci values recursively (slow)}
+  writeln('First, by recursion:');
+  timeset(0);
+  for count:=1 to lastnum do
+    writeln('fib('+str(count)+') = '+str(fibRecursive(count)));
+  writeln('Time taken: '+qstr(time,1000,2)+' seconds');
+  writeln('');
+  writeln('Then, by iteration:');
+  timeset(0);
+  for count:=1 to lastnum do
+    writeln('fib('+str(count)+') = '+str(fibIterative(count)));
+  writeln('Time taken: '+qstr(time,1000,2)+' seconds')
+end.                                                {alculate 25 Fibonacci values iteratively (fast)}

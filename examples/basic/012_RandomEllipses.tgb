@@ -1,0 +1,23 @@
+REM draw 10 ellipses, choosing a random centre
+FOR count%=1 TO 10
+  REM with x and y both between -250 and 1249
+  SETXY(RND(1500)-250,RND(1500)-250)
+  REM and ellipse radii between 500 and 999
+  ELLIPSE(RND(500)+500,RND(500)+500)
+NEXT
+REM initialise colour variable
+nextColour%=0
+REM try to fill all ellipses with colours
+FOR count%=1 TO 10000
+  REM pick a random point
+  x%=RND(1000)
+  y%=RND(1000)
+  REM if pixel is in a white region
+  IF PIXCOL(x%,y%)=WHITE THEN
+    REM choose next colour in the sequence
+    nextColour%=(nextColour% MOD 20)+1
+    REM recolour region in that colour
+    RECOLOUR(x%,y%,RGB(nextColour%))
+  ENDIF
+NEXT
+END

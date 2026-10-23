@@ -1,0 +1,116 @@
+MAXNODES=500
+REQNODES=360 # required nodes - above 440 may hang
+MAXEDGES=600
+MINDISTANCE=40 # minimum distance for connecting road
+LINKDISTANCE=1000 # journey distance to trigger link
+NODERADIUS=6
+ROADRADIUS=4
+NORMALROAD=black
+LINKROAD=blue
+
+nodex=[1]*MAXNODES
+nodey=[1]*MAXNODES
+nodedist=[1]*MAXNODES
+edge1=[1]*MAXEDGES
+edge2=[1]*MAXEDGES
+edgelen=[1]*MAXEDGES
+
+def marknode(n:int,col:int,rad:int): # mark a node on the map
+    setxy(nodex[n],nodey[n])
+    colour(col)
+    blot(rad)
+
+def makeedge(nodea:int,nodeb:int,col:int): # make an edge between two nodes
+    global numedges
+    edge1[numedges]=nodea
+    edge2[numedges]=nodeb
+    edgelen[numedges]=hypot(nodex[nodea]-nodex[nodeb],nodey[nodea]-nodey[nodeb],1)
+    numedges+=1
+    setxy(nodex[nodea],nodey[nodea])
+    colour(col)
+    setxy(nodex[nodeb],nodey[nodeb])
+    polyline(2)
+
+def closest(n:int): # find closest node to node N
+    result=-1       # -1 indicates failure
+    minsofar=maxint()
+    for i in range (numnodes):
+        if i!=n:
+            d=hypot(nodex[n]-nodex[i],nodey[n]-nodey[i],1)
+            if d<minsofar:
+                minsofar=d
+                result=i
+    if minsofar<MINDISTANCE:
+        result=-1   # fail if closest is too close
+    return result
+
+def linkup(nodea:int,nodeb:int): # linkup two nodes, halving recursively if distant
+    global numnodes
+    if hypot(nodex[nodea]-nodex[nodeb],nodey[nodea]-nodey[nodeb],1)<MINDISTANCE*2:
+        makeedge(nodea,nodeb,NORMALROAD)
+    else:
+        middle=numnodes # middle node about to be created
+        numnodes+=1
+        nodex[middle]=(nodex[nodea]+nodex[nodeb])/2 # create middle node
+        nodey[middle]=(nodey[nodea]+nodey[nodeb])/2
+        marknode(middle,cyan,ROADRADIUS)
+        linkup(nodea,middle)
+        linkup(middle,nodeb)
+
+def joinup(thisnode:int): # link nodes physically close but distant by road
+    for i in range (numnodes): # mark all nodes as distance MAXINT from THISNODE
+        nodedist[i]=maxint()
+    nodedist[thisnode]=0      # THISNODE is distance 0 from itself
+    cont=True
+    while cont:
+        cont=False
+        for i in range (numedges): # count through all the edges
+            if nodedist[edge1[i]]<maxint(): # if start of it < MAXINT, and ...
+                if nodedist[edge1[i]]+edgelen[i]<nodedist[edge2[i]]:
+                    nodedist[edge2[i]]=nodedist[edge1[i]]+edgelen[i]
+                    cont=True # this is better route to end of it, record that
+            if nodedist[edge2[i]]<maxint(): # if end of it <MAXINT, and  ...
+                if nodedist[edge2[i]]+edgelen[i]<nodedist[edge1[i]]:
+                    nodedist[edge1[i]]=nodedist[edge2[i]]+edgelen[i]
+                    cont=True # this is better route to start of it, record that
+    i=-1
+    cont=True
+    while (i<numnodes-1) and cont:
+        i+=1
+        dist=hypot(nodex[i]-nodex[thisnode],nodey[i]-nodey[thisnode],1)
+        if (nodedist[i]>LINKDISTANCE) and (dist<MINDISTANCE*2):
+            makeedge(thisnode,i,LINKROAD) # link nodes that are physically
+            cont=False                    # close but distant by road
+
+# MAIN PROGRAM: Initialise, build network, then add link roads
+thickness(6)
+numedges=0
+numnodes=1
+nodex[0]=randrange(1000) # place node 0 randomly
+nodey[0]=randrange(1000)
+marknode(0,red,NODERADIUS)
+print('Adding nodes that are a minimum of',MINDISTANCE,'apart ...')
+count=10
+while numnodes<REQNODES:
+    numnodes+=1
+    while True:
+        nodex[numnodes-1]=randrange(1000) # place next node randomly
+        nodey[numnodes-1]=randrange(1000)
+        m=closest(numnodes-1)             # find appropriate link
+        if m>=0:
+            break
+    marknode(numnodes-1,red,NODERADIUS)
+    linkup(m,numnodes-1)
+    if numnodes>=count:
+        print(count,end =' ')
+        if count % 150==0:
+            print()
+        count+=10
+print('\n\nLinking nodes that are physically close but distant by road ...')
+print('Edges:',numedges,end =' ')
+for m in range (numnodes):
+    edgebase=numedges
+    joinup(m)
+    if numedges>edgebase:
+        print(numedges,end =' ')
+print('\nDone!')

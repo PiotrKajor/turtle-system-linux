@@ -1,0 +1,34 @@
+# Number of levels, between 1 and 5
+MAXLEVEL=5
+
+# KDRAW recursively draw a Koch curve
+def kdraw(dist,level):
+    if level==0:
+        forward(dist) # if level 0, just move
+    else:           # forward; otherwise ...
+        kdraw(dist/3,level-1) # forward dist/3
+        left(90)
+        kdraw(dist/3,level-1) # replace the
+        right(90)             # middle third
+        kdraw(dist/3,level-1) # with a square
+        right(90)             # diversion
+        kdraw(dist/3,level-1)
+        left(90)
+        kdraw(dist/3,level-1) # forward dist/3
+
+# The main program draws four Koch curves
+# so as to make a complete circuit, then
+# does the same at a smaller scale
+blank(black)              # blacken Canvas
+movexy(0,486)             # start at (500,986)
+left(45)                  # set initial angle
+for count in range (4):    # FOR 0, 1, 2, 3 ...
+    colour(rgb(count+21))  # choose colour
+    kdraw(729,MAXLEVEL)    # draw level-5 curve
+    right(90)              # turn 90 degrees
+# Now do smaller circuit
+movexy(0,-323)            # start at (500,663)
+for count in range (4):    # FOR 0, 1, 2, 3 ...
+    colour(rgb(count+21))  # choose colour
+    kdraw(243,MAXLEVEL-1)  # draw level-4 curve
+    right(90)              # turn 90 degrees

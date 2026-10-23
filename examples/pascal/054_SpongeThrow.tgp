@@ -1,0 +1,86 @@
+program SpongeThrow;
+const
+  faceRadius=100;
+  spongeRadius=40;
+var
+  x,y:integer;
+  xVelocity,yVelocity:integer;
+
+{draws a face of the given radius}
+{N.B. copied from the Resizable face example}
+procedure face(radius:integer);
+
+{draws an eye sized relative to the face}
+procedure eye;
+begin
+  colour(white);
+  ellblot(radius*3/20,radius/10);
+  colour(emerald);
+  blot(radius*9/100);
+  colour(black);
+  blot(radius/25)
+end;
+begin
+  direction(0);
+  {draw head}
+  colour(peach);
+  blot(radius);
+  {draw mouth}
+  colour(darkred);
+  blot(radius*7/10);
+  forward(radius*3/20);
+  colour(peach);
+  blot(radius*3/4);
+  {draw nose}
+  back(radius*3/10);
+  colour(royal);
+  blot(radius*3/20);
+  {move to left eye position (without drawing)}
+  penup;
+  forward(radius*9/20);
+  left(90);
+  forward(radius*2/5);
+  {draw left eye}
+  eye;
+  {move to right eye position (without drawing)}
+  back(radius*4/5);
+  {draw right eye}
+  eye
+end;
+begin
+  {set initial face location and velocity}
+  x:=300;
+  y:=700;
+  xVelocity:=8;
+  yVelocity:=-4;
+  {repeatedly...}
+  while 0<1 do
+  begin
+    noupdate;
+    {rub out previous face}
+    colour(white);
+    setxy(x,y);
+    blot(faceRadius+spongeRadius);
+    {move to next location and draw new face}
+    x:=x+xVelocity;
+    y:=y+yVelocity;
+    setxy(x,y);
+    face(faceRadius);
+    update;
+    pause(10);
+    {if left click detected within the face...}
+    if (?lmouse>0) and (hypot(?mousex-x,?mousey-y,1)<faceRadius) then
+    begin
+      {draw a randomly coloured sponge and pause}
+      setxy(?mousex,?mousey);
+      randcol(4);
+      blot(spongeRadius);
+      pause(100)
+    end;
+    {"bounce" (i.e. invert velocity) at canvas edges}
+    if (x<faceRadius) or (x>999-faceRadius) then
+      xVelocity:=-xVelocity;
+    if (y<faceRadius) or (y>999-faceRadius) then
+      yVelocity:=-yVelocity
+  end
+end.

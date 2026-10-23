@@ -1,0 +1,110 @@
+CONST XORIGIN%=500
+CONST YORIGIN%=500
+CONST HALFWIDTH%=400
+CONST YSCALE%=200
+CONST RADIANS%=FALSE REM make TRUE for x-axis in radians
+REM draw axes
+PROCdrawAxes
+NOUPDATE
+THICKNESS(4)
+REM plot sine curve in green
+COLOUR(GREEN)
+SETXY(250,700)
+DISPLAY("sine",16,40)
+PROCplotSineCurve
+REM plot cosine curve in red
+COLOUR(RED)
+SETXY(30,700)
+DISPLAY("cosine",16,40)
+PROCplotCosineCurve
+REM plot tan curve in blue
+COLOUR(BLUE)
+SETXY(140,920)
+DISPLAY("tangent",16,40)
+PROCplotTanCurve
+END
+
+REM draws graph axes
+DEF PROCdrawAxes
+  THICKNESS(3)
+  REM draw y axis
+  SETXY(XORIGIN%-HALFWIDTH%,YORIGIN%)
+  DRAWXY(HALFWIDTH%*2,0)
+  REM draw x axis
+  SETXY(XORIGIN%,0)
+  DRAWXY(0,1000)
+  REM draw circle at origin
+  SETXY(XORIGIN%,YORIGIN%)
+  CIRCLE(15)
+  REM draw lines at y=1 and y=-1
+  THICKNESS(2)
+  SETXY(XORIGIN%-HALFWIDTH%,YORIGIN%-YSCALE%)
+  DRAWXY(HALFWIDTH%*2,0)
+  SETXY(XORIGIN%-HALFWIDTH%,YORIGIN%+YSCALE%)
+  DRAWXY(HALFWIDTH%*2,0)
+  SETXY(XORIGIN%+HALFWIDTH%+10,YORIGIN%-YSCALE%-18)
+  DISPLAY("+1",0,20)
+  SETXY(XORIGIN%+HALFWIDTH%+10,YORIGIN%+YSCALE%-18)
+  DISPLAY("-1",0,20)
+  REM print x axis labels
+  IF RADIANS% THEN
+    SETXY(XORIGIN%-HALFWIDTH%-44,YORIGIN%-4)
+    DISPLAY("-p",29,28)
+    SETXY(XORIGIN%-HALFWIDTH% DIV 2-2,YORIGIN%-4)
+    DISPLAY("-p/2",29,28)
+    SETXY(XORIGIN%+HALFWIDTH% DIV 2-50,YORIGIN%-4)
+    DISPLAY("p/2",29,28)
+    SETXY(XORIGIN%+HALFWIDTH%,YORIGIN%-4)
+    DISPLAY("p",29,28)
+  ELSE
+    SETXY(XORIGIN%-HALFWIDTH%-60,YORIGIN%)
+    DISPLAY("-180",0,20)
+    SETXY(XORIGIN%-HALFWIDTH%/2,YORIGIN%)
+    DISPLAY("-90",0,20)
+    SETXY(XORIGIN%+HALFWIDTH%/2-30,YORIGIN%)
+    DISPLAY("90",0,20)
+    SETXY(XORIGIN%+HALFWIDTH%,YORIGIN%)
+    DISPLAY("180",0,20)
+  ENDIF
+ENDPROC
+
+REM plots a sine curve
+DEF PROCplotSineCurve
+  LOCAL degrees%,x%,y%
+  FOR degrees%=-180 TO 180
+    x%=XORIGIN%+DIVMULT(degrees%,180,HALFWIDTH%)
+    y%=YORIGIN%-SIN(degrees%,1,YSCALE%)
+    SETXY(x%,y%)
+  NEXT
+  POLYLINE(361)
+ENDPROC
+
+REM plots a cosine curve
+DEF PROCplotCosineCurve
+  LOCAL degrees%,x%,y%
+  FOR degrees%=-180 TO 180
+    x%=XORIGIN%+DIVMULT(degrees%,180,HALFWIDTH%)
+    y%=YORIGIN%-COS(degrees%,1,YSCALE%)
+    SETXY(x%,y%)
+  NEXT
+  POLYLINE(361)
+ENDPROC
+
+REM plots a tan curve
+DEF PROCplotTanCurve
+  LOCAL degrees%,x%,y%
+  FOR degrees%=-180 TO 180
+    IF degrees%=-90 THEN
+      POLYLINE(90)
+    ELSE
+      IF degrees%=90 THEN
+        POLYLINE(179)
+      ELSE
+        x%=XORIGIN%+DIVMULT(degrees%,180,HALFWIDTH%)
+        y%=YORIGIN%-TAN(degrees%,1,YSCALE%)
+        SETXY(x%,y%)
+      ENDIF
+    ENDIF
+  NEXT
+  POLYLINE(90)
+ENDPROC

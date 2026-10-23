@@ -1,0 +1,25 @@
+REM set starting point and velocity
+SETXY(100,700)
+xVelocity%=8
+yVelocity%=-4
+WHILE 0<1
+  NOUPDATE
+  REM rub out existing ball
+  COLOUR(WHITE)
+  BLOT(51)
+  REM move to next location
+  MOVEXY(xVelocity%,yVelocity%)
+  REM draw new ball
+  COLOUR(RED)
+  BLOT(50)
+  UPDATE
+  PAUSE(10)
+  REM "bounce" (i.e. invert velocity) at canvas edges
+  IF (turtx%<50) OR (turtx%>949) THEN
+    xVelocity%=-xVelocity%
+  ENDIF
+  IF (turty%<50) OR (turty%>949) THEN
+    yVelocity%=-yVelocity%
+  ENDIF
+ENDWHILE
+END

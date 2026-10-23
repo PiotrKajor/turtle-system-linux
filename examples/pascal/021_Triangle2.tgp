@@ -1,0 +1,21 @@
+program Triangle2;
+
+{draws a triangle of the given size}
+procedure triangle(size:integer);
+begin
+  {draw the first side, and turn}
+  forward(size);
+  right(120);
+  {draw the second side, and turn}
+  forward(size);
+  right(120);
+  {draw the third side, and turn}
+  forward(size);
+  right(120)
+end;
+begin
+  {move to the start, without drawing}
+  movexy(-100,150);
+  {draw a triangle of size 256}
+  triangle(256)
+end.

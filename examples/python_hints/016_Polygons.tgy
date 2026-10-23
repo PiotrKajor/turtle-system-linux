@@ -1,0 +1,41 @@
+# draws a polygon with given sides & colour
+def poly(sides:int,colr:int):
+    # point Turtle horizontally to right
+    direction(90)
+    # trace shape with the Turtle
+    for count in range (sides):
+        # edge is shorter as sides increases
+        forward(600/sides)
+        # turn left by correct external angle
+        left(360/sides)
+    # fill with given colour
+    colour(colr)
+    polygon(sides)
+    # draw black outline
+    colour(black)
+    polyline(sides+1)
+
+# do not draw as Turtle moves
+penup()
+# thickness is used by POLYLINE command
+thickness(4)
+# place Turtle for first polygon
+setxy(100,400)
+# draw blue triangle
+poly(3,blue)
+# place Turtle for second polygon
+setxy(400,400)
+# draw red square
+poly(4,red)
+setxy(700,400)
+# draw yellow pentagon
+poly(5,yellow)
+setxy(150,750)
+# draw pink hexagon
+poly(6,pink)
+setxy(440,750)
+# draw green heptagon
+poly(7,green)
+setxy(740,750)
+# draw turquoise octagon
+poly(8,turquoise)

@@ -1,0 +1,39 @@
+program file_searching;
+var
+  dhandle:integer;
+  thisdir:string;
+procedure showdir(d:string);
+var
+  fhandle:integer;
+  thisfile:string;
+begin
+  if d='' then
+    writeln('Base directory:')
+  else
+    writeln('Directory "'+d+'":');
+  chdir(d);
+  fhandle:=0;
+  thisfile:=findfirst('*.*',fhandle);
+  if thisfile='' then
+    writeln('  <no files>')
+  else
+    while thisfile<>'' do
+  begin
+    writeln('  '+thisfile);
+    thisfile:=findnext(fhandle)
+  end;
+  writeln('')
+end;
+begin
+  output(true,cream,true);
+  writeln('Turtle directories (up to first level) and their files ...');
+  writeln('');
+  showdir('');
+  dhandle:=0;
+  thisdir:=finddir('*.*',dhandle);
+  while thisdir<>'' do
+  begin
+    showdir(thisdir);
+    thisdir:=findnext(dhandle)
+  end
+end.

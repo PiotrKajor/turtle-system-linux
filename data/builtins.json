@@ -1,0 +1,2679 @@
+{
+ "categories": {
+  "1": "Turtle: relative movement",
+  "2": "Turtle: absolute movement",
+  "3": "Turtle: drawing shapes",
+  "4": "Other Turtle commands",
+  "5": "Canvas operations",
+  "6": "General arithmetic functions",
+  "7": "Trig / exp / log functions",
+  "8": "String operations",
+  "9": "List operations",
+  "10": "Type conversion routines",
+  "11": "Input and timing routines",
+  "12": "File processing",
+  "13": "Turtle Machine monitoring"
+ },
+ "builtins": [
+  {
+   "names": {
+    "python": "abs",
+    "pascal": "abs",
+    "basic": "ABS"
+   },
+   "returns": "integer",
+   "category": "General arithmetic functions",
+   "level": 1,
+   "opcode": 10,
+   "signature": "i",
+   "params": "number",
+   "description": "Absolute value, e.g. abs(-5)=5"
+  },
+  {
+   "names": {
+    "python": "acos",
+    "pascal": null,
+    "basic": "ACS"
+   },
+   "returns": "integer",
+   "category": "Trig / exp / log functions",
+   "level": 3,
+   "opcode": 45,
+   "signature": "iii",
+   "params": "a,b,c",
+   "description": "Arccos(a/b)*c, angle units, rounded"
+  },
+  {
+   "names": {
+    "python": "address",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "Type conversion routines",
+   "level": 3,
+   "opcode": 240,
+   "signature": "I",
+   "params": "variable",
+   "description": "Address of variable"
+  },
+  {
+   "names": {
+    "python": "angles",
+    "pascal": "angles",
+    "basic": "ANGLES"
+   },
+   "returns": "procedure",
+   "category": "Turtle: absolute movement",
+   "level": 2,
+   "opcode": 132,
+   "signature": "i",
+   "params": "numincircle",
+   "description": "Set size of \"degrees\" (default 360)"
+  },
+  {
+   "names": {
+    "python": "antilog",
+    "pascal": "antilog",
+    "basic": "ANTILOG"
+   },
+   "returns": "integer",
+   "category": "Trig / exp / log functions",
+   "level": 3,
+   "opcode": 38,
+   "signature": "iii",
+   "params": "a,b,c",
+   "description": "Antilog(a/b)*c, base 10, rounded"
+  },
+  {
+   "names": {
+    "python": ".append",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "procedure",
+   "category": "List operations",
+   "level": 1,
+   "opcode": 80,
+   "signature": "o",
+   "params": "object",
+   "description": "Append object to specified list"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "arccos",
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "Trig / exp / log functions",
+   "level": 3,
+   "opcode": 45,
+   "signature": "iii",
+   "params": "a,b,c",
+   "description": "Arccos(a/b)*c, angle units, rounded"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "ASC"
+   },
+   "returns": "integer",
+   "category": "Type conversion routines",
+   "level": 3,
+   "opcode": 113,
+   "signature": "s",
+   "params": "string",
+   "description": "ASCII code of string's first character"
+  },
+  {
+   "names": {
+    "python": "asin",
+    "pascal": "arcsin",
+    "basic": "ASN"
+   },
+   "returns": "integer",
+   "category": "Trig / exp / log functions",
+   "level": 3,
+   "opcode": 44,
+   "signature": "iii",
+   "params": "a,b,c",
+   "description": "Arcsin(a/b)*c, angle units, rounded"
+  },
+  {
+   "names": {
+    "python": "atan",
+    "pascal": "arctan",
+    "basic": "ATN"
+   },
+   "returns": "integer",
+   "category": "Trig / exp / log functions",
+   "level": 3,
+   "opcode": 46,
+   "signature": "iii",
+   "params": "a,b,c",
+   "description": "Arctan(a/b)*c, angle units, rounded"
+  },
+  {
+   "names": {
+    "python": "back",
+    "pascal": "back",
+    "basic": "BACK"
+   },
+   "returns": "procedure",
+   "category": "Turtle: relative movement",
+   "level": 1,
+   "opcode": 140,
+   "signature": "i",
+   "params": "distance",
+   "description": "Move turtle backwards"
+  },
+  {
+   "names": {
+    "python": "blank",
+    "pascal": "blank",
+    "basic": "BLANK"
+   },
+   "returns": "procedure",
+   "category": "Canvas operations",
+   "level": 1,
+   "opcode": 144,
+   "signature": "i",
+   "params": "colcode",
+   "description": "Blank screen to specified colour"
+  },
+  {
+   "names": {
+    "python": "blot",
+    "pascal": "blot",
+    "basic": "BLOT"
+   },
+   "returns": "procedure",
+   "category": "Turtle: drawing shapes",
+   "level": 1,
+   "opcode": 156,
+   "signature": "i",
+   "params": "radius",
+   "description": "Draw blot (filled circle)"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "boolint",
+    "basic": "BOOLINT"
+   },
+   "returns": "integer",
+   "category": "Type conversion routines",
+   "level": 3,
+   "opcode": 0,
+   "signature": "b",
+   "params": "boolean",
+   "description": "Convert boolean to integer (-1 or 0)"
+  },
+  {
+   "names": {
+    "python": "box",
+    "pascal": "box",
+    "basic": "BOX"
+   },
+   "returns": "procedure",
+   "category": "Turtle: drawing shapes",
+   "level": 2,
+   "opcode": 159,
+   "signature": "iiib",
+   "params": "X,Y,colcode,border",
+   "description": "Draw box with turtle at top-left corner"
+  },
+  {
+   "names": {
+    "python": "canvas",
+    "pascal": "canvas",
+    "basic": "CANVAS"
+   },
+   "returns": "procedure",
+   "category": "Canvas operations",
+   "level": 2,
+   "opcode": 125,
+   "signature": "iiii",
+   "params": "left,top,width,ht",
+   "description": "Set virtual canvas dimensions"
+  },
+  {
+   "names": {
+    "python": ".capitalize",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 2,
+   "opcode": 64,
+   "signature": "s",
+   "params": "string",
+   "description": "First character only capital"
+  },
+  {
+   "names": {
+    "python": "chdir",
+    "pascal": "chdir",
+    "basic": "CHDIR"
+   },
+   "returns": "procedure",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 96,
+   "signature": "s",
+   "params": "directory name",
+   "description": "Change current directory"
+  },
+  {
+   "names": {
+    "python": "checkdir",
+    "pascal": "checkdir",
+    "basic": "CHECKDIR"
+   },
+   "returns": "integer",
+   "category": "File processing",
+   "level": 3,
+   "opcode": 98,
+   "signature": "si",
+   "params": "filename,code",
+   "description": "Create/delete/check directory"
+  },
+  {
+   "names": {
+    "python": "checkfile",
+    "pascal": "checkfile",
+    "basic": "CHECKFILE"
+   },
+   "returns": "integer",
+   "category": "File processing",
+   "level": 3,
+   "opcode": 97,
+   "signature": "si",
+   "params": "filename,code",
+   "description": "Create/delete/check file"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "chr",
+    "basic": "CHR$"
+   },
+   "returns": "char",
+   "category": "Type conversion routines",
+   "level": 3,
+   "opcode": 0,
+   "signature": "i",
+   "params": "charcode",
+   "description": "Convert ascii code to character"
+  },
+  {
+   "names": {
+    "python": "chr",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "string",
+   "category": "Type conversion routines",
+   "level": 3,
+   "opcode": 112,
+   "signature": "i",
+   "params": "charcode",
+   "description": "Convert ascii code to character string"
+  },
+  {
+   "names": {
+    "python": "circle",
+    "pascal": "circle",
+    "basic": "CIRCLE"
+   },
+   "returns": "procedure",
+   "category": "Turtle: drawing shapes",
+   "level": 1,
+   "opcode": 155,
+   "signature": "i",
+   "params": "radius",
+   "description": "Draw circle (as line in current col)"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "closefile",
+    "basic": "CLOSE#"
+   },
+   "returns": "procedure",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 100,
+   "signature": "i",
+   "params": "file handle",
+   "description": "Close file"
+  },
+  {
+   "names": {
+    "python": "colour",
+    "pascal": "colour",
+    "basic": "COLOUR"
+   },
+   "returns": "procedure",
+   "category": "Other Turtle commands",
+   "level": 1,
+   "opcode": 135,
+   "signature": "i",
+   "params": "colcode",
+   "description": "Set current colour (RGB or named)"
+  },
+  {
+   "names": {
+    "python": "console",
+    "pascal": "console",
+    "basic": "CONSOLE"
+   },
+   "returns": "procedure",
+   "category": "Other Turtle commands",
+   "level": 2,
+   "opcode": 201,
+   "signature": "bi",
+   "params": "clear,colcode",
+   "description": "Clear / colour Console"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "copy",
+    "basic": null
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 3,
+   "opcode": 65,
+   "signature": "sii",
+   "params": "string,start,length",
+   "description": "Make new copy of substring"
+  },
+  {
+   "names": {
+    "python": ".copy",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "list",
+   "category": "List operations",
+   "level": 1,
+   "opcode": 81,
+   "signature": "",
+   "params": "",
+   "description": "Assign copy of list (instead of pointer)"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "copyfile",
+    "basic": "COPYFILE"
+   },
+   "returns": "boolean",
+   "category": "File processing",
+   "level": 3,
+   "opcode": 111,
+   "signature": "ss",
+   "params": "oldname,newname",
+   "description": "Copy file"
+  },
+  {
+   "names": {
+    "python": "cos",
+    "pascal": "cos",
+    "basic": "COS"
+   },
+   "returns": "integer",
+   "category": "Trig / exp / log functions",
+   "level": 2,
+   "opcode": 42,
+   "signature": "iii",
+   "params": "a,b,c",
+   "description": "Cos(a/b)*c, angle units, rounded"
+  },
+  {
+   "names": {
+    "python": "cursor",
+    "pascal": "cursor",
+    "basic": "CURSOR"
+   },
+   "returns": "procedure",
+   "category": "Input and timing routines",
+   "level": 2,
+   "opcode": 198,
+   "signature": "i",
+   "params": "cursorcode",
+   "description": "Set cursor style (0-16)"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "dec",
+    "basic": "DEC"
+   },
+   "returns": "procedure",
+   "category": "General arithmetic functions",
+   "level": 1,
+   "opcode": 8,
+   "signature": "I",
+   "params": "variable",
+   "description": "Decrement variable (i.e. subtract 1)"
+  },
+  {
+   "names": {
+    "python": ".del",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "procedure",
+   "category": "List operations",
+   "level": 1,
+   "opcode": 82,
+   "signature": "i",
+   "params": "index",
+   "description": "Delete indexed object from list"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "delete",
+    "basic": "DEL$"
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 3,
+   "opcode": 66,
+   "signature": "sii",
+   "params": "string,start,length",
+   "description": "Delete section from string"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "deletefile",
+    "basic": "DELETEFILE"
+   },
+   "returns": "boolean",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 242,
+   "signature": "s",
+   "params": "filename",
+   "description": "Delete file"
+  },
+  {
+   "names": {
+    "python": "detect",
+    "pascal": "detect",
+    "basic": "DETECT"
+   },
+   "returns": "integer",
+   "category": "Input and timing routines",
+   "level": 2,
+   "opcode": 197,
+   "signature": "ii",
+   "params": "inputcode,millisecs",
+   "description": "Detect input during specified time"
+  },
+  {
+   "names": {
+    "python": "direction",
+    "pascal": "direction",
+    "basic": "DIRECTION"
+   },
+   "returns": "procedure",
+   "category": "Turtle: absolute movement",
+   "level": 1,
+   "opcode": 131,
+   "signature": "i",
+   "params": "direction",
+   "description": "Set turtle direction"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "direxists",
+    "basic": "DIREXISTS"
+   },
+   "returns": "boolean",
+   "category": "File processing",
+   "level": 3,
+   "opcode": 241,
+   "signature": "s",
+   "params": "subdirectory name",
+   "description": "Check whether subdirectory exists"
+  },
+  {
+   "names": {
+    "python": "display",
+    "pascal": "display",
+    "basic": "DISPLAY"
+   },
+   "returns": "procedure",
+   "category": "String operations",
+   "level": 1,
+   "opcode": 202,
+   "signature": "sii",
+   "params": "string,font,size",
+   "description": "Display text on canvas (font 0-255)"
+  },
+  {
+   "names": {
+    "python": "divmult",
+    "pascal": "divmult",
+    "basic": "DIVMULT"
+   },
+   "returns": "integer",
+   "category": "General arithmetic functions",
+   "level": 3,
+   "opcode": 32,
+   "signature": "iii",
+   "params": "a,b,c",
+   "description": "Calculate (a/b)*c, rounded"
+  },
+  {
+   "names": {
+    "python": "drawxy",
+    "pascal": "drawxy",
+    "basic": "DRAWXY"
+   },
+   "returns": "procedure",
+   "category": "Turtle: relative movement",
+   "level": 2,
+   "opcode": 138,
+   "signature": "ii",
+   "params": "moveX,moveY",
+   "description": "Move turtle, drawing line"
+  },
+  {
+   "names": {
+    "python": "dump",
+    "pascal": "dump",
+    "basic": "DUMP"
+   },
+   "returns": "procedure",
+   "category": "Turtle Machine monitoring",
+   "level": 3,
+   "opcode": 122,
+   "signature": "",
+   "params": "",
+   "description": "Dump memory to \"Memory\" window"
+  },
+  {
+   "names": {
+    "python": "ellblot",
+    "pascal": "ellblot",
+    "basic": "ELLBLOT"
+   },
+   "returns": "procedure",
+   "category": "Turtle: drawing shapes",
+   "level": 1,
+   "opcode": 158,
+   "signature": "ii",
+   "params": "Xradius,Yradius",
+   "description": "Draw filled ellipse"
+  },
+  {
+   "names": {
+    "python": "ellipse",
+    "pascal": "ellipse",
+    "basic": "ELLIPSE"
+   },
+   "returns": "procedure",
+   "category": "Turtle: drawing shapes",
+   "level": 1,
+   "opcode": 157,
+   "signature": "ii",
+   "params": "Xradius,Yradius",
+   "description": "Draw ellipse (line in current colour)"
+  },
+  {
+   "names": {
+    "python": "eof",
+    "pascal": "eof",
+    "basic": "EOF#"
+   },
+   "returns": "boolean",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 102,
+   "signature": "i",
+   "params": "file handle",
+   "description": "Test for end of file"
+  },
+  {
+   "names": {
+    "python": "eoln",
+    "pascal": "eoln",
+    "basic": "EOLN#"
+   },
+   "returns": "boolean",
+   "category": "File processing",
+   "level": 3,
+   "opcode": 103,
+   "signature": "i",
+   "params": "file handle",
+   "description": "Test for end of line in file"
+  },
+  {
+   "names": {
+    "python": "except",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "procedure",
+   "category": "Input and timing routines",
+   "level": 3,
+   "opcode": 79,
+   "signature": "",
+   "params": "",
+   "description": "Deal with exception (error)"
+  },
+  {
+   "names": {
+    "python": "exp",
+    "pascal": "exp",
+    "basic": "EXP"
+   },
+   "returns": "integer",
+   "category": "Trig / exp / log functions",
+   "level": 2,
+   "opcode": 40,
+   "signature": "iii",
+   "params": "a,b,c",
+   "description": "Exp(a/b)*c, rounded"
+  },
+  {
+   "names": {
+    "python": ".extend",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "procedure",
+   "category": "List operations",
+   "level": 1,
+   "opcode": 83,
+   "signature": "L",
+   "params": "addlist",
+   "description": "Extend list by concatenation"
+  },
+  {
+   "names": {
+    "python": "fclose",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "procedure",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 100,
+   "signature": "i",
+   "params": "file handle",
+   "description": "Close file"
+  },
+  {
+   "names": {
+    "python": "fcopy",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "boolean",
+   "category": "File processing",
+   "level": 3,
+   "opcode": 111,
+   "signature": "ss",
+   "params": "oldname,newname",
+   "description": "Copy file"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "fileexists",
+    "basic": "FILEEXISTS"
+   },
+   "returns": "boolean",
+   "category": "File processing",
+   "level": 3,
+   "opcode": 242,
+   "signature": "s",
+   "params": "filename",
+   "description": "Check whether file exists"
+  },
+  {
+   "names": {
+    "python": "fill",
+    "pascal": "fill",
+    "basic": "FILL"
+   },
+   "returns": "procedure",
+   "category": "Canvas operations",
+   "level": 3,
+   "opcode": 146,
+   "signature": "iiii",
+   "params": "X,Y,fillcol,edgecol",
+   "description": "Fill with specified colour to edgecol"
+  },
+  {
+   "names": {
+    "python": ".find",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "String operations",
+   "level": 3,
+   "opcode": 68,
+   "signature": "ss",
+   "params": "string,sub",
+   "description": "Find substring position within string"
+  },
+  {
+   "names": {
+    "python": "finddir",
+    "pascal": "finddir",
+    "basic": "FINDDIR$"
+   },
+   "returns": "string",
+   "category": "File processing",
+   "level": 3,
+   "opcode": 109,
+   "signature": "sI",
+   "params": "dirname pattern,handle",
+   "description": "Find first directory matching pattern"
+  },
+  {
+   "names": {
+    "python": "findfirst",
+    "pascal": "findfirst",
+    "basic": "FINDFIRST$"
+   },
+   "returns": "string",
+   "category": "File processing",
+   "level": 3,
+   "opcode": 108,
+   "signature": "sI",
+   "params": "filename pattern,handle",
+   "description": "Find first file matching pattern"
+  },
+  {
+   "names": {
+    "python": "findnext",
+    "pascal": "findnext",
+    "basic": "FINDNEXT$"
+   },
+   "returns": "string",
+   "category": "File processing",
+   "level": 3,
+   "opcode": 110,
+   "signature": "i",
+   "params": "file handle",
+   "description": "Find next file/directory matching pattern"
+  },
+  {
+   "names": {
+    "python": "fmove",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "boolean",
+   "category": "File processing",
+   "level": 3,
+   "opcode": 111,
+   "signature": "ss",
+   "params": "oldname,newname",
+   "description": "Move file"
+  },
+  {
+   "names": {
+    "python": "fopen",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 99,
+   "signature": "si",
+   "params": "filename,mode",
+   "description": "Open file (1: read, 2:append, 3: write)"
+  },
+  {
+   "names": {
+    "python": "forget",
+    "pascal": "forget",
+    "basic": "FORGET"
+   },
+   "returns": "procedure",
+   "category": "Turtle: drawing shapes",
+   "level": 2,
+   "opcode": 152,
+   "signature": "i",
+   "params": "points",
+   "description": "\"Forget\" visited positions"
+  },
+  {
+   "names": {
+    "python": "forward",
+    "pascal": "forward",
+    "basic": "FORWARD"
+   },
+   "returns": "procedure",
+   "category": "Turtle: relative movement",
+   "level": 1,
+   "opcode": 139,
+   "signature": "i",
+   "params": "distance",
+   "description": "Move turtle forwards"
+  },
+  {
+   "names": {
+    "python": "fread",
+    "pascal": "fread",
+    "basic": "FREAD#"
+   },
+   "returns": "string",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 104,
+   "signature": "ii",
+   "params": "file handle,maxlen",
+   "description": "Read characters from file"
+  },
+  {
+   "names": {
+    "python": "freadline",
+    "pascal": "freadln",
+    "basic": "FREADLN#"
+   },
+   "returns": "string",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 105,
+   "signature": "i",
+   "params": "file handle",
+   "description": "Read line from file"
+  },
+  {
+   "names": {
+    "python": "fremove",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "boolean",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 242,
+   "signature": "s",
+   "params": "filename",
+   "description": "Delete file"
+  },
+  {
+   "names": {
+    "python": "frename",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "boolean",
+   "category": "File processing",
+   "level": 3,
+   "opcode": 111,
+   "signature": "ss",
+   "params": "oldname,newname",
+   "description": "Rename file"
+  },
+  {
+   "names": {
+    "python": "frestart",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "procedure",
+   "category": "File processing",
+   "level": 3,
+   "opcode": 101,
+   "signature": "i",
+   "params": "file handle",
+   "description": "Restart file"
+  },
+  {
+   "names": {
+    "python": "fwrite",
+    "pascal": "fwrite",
+    "basic": null
+   },
+   "returns": "procedure",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 106,
+   "signature": "is",
+   "params": "file handle,string",
+   "description": "Write string to file"
+  },
+  {
+   "names": {
+    "python": "fwriteline",
+    "pascal": "fwriteln",
+    "basic": null
+   },
+   "returns": "procedure",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 107,
+   "signature": "is",
+   "params": "file handle,string",
+   "description": "Write line to file"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "GET$"
+   },
+   "returns": "string",
+   "category": "Input and timing routines",
+   "level": 2,
+   "opcode": 195,
+   "signature": "i",
+   "params": "maxchars",
+   "description": "Read string from keyboard buffer"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "GETLINE$"
+   },
+   "returns": "string",
+   "category": "Input and timing routines",
+   "level": 1,
+   "opcode": 196,
+   "signature": "",
+   "params": "",
+   "description": "Read input line, up to <Enter> key"
+  },
+  {
+   "names": {
+    "python": "halt",
+    "pascal": "halt",
+    "basic": "HALT"
+   },
+   "returns": "procedure",
+   "category": "Input and timing routines",
+   "level": 1,
+   "opcode": 178,
+   "signature": "",
+   "params": "",
+   "description": "Halt the program"
+  },
+  {
+   "names": {
+    "python": "heapreset",
+    "pascal": "heapreset",
+    "basic": "HEAPRESET"
+   },
+   "returns": "procedure",
+   "category": "Turtle Machine monitoring",
+   "level": 3,
+   "opcode": 191,
+   "signature": "",
+   "params": "",
+   "description": "Reset Heap to initial base value"
+  },
+  {
+   "names": {
+    "python": "hex",
+    "pascal": "hexstr",
+    "basic": "HEX$"
+   },
+   "returns": "string",
+   "category": "Type conversion routines",
+   "level": 3,
+   "opcode": 115,
+   "signature": "ii",
+   "params": "integer,mindigits",
+   "description": "Convert to hex string (of min length)"
+  },
+  {
+   "names": {
+    "python": "home",
+    "pascal": "home",
+    "basic": "HOME"
+   },
+   "returns": "procedure",
+   "category": "Turtle: absolute movement",
+   "level": 1,
+   "opcode": 128,
+   "signature": "",
+   "params": "",
+   "description": "Turtle to home position & direction"
+  },
+  {
+   "names": {
+    "python": "hypot",
+    "pascal": "hypot",
+    "basic": "HYPOT"
+   },
+   "returns": "integer",
+   "category": "General arithmetic functions",
+   "level": 2,
+   "opcode": 34,
+   "signature": "iii",
+   "params": "a,b,c",
+   "description": "Sqrt(a*a+b*b)*c, rounded"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "inc",
+    "basic": "INC"
+   },
+   "returns": "procedure",
+   "category": "General arithmetic functions",
+   "level": 1,
+   "opcode": 7,
+   "signature": "I",
+   "params": "variable",
+   "description": "Increment variable (i.e. add 1)"
+  },
+  {
+   "names": {
+    "python": ".index",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "String operations",
+   "level": 3,
+   "opcode": 68,
+   "signature": "ss",
+   "params": "string,sub",
+   "description": "Find substring position within string"
+  },
+  {
+   "names": {
+    "python": ".index",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "List operations",
+   "level": 1,
+   "opcode": 84,
+   "signature": "o",
+   "params": "object",
+   "description": "Find index of object within list"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "initcap",
+    "basic": null
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 2,
+   "opcode": 64,
+   "signature": "s",
+   "params": "string",
+   "description": "First character only capital"
+  },
+  {
+   "names": {
+    "python": "input",
+    "pascal": null,
+    "basic": "INPUT$"
+   },
+   "returns": "string",
+   "category": "Input and timing routines",
+   "level": 1,
+   "opcode": 243,
+   "signature": "s",
+   "params": "prompt",
+   "description": "Give prompt and read input line"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "insert",
+    "basic": null
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 3,
+   "opcode": 67,
+   "signature": "ssi",
+   "params": "sub,string,index",
+   "description": "Insert substring into string"
+  },
+  {
+   "names": {
+    "python": ".insert",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "procedure",
+   "category": "List operations",
+   "level": 1,
+   "opcode": 85,
+   "signature": "io",
+   "params": "index,object",
+   "description": "Insert object in list at index position"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "INSERT$"
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 3,
+   "opcode": 67,
+   "signature": "sis",
+   "params": "string,index,sub",
+   "description": "Insert substring into string"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "INSTR"
+   },
+   "returns": "integer",
+   "category": "String operations",
+   "level": 3,
+   "opcode": 68,
+   "signature": "ss",
+   "params": "string,sub",
+   "description": "Find substring position within string"
+  },
+  {
+   "names": {
+    "python": "int",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "Type conversion routines",
+   "level": 1,
+   "opcode": 116,
+   "signature": "s",
+   "params": "string",
+   "description": "Evaluate string, no default"
+  },
+  {
+   "names": {
+    "python": "intdef",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "Type conversion routines",
+   "level": 1,
+   "opcode": 117,
+   "signature": "si",
+   "params": "string,default",
+   "description": "Evaluate string, with default"
+  },
+  {
+   "names": {
+    "python": "isdir",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "boolean",
+   "category": "File processing",
+   "level": 3,
+   "opcode": 241,
+   "signature": "s",
+   "params": "subdirectory name",
+   "description": "Check whether subdirectory exists"
+  },
+  {
+   "names": {
+    "python": "isfile",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "boolean",
+   "category": "File processing",
+   "level": 3,
+   "opcode": 242,
+   "signature": "s",
+   "params": "filename",
+   "description": "Check whether file exists"
+  },
+  {
+   "names": {
+    "python": "keybuffer",
+    "pascal": "keybuffer",
+    "basic": "KEYBUFFER"
+   },
+   "returns": "procedure",
+   "category": "Input and timing routines",
+   "level": 3,
+   "opcode": 194,
+   "signature": "i",
+   "params": "size",
+   "description": "Create keyboard buffer of given size"
+  },
+  {
+   "names": {
+    "python": "keyecho",
+    "pascal": "keyecho",
+    "basic": "KEYECHO"
+   },
+   "returns": "procedure",
+   "category": "Input and timing routines",
+   "level": 2,
+   "opcode": 199,
+   "signature": "b",
+   "params": "true/false",
+   "description": "Turn keyboard echo to console on/off"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "LCASE$"
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 2,
+   "opcode": 64,
+   "signature": "s",
+   "params": "string",
+   "description": "Convert string to lower case"
+  },
+  {
+   "names": {
+    "python": "left",
+    "pascal": "left",
+    "basic": "LEFT"
+   },
+   "returns": "procedure",
+   "category": "Turtle: relative movement",
+   "level": 1,
+   "opcode": 141,
+   "signature": "i",
+   "params": "angle",
+   "description": "Turn turtle left (in degrees)"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "LEFT$"
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 2,
+   "opcode": 244,
+   "signature": "si",
+   "params": "string",
+   "description": "Leftmost i characters of string"
+  },
+  {
+   "names": {
+    "python": "len",
+    "pascal": "length",
+    "basic": "LEN"
+   },
+   "returns": "integer",
+   "category": "String operations",
+   "level": 2,
+   "opcode": 71,
+   "signature": "s",
+   "params": "string",
+   "description": "Give length of specified string"
+  },
+  {
+   "names": {
+    "python": "len",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "List operations",
+   "level": 1,
+   "opcode": 71,
+   "signature": "L",
+   "params": "list",
+   "description": "Give length of specified list"
+  },
+  {
+   "names": {
+    "python": "lerp",
+    "pascal": "lerp",
+    "basic": "LERP"
+   },
+   "returns": "integer",
+   "category": "General arithmetic functions",
+   "level": 3,
+   "opcode": 33,
+   "signature": "iiii",
+   "params": "a,b,t,scale",
+   "description": "Linear interpolate t/scale onto [a,b]"
+  },
+  {
+   "names": {
+    "python": "log",
+    "pascal": "ln",
+    "basic": "LN"
+   },
+   "returns": "integer",
+   "category": "Trig / exp / log functions",
+   "level": 2,
+   "opcode": 39,
+   "signature": "iii",
+   "params": "a,b,c",
+   "description": "Ln(a/b)*c, base e, rounded"
+  },
+  {
+   "names": {
+    "python": "log10",
+    "pascal": "log10",
+    "basic": "LOG10"
+   },
+   "returns": "integer",
+   "category": "Trig / exp / log functions",
+   "level": 3,
+   "opcode": 37,
+   "signature": "iii",
+   "params": "a,b,c",
+   "description": "Log(a/b)*c, base 10, rounded"
+  },
+  {
+   "names": {
+    "python": ".lower",
+    "pascal": "lowercase",
+    "basic": null
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 2,
+   "opcode": 64,
+   "signature": "s",
+   "params": "string",
+   "description": "Convert string to lower case"
+  },
+  {
+   "names": {
+    "python": "max",
+    "pascal": "max",
+    "basic": "MAX"
+   },
+   "returns": "integer",
+   "category": "General arithmetic functions",
+   "level": 2,
+   "opcode": 54,
+   "signature": "ii",
+   "params": "a,b",
+   "description": "Return the larger of a and b"
+  },
+  {
+   "names": {
+    "python": "maxint",
+    "pascal": "maxint",
+    "basic": "MAXINT"
+   },
+   "returns": "integer",
+   "category": "General arithmetic functions",
+   "level": 3,
+   "opcode": 14,
+   "signature": "",
+   "params": "",
+   "description": "Maximum integer = 2^31 - 1"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "MID$"
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 3,
+   "opcode": 65,
+   "signature": "sii",
+   "params": "string,start,length",
+   "description": "Make new copy of substring"
+  },
+  {
+   "names": {
+    "python": "min",
+    "pascal": "min",
+    "basic": "MIN"
+   },
+   "returns": "integer",
+   "category": "General arithmetic functions",
+   "level": 2,
+   "opcode": 55,
+   "signature": "ii",
+   "params": "a,b",
+   "description": "Return the smaller of a and b"
+  },
+  {
+   "names": {
+    "python": "mixcols",
+    "pascal": "mixcols",
+    "basic": "MIXCOLS"
+   },
+   "returns": "integer",
+   "category": "Other Turtle commands",
+   "level": 3,
+   "opcode": 150,
+   "signature": "iiii",
+   "params": "col1,col2,pro1,pro2",
+   "description": "Mix colours in given proportions"
+  },
+  {
+   "names": {
+    "python": "mkdir",
+    "pascal": "mkdir",
+    "basic": "MKDIR"
+   },
+   "returns": "boolean",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 241,
+   "signature": "s",
+   "params": "subdirectory name",
+   "description": "Make subdirectory of base directory"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "movefile",
+    "basic": "MOVEFILE"
+   },
+   "returns": "boolean",
+   "category": "File processing",
+   "level": 3,
+   "opcode": 111,
+   "signature": "ss",
+   "params": "oldname,newname",
+   "description": "Move file"
+  },
+  {
+   "names": {
+    "python": "movexy",
+    "pascal": "movexy",
+    "basic": "MOVEXY"
+   },
+   "returns": "procedure",
+   "category": "Turtle: relative movement",
+   "level": 2,
+   "opcode": 137,
+   "signature": "ii",
+   "params": "moveX,moveY",
+   "description": "Move turtle without drawing"
+  },
+  {
+   "names": {
+    "python": "newturtle",
+    "pascal": "newturtle",
+    "basic": "NEWTURTLE"
+   },
+   "returns": "procedure",
+   "category": "Other Turtle commands",
+   "level": 3,
+   "opcode": 245,
+   "signature": "A",
+   "params": "newTurtleArray",
+   "description": "Set integer array as new Turtle"
+  },
+  {
+   "names": {
+    "python": "noupdate",
+    "pascal": "noupdate",
+    "basic": "NOUPDATE"
+   },
+   "returns": "procedure",
+   "category": "Canvas operations",
+   "level": 1,
+   "opcode": 127,
+   "signature": "",
+   "params": "",
+   "description": "Turn off screen updating"
+  },
+  {
+   "names": {
+    "python": "oldturtle",
+    "pascal": "oldturtle",
+    "basic": "OLDTURTLE"
+   },
+   "returns": "procedure",
+   "category": "Other Turtle commands",
+   "level": 3,
+   "opcode": 246,
+   "signature": "",
+   "params": "",
+   "description": "Revert to default turtle"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "openfile",
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 99,
+   "signature": "si",
+   "params": "filename,mode",
+   "description": "Open file (1: read, 2:append, 3: write)"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "OPENIN"
+   },
+   "returns": "integer",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 99,
+   "signature": "s",
+   "params": "filename",
+   "description": "Open file to read"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "OPENOUT"
+   },
+   "returns": "integer",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 99,
+   "signature": "s",
+   "params": "filename",
+   "description": "Open file to write"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "OPENUP"
+   },
+   "returns": "integer",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 99,
+   "signature": "s",
+   "params": "filename",
+   "description": "Open file to append"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "ord",
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "Type conversion routines",
+   "level": 3,
+   "opcode": 0,
+   "signature": "c",
+   "params": "character",
+   "description": "Convert character to ascii code"
+  },
+  {
+   "names": {
+    "python": "ord",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "Type conversion routines",
+   "level": 3,
+   "opcode": 247,
+   "signature": "s",
+   "params": "string of length 1",
+   "description": "Convert character to ascii code"
+  },
+  {
+   "names": {
+    "python": "output",
+    "pascal": "output",
+    "basic": "OUTPUT"
+   },
+   "returns": "procedure",
+   "category": "Other Turtle commands",
+   "level": 2,
+   "opcode": 200,
+   "signature": "bib",
+   "params": "clear,col,tofront",
+   "description": "Clear/colour/bring-to-front Output Tab"
+  },
+  {
+   "names": {
+    "python": "pad",
+    "pascal": "pad",
+    "basic": "PAD$"
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 3,
+   "opcode": 73,
+   "signature": "ssi",
+   "params": "string,pad,maxw",
+   "description": "Pad before/after (+/-) up to max width"
+  },
+  {
+   "names": {
+    "python": "pause",
+    "pascal": "pause",
+    "basic": "PAUSE"
+   },
+   "returns": "procedure",
+   "category": "Input and timing routines",
+   "level": 1,
+   "opcode": 207,
+   "signature": "i",
+   "params": "milliseconds",
+   "description": "Pause program for specified time"
+  },
+  {
+   "names": {
+    "python": "pcodehalt",
+    "pascal": "pcodehalt",
+    "basic": "PCODEHALT"
+   },
+   "returns": "procedure",
+   "category": "Turtle Machine monitoring",
+   "level": 3,
+   "opcode": 123,
+   "signature": "i",
+   "params": "PCodeLine",
+   "description": "Halt execution after PCodeLine"
+  },
+  {
+   "names": {
+    "python": "peek",
+    "pascal": "peek",
+    "basic": "PEEK"
+   },
+   "returns": "integer",
+   "category": "Turtle Machine monitoring",
+   "level": 3,
+   "opcode": 170,
+   "signature": "i",
+   "params": "address",
+   "description": "Peek at absolute memory location"
+  },
+  {
+   "names": {
+    "python": "pendown",
+    "pascal": "pendown",
+    "basic": "PENDOWN"
+   },
+   "returns": "procedure",
+   "category": "Other Turtle commands",
+   "level": 1,
+   "opcode": 134,
+   "signature": "",
+   "params": "",
+   "description": "Turn the turtle's \"pen\" on"
+  },
+  {
+   "names": {
+    "python": "penup",
+    "pascal": "penup",
+    "basic": "PENUP"
+   },
+   "returns": "procedure",
+   "category": "Other Turtle commands",
+   "level": 1,
+   "opcode": 134,
+   "signature": "",
+   "params": "",
+   "description": "Turn the turtle's \"pen\" off"
+  },
+  {
+   "names": {
+    "python": "pi",
+    "pascal": "pi",
+    "basic": "PI"
+   },
+   "returns": "integer",
+   "category": "Trig / exp / log functions",
+   "level": 2,
+   "opcode": 47,
+   "signature": "i",
+   "params": "a",
+   "description": "Pi*a, rounded"
+  },
+  {
+   "names": {
+    "python": "pixcol",
+    "pascal": "pixcol",
+    "basic": "PIXCOL"
+   },
+   "returns": "integer",
+   "category": "Canvas operations",
+   "level": 3,
+   "opcode": 147,
+   "signature": "ii",
+   "params": "pixX,pixY",
+   "description": "Return pixel RGB colour"
+  },
+  {
+   "names": {
+    "python": "pixset",
+    "pascal": "pixset",
+    "basic": "PIXSET"
+   },
+   "returns": "procedure",
+   "category": "Canvas operations",
+   "level": 3,
+   "opcode": 148,
+   "signature": "iii",
+   "params": "pixX,pixY,colcode",
+   "description": "Set pixel colour (RGB or named)"
+  },
+  {
+   "names": {
+    "python": "poke",
+    "pascal": "poke",
+    "basic": "POKE"
+   },
+   "returns": "procedure",
+   "category": "Turtle Machine monitoring",
+   "level": 3,
+   "opcode": 124,
+   "signature": "ii",
+   "params": "address,value",
+   "description": "Poke value into memory location"
+  },
+  {
+   "names": {
+    "python": "polygon",
+    "pascal": "polygon",
+    "basic": "POLYGON"
+   },
+   "returns": "procedure",
+   "category": "Turtle: drawing shapes",
+   "level": 2,
+   "opcode": 154,
+   "signature": "i",
+   "params": "sides",
+   "description": "Fill polygon of last n visited points"
+  },
+  {
+   "names": {
+    "python": "polyline",
+    "pascal": "polyline",
+    "basic": "POLYLINE"
+   },
+   "returns": "procedure",
+   "category": "Turtle: drawing shapes",
+   "level": 2,
+   "opcode": 153,
+   "signature": "i",
+   "params": "n",
+   "description": "Line through last n visited points"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "pos",
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "String operations",
+   "level": 3,
+   "opcode": 68,
+   "signature": "ss",
+   "params": "sub,string",
+   "description": "Find substring position within string"
+  },
+  {
+   "names": {
+    "python": "power",
+    "pascal": "power",
+    "basic": "POWER"
+   },
+   "returns": "integer",
+   "category": "General arithmetic functions",
+   "level": 3,
+   "opcode": 36,
+   "signature": "iiiii",
+   "params": "a,b,c,d,e",
+   "description": "Calculate ((a/b)^(c/d)*e, rounded"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "PRINT"
+   },
+   "returns": "procedure",
+   "category": "String operations",
+   "level": 1,
+   "opcode": 251,
+   "signature": "s1 [,s2 ... ,sn]",
+   "params": "string[s]",
+   "description": "Print to \"Output\" (with line break)"
+  },
+  {
+   "names": {
+    "python": "print",
+    "pascal": null,
+    "basic": "PRINTON"
+   },
+   "returns": "procedure",
+   "category": "String operations",
+   "level": 1,
+   "opcode": 203,
+   "signature": "s1 [,s2 ... ,sn]",
+   "params": "string[s]",
+   "description": "Print to \"Output\" (end on same line)"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "PRINT#"
+   },
+   "returns": "procedure",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 106,
+   "signature": "is",
+   "params": "file handle,string",
+   "description": "Write string to file"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "PRINTLN#"
+   },
+   "returns": "procedure",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 107,
+   "signature": "is",
+   "params": "file handle,string",
+   "description": "Write line to file"
+  },
+  {
+   "names": {
+    "python": "qint",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "Type conversion routines",
+   "level": 2,
+   "opcode": 119,
+   "signature": "sii",
+   "params": "string,n,default",
+   "description": "Evaluate decimal string*n, rounded"
+  },
+  {
+   "names": {
+    "python": "qstr",
+    "pascal": "qstr",
+    "basic": "QSTR$"
+   },
+   "returns": "string",
+   "category": "Type conversion routines",
+   "level": 2,
+   "opcode": 118,
+   "signature": "iii",
+   "params": "a,b,decplaces",
+   "description": "Convert fraction a/b to string"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "qval",
+    "basic": "QVAL"
+   },
+   "returns": "integer",
+   "category": "Type conversion routines",
+   "level": 2,
+   "opcode": 119,
+   "signature": "sii",
+   "params": "string,n,default",
+   "description": "Evaluate decimal string*n, rounded"
+  },
+  {
+   "names": {
+    "python": "randcol",
+    "pascal": "randcol",
+    "basic": null
+   },
+   "returns": "procedure",
+   "category": "Other Turtle commands",
+   "level": 1,
+   "opcode": 249,
+   "signature": "i",
+   "params": "numcolours",
+   "description": "Set random current (named) colour"
+  },
+  {
+   "names": {
+    "python": "randint",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "General arithmetic functions",
+   "level": 2,
+   "opcode": 12,
+   "signature": "ii",
+   "params": "a,b",
+   "description": "Random number from a to b inclusive"
+  },
+  {
+   "names": {
+    "python": "randrange",
+    "pascal": "random",
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "General arithmetic functions",
+   "level": 2,
+   "opcode": 12,
+   "signature": "i",
+   "params": "range",
+   "description": "Random number from 0 to range-1"
+  },
+  {
+   "names": {
+    "python": "randseed",
+    "pascal": "randseed",
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "General arithmetic functions",
+   "level": 3,
+   "opcode": 13,
+   "signature": "i",
+   "params": "seed",
+   "description": "Seed/initialise random numbers"
+  },
+  {
+   "names": {
+    "python": "read",
+    "pascal": "read",
+    "basic": null
+   },
+   "returns": "string",
+   "category": "Input and timing routines",
+   "level": 2,
+   "opcode": 195,
+   "signature": "i",
+   "params": "maxchars",
+   "description": "Read string from keyboard buffer"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "readln",
+    "basic": null
+   },
+   "returns": "string",
+   "category": "Input and timing routines",
+   "level": 1,
+   "opcode": 196,
+   "signature": "",
+   "params": "",
+   "description": "Read input line, up to <Enter> key"
+  },
+  {
+   "names": {
+    "python": "recolour",
+    "pascal": "recolour",
+    "basic": "RECOLOUR"
+   },
+   "returns": "procedure",
+   "category": "Canvas operations",
+   "level": 3,
+   "opcode": 145,
+   "signature": "iii",
+   "params": "X,Y,newcolour",
+   "description": "Recolour uniform area from (X,Y)"
+  },
+  {
+   "names": {
+    "python": "remember",
+    "pascal": "remember",
+    "basic": "REMEMBER"
+   },
+   "returns": "procedure",
+   "category": "Turtle: drawing shapes",
+   "level": 2,
+   "opcode": 151,
+   "signature": "",
+   "params": "",
+   "description": "\"Remember\" the current position"
+  },
+  {
+   "names": {
+    "python": ".remove",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "procedure",
+   "category": "List operations",
+   "level": 1,
+   "opcode": 89,
+   "signature": "o",
+   "params": "object",
+   "description": "Remove specified object from list"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "renamefile",
+    "basic": "RENAMEFILE"
+   },
+   "returns": "boolean",
+   "category": "File processing",
+   "level": 3,
+   "opcode": 111,
+   "signature": "ss",
+   "params": "oldname,newname",
+   "description": "Rename file"
+  },
+  {
+   "names": {
+    "python": ".replace",
+    "pascal": "replace",
+    "basic": "REPLACE$"
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 3,
+   "opcode": 69,
+   "signature": "sssi",
+   "params": "string,f,r[,n]",
+   "description": "Replace f with r in string, up to n times"
+  },
+  {
+   "names": {
+    "python": "reset",
+    "pascal": "reset",
+    "basic": "RESET"
+   },
+   "returns": "procedure",
+   "category": "Input and timing routines",
+   "level": 3,
+   "opcode": 193,
+   "signature": "i",
+   "params": "inputcode",
+   "description": "Reset input status to default -1"
+  },
+  {
+   "names": {
+    "python": "resolution",
+    "pascal": "resolution",
+    "basic": "RESOLUTION"
+   },
+   "returns": "procedure",
+   "category": "Canvas operations",
+   "level": 2,
+   "opcode": 126,
+   "signature": "ii",
+   "params": "pixnumX,pixnumY",
+   "description": "Set Canvas pixel resolution"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "restartfile",
+    "basic": "RESTARTFILE"
+   },
+   "returns": "procedure",
+   "category": "File processing",
+   "level": 3,
+   "opcode": 101,
+   "signature": "i",
+   "params": "file handle",
+   "description": "Restart file"
+  },
+  {
+   "names": {
+    "python": ".reverse",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "procedure",
+   "category": "List operations",
+   "level": 1,
+   "opcode": 90,
+   "signature": "",
+   "params": "",
+   "description": "Reverse list"
+  },
+  {
+   "names": {
+    "python": "rgb",
+    "pascal": "rgb",
+    "basic": "RGB"
+   },
+   "returns": "integer",
+   "category": "Other Turtle commands",
+   "level": 3,
+   "opcode": 149,
+   "signature": "i",
+   "params": "colindex",
+   "description": "Convert colour index to RGB colcode"
+  },
+  {
+   "names": {
+    "python": "right",
+    "pascal": "right",
+    "basic": "RIGHT"
+   },
+   "returns": "procedure",
+   "category": "Turtle: relative movement",
+   "level": 1,
+   "opcode": 142,
+   "signature": "i",
+   "params": "angle",
+   "description": "Turn turtle right (in degrees)"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "RIGHT$"
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 2,
+   "opcode": 248,
+   "signature": "si",
+   "params": "string",
+   "description": "Rightmost i characters of string"
+  },
+  {
+   "names": {
+    "python": "rmdir",
+    "pascal": "rmdir",
+    "basic": "RMDIR"
+   },
+   "returns": "boolean",
+   "category": "File processing",
+   "level": 2,
+   "opcode": 241,
+   "signature": "s",
+   "params": "subdirectory name",
+   "description": "Remove subdirectory"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "RND"
+   },
+   "returns": "integer",
+   "category": "General arithmetic functions",
+   "level": 2,
+   "opcode": 12,
+   "signature": "i",
+   "params": "range",
+   "description": "Random number from 1 to range"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "RNDCOL"
+   },
+   "returns": "procedure",
+   "category": "Other Turtle commands",
+   "level": 1,
+   "opcode": 249,
+   "signature": "i",
+   "params": "numcolours",
+   "description": "Set random current (named) colour"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "RNDSEED"
+   },
+   "returns": "integer",
+   "category": "General arithmetic functions",
+   "level": 3,
+   "opcode": 13,
+   "signature": "i",
+   "params": "seed",
+   "description": "Seed/initialise random numbers"
+  },
+  {
+   "names": {
+    "python": "root",
+    "pascal": "root",
+    "basic": "ROOT"
+   },
+   "returns": "integer",
+   "category": "General arithmetic functions",
+   "level": 3,
+   "opcode": 35,
+   "signature": "iii",
+   "params": "a,b,c",
+   "description": "Calculate (b-root(a))*c, rounded"
+  },
+  {
+   "names": {
+    "python": "setx",
+    "pascal": "setx",
+    "basic": "SETX"
+   },
+   "returns": "procedure",
+   "category": "Turtle: absolute movement",
+   "level": 1,
+   "opcode": 129,
+   "signature": "i",
+   "params": "Xlocation",
+   "description": "Set turtle x-coordinate"
+  },
+  {
+   "names": {
+    "python": "setxy",
+    "pascal": "setxy",
+    "basic": "SETXY"
+   },
+   "returns": "procedure",
+   "category": "Turtle: absolute movement",
+   "level": 1,
+   "opcode": 136,
+   "signature": "ii",
+   "params": "Xlocation,Ylocation",
+   "description": "Set turtle coordinates"
+  },
+  {
+   "names": {
+    "python": "sety",
+    "pascal": "sety",
+    "basic": "SETY"
+   },
+   "returns": "procedure",
+   "category": "Turtle: absolute movement",
+   "level": 1,
+   "opcode": 130,
+   "signature": "i",
+   "params": "Ylocation",
+   "description": "Set turtle y-coordinate"
+  },
+  {
+   "names": {
+    "python": "sign",
+    "pascal": "sign",
+    "basic": "SGN"
+   },
+   "returns": "integer",
+   "category": "General arithmetic functions",
+   "level": 2,
+   "opcode": 11,
+   "signature": "i",
+   "params": "number",
+   "description": "Sign: +1 if positive, -1 if negative, or 0 "
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "shl",
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "General arithmetic functions",
+   "level": 3,
+   "opcode": 16,
+   "signature": "ii",
+   "params": "number,shift",
+   "description": "Shift bits left"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "shr",
+    "basic": null
+   },
+   "returns": "integer",
+   "category": "General arithmetic functions",
+   "level": 3,
+   "opcode": 16,
+   "signature": "ii",
+   "params": "number,shift",
+   "description": "Shift bits right"
+  },
+  {
+   "names": {
+    "python": "sin",
+    "pascal": "sin",
+    "basic": "SIN"
+   },
+   "returns": "integer",
+   "category": "Trig / exp / log functions",
+   "level": 2,
+   "opcode": 41,
+   "signature": "iii",
+   "params": "a,b,c",
+   "description": "Sin(a/b)*c, angle units, rounded"
+  },
+  {
+   "names": {
+    "python": "sqrt",
+    "pascal": "sqrt",
+    "basic": "SQR"
+   },
+   "returns": "integer",
+   "category": "General arithmetic functions",
+   "level": 2,
+   "opcode": 35,
+   "signature": "ii",
+   "params": "a,b",
+   "description": "Squareroot(a)*b, rounded"
+  },
+  {
+   "names": {
+    "python": "status",
+    "pascal": "status",
+    "basic": "STATUS"
+   },
+   "returns": "integer",
+   "category": "Input and timing routines",
+   "level": 3,
+   "opcode": 192,
+   "signature": "i",
+   "params": "inputcode",
+   "description": "key or mouse status, shift/ctrl/alt etc."
+  },
+  {
+   "names": {
+    "python": "str",
+    "pascal": "str",
+    "basic": "STR$"
+   },
+   "returns": "string",
+   "category": "Type conversion routines",
+   "level": 1,
+   "opcode": 114,
+   "signature": "i",
+   "params": "integer",
+   "description": "Convert integer to string"
+  },
+  {
+   "names": {
+    "python": ".strip",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 3,
+   "opcode": 74,
+   "signature": "s",
+   "params": "string",
+   "description": "Remove leading and trailing spaces"
+  },
+  {
+   "names": {
+    "python": ".swapcase",
+    "pascal": "swapcase",
+    "basic": null
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 2,
+   "opcode": 64,
+   "signature": "s",
+   "params": "string",
+   "description": "Swap case of characters"
+  },
+  {
+   "names": {
+    "python": "tan",
+    "pascal": "tan",
+    "basic": "TAN"
+   },
+   "returns": "integer",
+   "category": "Trig / exp / log functions",
+   "level": 2,
+   "opcode": 43,
+   "signature": "iii",
+   "params": "a,b,c",
+   "description": "Tan(a/b)*c, angle units, rounded"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": null,
+    "basic": "TCASE$"
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 2,
+   "opcode": 64,
+   "signature": "s",
+   "params": "string",
+   "description": "Convert string to title case"
+  },
+  {
+   "names": {
+    "python": "thickness",
+    "pascal": "thickness",
+    "basic": "THICKNESS"
+   },
+   "returns": "procedure",
+   "category": "Other Turtle commands",
+   "level": 1,
+   "opcode": 133,
+   "signature": "i",
+   "params": "thickness",
+   "description": "Set turtle's \"pen\" thickness"
+  },
+  {
+   "names": {
+    "python": "time",
+    "pascal": "time",
+    "basic": "TIME"
+   },
+   "returns": "integer",
+   "category": "Input and timing routines",
+   "level": 2,
+   "opcode": 205,
+   "signature": "",
+   "params": "",
+   "description": "Return time since start (millisecs)"
+  },
+  {
+   "names": {
+    "python": "timeset",
+    "pascal": "timeset",
+    "basic": "TIMESET"
+   },
+   "returns": "procedure",
+   "category": "Input and timing routines",
+   "level": 2,
+   "opcode": 206,
+   "signature": "i",
+   "params": "milliseconds",
+   "description": "Set time counter to value"
+  },
+  {
+   "names": {
+    "python": ".title",
+    "pascal": "titlecase",
+    "basic": null
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 2,
+   "opcode": 64,
+   "signature": "s",
+   "params": "string",
+   "description": "Convert string to title case"
+  },
+  {
+   "names": {
+    "python": "trace",
+    "pascal": "trace",
+    "basic": "TRACE"
+   },
+   "returns": "procedure",
+   "category": "Turtle Machine monitoring",
+   "level": 3,
+   "opcode": 120,
+   "signature": "b",
+   "params": "true/false",
+   "description": "Turn PCode trace facility on/off"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "trim",
+    "basic": "TRIM$"
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 3,
+   "opcode": 74,
+   "signature": "s",
+   "params": "string",
+   "description": "Remove leading and trailing spaces"
+  },
+  {
+   "names": {
+    "python": "try",
+    "pascal": null,
+    "basic": null
+   },
+   "returns": "procedure",
+   "category": "Input and timing routines",
+   "level": 3,
+   "opcode": 78,
+   "signature": "",
+   "params": "",
+   "description": "Try code while catching errors"
+  },
+  {
+   "names": {
+    "python": "turnxy",
+    "pascal": "turnxy",
+    "basic": "TURNXY"
+   },
+   "returns": "procedure",
+   "category": "Turtle: absolute movement",
+   "level": 2,
+   "opcode": 143,
+   "signature": "ii",
+   "params": "vectorX,vectorY",
+   "description": "Turn turtle to direction of vector"
+  },
+  {
+   "names": {
+    "python": "update",
+    "pascal": "update",
+    "basic": "UPDATE"
+   },
+   "returns": "procedure",
+   "category": "Canvas operations",
+   "level": 1,
+   "opcode": 127,
+   "signature": "",
+   "params": "",
+   "description": "Turn on screen updating"
+  },
+  {
+   "names": {
+    "python": ".upper",
+    "pascal": "uppercase",
+    "basic": "UCASE$"
+   },
+   "returns": "string",
+   "category": "String operations",
+   "level": 2,
+   "opcode": 64,
+   "signature": "s",
+   "params": "string",
+   "description": "Convert string to upper case"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "val",
+    "basic": "VAL"
+   },
+   "returns": "integer",
+   "category": "Type conversion routines",
+   "level": 1,
+   "opcode": 250,
+   "signature": "s",
+   "params": "string",
+   "description": "Evaluate string, default 0"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "valdef",
+    "basic": "VALDEF"
+   },
+   "returns": "integer",
+   "category": "Type conversion routines",
+   "level": 1,
+   "opcode": 117,
+   "signature": "si",
+   "params": "string,default",
+   "description": "Evaluate string, with default"
+  },
+  {
+   "names": {
+    "python": "watch",
+    "pascal": "watch",
+    "basic": "WATCH"
+   },
+   "returns": "procedure",
+   "category": "Turtle Machine monitoring",
+   "level": 3,
+   "opcode": 121,
+   "signature": "i",
+   "params": "address",
+   "description": "Set watch address for trace facility"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "write",
+    "basic": null
+   },
+   "returns": "procedure",
+   "category": "String operations",
+   "level": 1,
+   "opcode": 203,
+   "signature": "s1 [,s2 ... ,sn]",
+   "params": "string[s]",
+   "description": "Write string[s] to \"Text Output\" window"
+  },
+  {
+   "names": {
+    "python": null,
+    "pascal": "writeln",
+    "basic": null
+   },
+   "returns": "procedure",
+   "category": "String operations",
+   "level": 1,
+   "opcode": 251,
+   "signature": "s1 [,s2 ... ,sn]",
+   "params": "string[s]",
+   "description": "String[s] and line end to \"Output\""
+  }
+ ]
+}

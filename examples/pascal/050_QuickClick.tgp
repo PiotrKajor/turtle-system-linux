@@ -1,0 +1,47 @@
+program QuickClick;
+var
+  x,y:integer;
+  count:integer;
+  det,clickColour:integer;
+begin
+  blank(cream);
+  {print instructions}
+  setxy(15,200);
+  display('This reaction game will display a sequence',4,36);
+  setxy(20,270);
+  display('of 10 coloured circles on the Canvas.  Try',4,36);
+  setxy(20,340);
+  display('to click the mouse on each circle as quickly',4,36);
+  setxy(20,410);
+  display('as you can, and see how short a total time',4,36);
+  setxy(20,480);
+  display('you can achieve for all 10.',4,36);
+  setxy(20,620);
+  display('Now wait 5 seconds or press "Esc" key to start ...',4,30);
+  keyecho(false);
+  {wait for escape key, 5 seconds maximum, before proceeding...}
+  det:=detect(\escape,5000);
+  {reset timer}
+  timeset(0);
+  for count:=1 to 10 do
+  begin
+    {blank the screen}
+    blank(black);
+    {draw a blot at random coordinates}
+    setxy(random(900)+50,random(900)+50);
+    colour(rgb(count));
+    blot(50);
+    {until the blot has been clicked...}
+    repeat
+      {wait for left mouse click}
+      det:=detect(\lmouse,0);
+      {record the colour at the cursor's coordinates}
+      clickColour:=pixcol(?mousex,?mousey)
+    until clickColour=turtc
+  end;
+  {print time taken}
+  blank(lightblue);
+  setxy(60,460);
+  colour(lightred);
+  display('Your time was '+qstr(time,1000,2)+' seconds',4,50)
+end.

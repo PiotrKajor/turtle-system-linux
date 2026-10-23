@@ -1,0 +1,46 @@
+
+STRINGSIZE 255
+OUTPUT(TRUE,CREAM,TRUE)
+myfilename$="TestFile.txt"
+PROCwritefile
+PRINT("")
+PROCreadfile
+END
+
+DEF PROCwritefile
+  handle%=OPENOUT(myfilename$)
+  IF handle%>0 THEN
+    PRINT(myfilename$+" has been opened for writing ...")
+    PRINTLN#(handle%,"This is the first line to be written.")
+    PRINTLN#(handle%,"This is the second line to be written.")
+    PRINTLN#(handle%,"This is the third line to be written.")
+    CLOSE#(handle%)
+  ELSE
+    PRINT(myfilename$+" could not be opened for writing")
+    handle%=OPENUP(myfilename$)
+    IF handle%>0 THEN
+      PRINT(myfilename$+" has been opened for appending ...")
+      PRINTLN#(handle%,"This is the first line to be written.")
+      PRINTLN#(handle%,"This is the second line to be written.")
+      PRINTLN#(handle%,"This is the third line to be written.")
+      CLOSE#(handle%)
+    ELSE
+      PRINT("Nor could it be opened for appending")
+    ENDIF
+  ENDIF
+ENDPROC
+
+DEF PROCreadfile
+  LOCAL s%
+  handle%=OPENIN(myfilename$)
+  IF handle%>0 THEN
+    PRINT("Contents read from "+myfilename$+":")
+    WHILE NOT (EOF#(handle%))
+      s$=FREADLN#(handle%)
+      PRINT("  "+s$)
+    ENDWHILE
+    CLOSE#(handle%)
+  ELSE
+    PRINT(myfilename$+" could not be opened for reading")
+  ENDIF
+ENDPROC

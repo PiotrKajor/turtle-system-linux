@@ -1,0 +1,84 @@
+CONST SUNRADIUS%=50000
+CONST PLANETS%=8
+DIM radius%(PLANETS%)
+DIM distanceFromSun%(PLANETS%)
+DIM design%(PLANETS%)
+DIM rotation%(PLANETS%)
+DIM speed%(PLANETS%)
+PROCsetup
+REM multiply canvas dimensions by 1000
+ANGLES(360000)
+CANVAS(0,0,1000000,1000000)
+PENUP
+WHILE TRUE
+  NOUPDATE
+  REM rub out previous frame
+  BLANK(BLACK)
+  REM draw sun
+  HOME
+  COLOUR(YELLOW)
+  BLOT(SUNRADIUS%)
+  REM draw each planet
+  FOR i%=1 TO PLANETS%
+    HOME
+    REM draw a white circle for the orbit
+    COLOUR(WHITE)
+    CIRCLE(distanceFromSun%(i%)+SUNRADIUS%)
+    REM move to next position and draw the planet
+    RIGHT(rotation%(i%))
+    FORWARD(distanceFromSun%(i%)+SUNRADIUS%)
+    rotation%(i%)=(rotation%(i%)+speed%(i%)) MOD 360000
+    COLOUR(design%(i%))
+    IF i%<4 THEN
+      BLOT(radius%(i%)*2) REM make inner planets double scale
+    ELSE
+      BLOT(radius%(i%) DIV 2) REM make outer planets half scale
+    ENDIF
+  NEXT
+  UPDATE
+ENDWHILE
+END
+
+REM sets up the planet property arrays
+DEF PROCsetup
+  REM mercury
+  radius%(1)=2433
+  distanceFromSun%(1)=5795
+  speed%(1)=1607
+  design%(1)=WHITE
+  REM venus
+  radius%(2)=6053
+  distanceFromSun%(2)=10811
+  speed%(2)=1174
+  design%(2)=OCHRE
+  REM earth
+  radius%(3)=6371
+  distanceFromSun%(3)=14957
+  speed%(3)=1000
+  design%(3)=BLUE
+  REM mars
+  radius%(4)=3380
+  distanceFromSun%(4)=22784
+  speed%(4)=802
+  design%(4)=ORANGERED
+  REM jupiter
+  radius%(5)=71492
+  distanceFromSun%(5)=77814
+  speed%(5)=434
+  design%(5)=LIGHTRED
+  REM saturn
+  radius%(6)=58219
+  distanceFromSun%(6)=142700
+  speed%(6)=323
+  design%(6)=CREAM
+  REM uranus
+  radius%(7)=23470
+  distanceFromSun%(7)=287030
+  speed%(7)=182
+  design%(7)=CYAN
+  REM neptune
+  radius%(8)=23716
+  distanceFromSun%(8)=449990
+  speed%(8)=159
+  design%(8)=ROYAL
+ENDPROC

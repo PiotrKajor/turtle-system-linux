@@ -1,0 +1,89 @@
+program SolarSystem;
+const
+  sunRadius=50000;
+const
+  planets=8;
+var
+  radius,distanceFromSun,colr,rotation,speed:array [1..planets] of integer;
+var
+  i:integer;
+
+{sets up the planet property arrays}
+procedure setup;
+begin
+  {mercury}
+  radius[1]:=2433;
+  distanceFromSun[1]:=5795;
+  speed[1]:=1607;
+  colr[1]:=white;
+  {venus}
+  radius[2]:=6053;
+  distanceFromSun[2]:=10811;
+  speed[2]:=1174;
+  colr[2]:=ochre;
+  {earth}
+  radius[3]:=6371;
+  distanceFromSun[3]:=14957;
+  speed[3]:=1000;
+  colr[3]:=blue;
+  {mars}
+  radius[4]:=3380;
+  distanceFromSun[4]:=22784;
+  speed[4]:=802;
+  colr[4]:=orangered;
+  {jupiter}
+  radius[5]:=71492;
+  distanceFromSun[5]:=77814;
+  speed[5]:=434;
+  colr[5]:=lightred;
+  {saturn}
+  radius[6]:=58219;
+  distanceFromSun[6]:=142700;
+  speed[6]:=323;
+  colr[6]:=cream;
+  {uranus}
+  radius[7]:=23470;
+  distanceFromSun[7]:=287030;
+  speed[7]:=182;
+  colr[7]:=cyan;
+  {neptune}
+  radius[8]:=23716;
+  distanceFromSun[8]:=449990;
+  speed[8]:=159;
+  colr[8]:=royal
+end;
+begin
+  setup;
+  {multiply canvas dimensions by 1000}
+  angles(360000);
+  canvas(0,0,1000000,1000000);
+  penup;
+  while true do
+  begin
+    noupdate;
+    {rub out previous frame}
+    blank(black);
+    {draw sun}
+    home;
+    colour(yellow);
+    blot(sunRadius);
+    {draw each planet}
+    for i:=1 to planets do
+    begin
+      home;
+      {draw a white circle for the orbit}
+      colour(white);
+      circle(distanceFromSun[i]+sunRadius);
+      {move to next position and draw the planet}
+      right(rotation[i]);
+      forward(distanceFromSun[i]+sunRadius);
+      rotation[i]:=(rotation[i]+speed[i]) mod 360000;
+      colour(colr[i]);
+      if i<=4 then
+        blot(radius[i]*2) {make inner planets double scale}
+      else
+        blot(radius[i]/2) {make outer planets half scale}
+    end;
+    update
+  end
+end.

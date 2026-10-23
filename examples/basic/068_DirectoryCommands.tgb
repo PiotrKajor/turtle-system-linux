@@ -1,0 +1,68 @@
+CONST subdir$="testsubdir"
+CONST enquire%=0
+CONST delete%=1
+CONST create%=2
+CONST recreate%=3
+CONST tnotify%=4
+CONST fnotify%=16
+CONST tonentry%=64
+CONST tonexit%=128
+CONST todo%=create%
+OUTPUT(TRUE,CREAM,TRUE)
+code%=todo%+tnotify%+fnotify%
+PRINT("code% on entry = $"+HEX$(code%,2))
+code%=CHECKDIR(subdir$,code%)
+PRINT("code% on exit = $"+HEX$(code%,2))
+IF (code% AND tonentry%)>0 THEN
+  PRINT("Subdirectory existed on entry")
+ELSE
+  PRINT("No subdirectory on entry")
+ENDIF
+IF (code% AND tonexit%)>0 THEN
+  PRINT("Subdirectory existed on exit")
+ELSE
+  PRINT("No subdirectory on exit")
+ENDIF
+PRINT("")
+PROCshowresult(MKDIR(subdir$),"mkdir("+subdir$+")")
+PROCshowresult(DIREXISTS(subdir$),"direxists("+subdir$+")")
+PRINT("")
+PROCshowresult(MKDIR(subdir$),"mkdir("+subdir$+")")
+PROCshowresult(DIREXISTS(subdir$),"direxists("+subdir$+")")
+PRINT("")
+PROCshowresult(RMDIR(subdir$),"rmdir("+subdir$+")")
+PROCshowresult(DIREXISTS(subdir$),"direxists("+subdir$+")")
+PRINT("")
+PROCshowresult(RMDIR(subdir$),"rmdir("+subdir$+")")
+PROCshowresult(DIREXISTS(subdir$),"direxists("+subdir$+")")
+PRINT("")
+PROCshowresult(MKDIR(subdir$),"mkdir("+subdir$+")")
+PROCshowresult(DIREXISTS(subdir$),"direxists("+subdir$+")")
+PRINT("")
+PROCshowresult(MKDIR(subdir$),"mkdir("+subdir$+")")
+PROCshowresult(DIREXISTS(subdir$),"direxists("+subdir$+")")
+PRINT("")
+IF CHECKFILE(subdir$+"\A_File.txt",2)>127 THEN
+  PRINT("File has been created")
+ELSE
+  PRINT("File could not be created")
+ENDIF
+PROCshowresult(RMDIR(subdir$),"rmdir("+subdir$+")")
+PROCshowresult(DIREXISTS(subdir$),"direxists("+subdir$+")")
+PRINT("")
+IF CHECKFILE(subdir$+"\A_File.txt",1)<128 THEN
+  PRINT("File has been deleted")
+ELSE
+  PRINT("File could not be deleted")
+ENDIF
+PROCshowresult(RMDIR(subdir$),"rmdir("+subdir$+")")
+PROCshowresult(DIREXISTS(subdir$),"direxists("+subdir$+")")
+END
+
+DEF PROCshowresult(b%,n$)
+  IF b% THEN
+    PRINT(UCASE$(n$)+" returns TRUE")
+  ELSE
+    PRINT(UCASE$(n$)+" returns FALSE")
+  ENDIF
+ENDPROC

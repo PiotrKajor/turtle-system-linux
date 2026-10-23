@@ -1,0 +1,26 @@
+program Triangles;
+
+{draws triangles recursively, starting with}
+{one of the given size, but then also making}
+{half-sized triangles at each triangle point}
+procedure triangle(size:integer);
+begin
+  if size>1 then
+  begin
+    forward(size);
+    triangle(size/2);
+    right(120);
+    forward(size);
+    triangle(size/2);
+    right(120);
+    forward(size);
+    triangle(size/2);
+    right(120)
+  end
+end;
+begin
+  {move to the start, without drawing}
+  movexy(-100,150);
+  {draw a recursive triangle of size 256}
+  triangle(256)
+end.

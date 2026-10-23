@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Turtle System
+Comment=Turtle System (Python, Pascal, BASIC) for Linux
+Exec=python3 @APPDIR@/turtle_system.py %f
+Icon=turtle-system
+Terminal=false
+Categories=Development;Education;
+MimeType=text/x-turtle-python;text/x-turtle-pascal;text/x-turtle-basic;
+StartupWMClass=turtle-system

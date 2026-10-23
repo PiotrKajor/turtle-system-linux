@@ -1,0 +1,58 @@
+REM show instructions
+DIM letters%(26)
+BLANK(CREAM)
+SETXY(15,200)
+DISPLAY("In this typing test, you will be shown the",4,36)
+SETXY(20,270)
+DISPLAY("letters of the alphabet in a random order,",4,36)
+SETXY(20,340)
+DISPLAY("and in a mixture of upper- and lower-case.",4,36)
+SETXY(20,410)
+DISPLAY("Type them as fast as you can, and see how",4,36)
+SETXY(20,480)
+DISPLAY("quickly you can finish the entire alphabet.",4,36)
+SETXY(20,620)
+DISPLAY("Now wait 5 seconds or press ""Esc"" key to start ...",4,30)
+KEYECHO(FALSE)
+REM wait for escape key, 5 seconds maximum, before proceeding...
+det%=DETECT(\escape,5000)
+REM fill letters% array with character codes for all letters of the alphabet
+FOR count%=1 TO 26
+  REM randomly select upper or lower case
+  IF RND(2)=1 THEN
+    letters%(count%)=count%+64
+  ELSE
+    letters%(count%)=count%+96
+  ENDIF
+NEXT
+REM randomize the order of the letters
+FOR count%=1 TO 50
+  m%=RND(26)
+  n%=RND(26)
+  IF m%<>n% THEN
+    temp%=letters%(m%)
+    letters%(m%)=letters%(n%)
+    letters%(n%)=temp%
+  ENDIF
+NEXT
+REM set timer to zero
+TIMESET(0)
+REM for each letter in turn...
+FOR count%=1 TO 26
+  REM rub out previous letter
+  BLANK(BLACK)
+  REM print letter at random coordinates
+  SETXY(100+RND(300),RND(250))
+  COLOUR(YELLOW)
+  DISPLAY(CHR$(letters%(count%)),3,450)
+  REM wait for user to type that letter
+  REPEAT
+    det%=DETECT(\keybuffer,0)
+  UNTIL GET$(1)=CHR$(letters%(count%))
+NEXT
+REM show time taken
+BLANK(LIGHTBLUE)
+SETXY(60,460)
+COLOUR(LIGHTRED)
+DISPLAY("Your time was "+QSTR$(TIME,1000,2)+" seconds",4,50)
+END

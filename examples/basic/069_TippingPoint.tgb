@@ -1,0 +1,60 @@
+CONST WIDTH%=100
+CONST HEIGHT%=100
+CONST SUSCEPTIBLE%=LIGHTGREEN
+CONST INFECTIOUS%=RED
+CONST RECOVERED%=BLUE
+CONST INITIALNUMBER%=10
+CONST INFECTPROB%=2
+CONST CONTACTS%=50
+REM set up canvas, with all cells initially susceptible
+CANVAS(0,0,WIDTH%,HEIGHT%)
+RESOLUTION(WIDTH%,HEIGHT%)
+BLANK(SUSCEPTIBLE%)
+REM write out the general parameters of the model
+PRINT("Initial infections:        "+STR$(INITIALNUMBER%))
+PRINT("Contacts per person:       "+STR$(CONTACTS%))
+PRINT("Transmission probability:  "+STR$(INFECTPROB%)+"%")
+PRINT("R0 (reproduction number):  "+QSTR$(CONTACTS%*INFECTPROB%,100,2))
+REM initialise the counts
+numinfected%=0
+numinfectious%=0
+REM randomly select the initial infections
+REPEAT
+  i%=RND(WIDTH%)-1
+  j%=RND(HEIGHT%)-1
+  IF PIXCOL(i%,j%)=SUSCEPTIBLE% THEN PROCinfect(i%,j%)
+UNTIL numinfected%=INITIALNUMBER%
+REM now run and time the model until nobody is still infectious
+TIMESET(0)
+REPEAT
+  REM randomly choose an individual
+  x%=RND(WIDTH%)-1
+  y%=RND(HEIGHT%)-1
+  REM if that individual is infectious ...
+  IF PIXCOL(x%,y%)=INFECTIOUS% THEN
+    REM count through their contacts
+    FOR n%=1 TO CONTACTS%
+      REM randomly choose whether the disease could be passed on in this case ...
+      IF RND(100)<=INFECTPROB% THEN
+        REM if so, and the contact turns out to be susceptible, then they catch it
+        i%=RND(WIDTH%)-1
+        j%=RND(HEIGHT%)-1
+        IF PIXCOL(i%,j%)=SUSCEPTIBLE% THEN PROCinfect(i%,j%)
+      ENDIF
+    NEXT
+    REM the individual now recovers and becomes immune
+    PIXSET(x%,y%,RECOVERED%)
+    numinfectious%=numinfectious%-1
+  ENDIF
+REM carry on until nobody remains infectious, and report results
+UNTIL numinfectious%=0
+PRINT("Total infected overall:    "+STR$(numinfected%)+" ("+QSTR$(TIME,1000,2)+" sec)")
+PRINT("Proportion infected:       "+QSTR$(numinfected%*100,WIDTH%*HEIGHT%,2)+"%")
+END
+
+REM Procedure to infect cell at (x,y) - assumes that it is susceptible
+DEF PROCinfect(x%,y%)
+  PIXSET(x%,y%,INFECTIOUS%)
+  numinfected%=numinfected%+1
+  numinfectious%=numinfectious%+1
+ENDPROC

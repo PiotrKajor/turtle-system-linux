@@ -1,0 +1,42 @@
+REM draw black circle for clock face
+THICKNESS(10)
+CIRCLE(400)
+REM initialise hours and minutes to zero
+hours%=0
+minutes%=0
+REM repeatedly through the hours ...
+REPEAT
+  REM repeatedly through the minutes ...
+  REPEAT
+    REM draw both hands in the appropriate place
+    PROCshowHands(hours%,minutes%)
+    REM pause 1/10 second [so clock goes 600 times too fast]
+    PAUSE(100)
+    REM count through minutes until it reaches 60
+    minutes%=minutes%+1
+  UNTIL minutes%=60
+  REM reinitialise minutes, and count through hours until 12
+  minutes%=0
+  hours%=hours%+1
+UNTIL hours%=12
+REM show final position
+PROCshowHands(hours%,minutes%)
+END
+
+REM draws hour and minute hands on a clock face
+DEF PROCshowHands(hours%,minutes%)
+  REM rub out previous hands
+  COLOUR(WHITE)
+  BLOT(360)
+  COLOUR(RED)
+  REM draw hour hand and return to centre
+  DIRECTION(hours%*30)
+  THICKNESS(10)
+  FORWARD(250)
+  BACK(250)
+  REM draw minute hand and return to centre
+  DIRECTION(minutes%*6)
+  THICKNESS(6)
+  FORWARD(350)
+  BACK(350)
+ENDPROC

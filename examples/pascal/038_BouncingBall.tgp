@@ -1,0 +1,32 @@
+program BouncingBall;
+var
+  x,y:integer;
+  xVelocity,yVelocity:integer;
+begin
+  {set starting point and velocity}
+  x:=100;
+  y:=700;
+  xVelocity:=8;
+  yVelocity:=-4;
+  while 0<1 do
+  begin
+    noupdate;
+    {rub out existing ball}
+    colour(white);
+    blot(51);
+    {move to next location}
+    x:=x+xVelocity;
+    y:=y+yVelocity;
+    setxy(x,y);
+    {draw new ball}
+    colour(red);
+    blot(50);
+    update;
+    pause(10);
+    {"bounce" (i.e. invert velocity) at canvas edges}
+    if (x<50) or (x>949) then
+      xVelocity:=-xVelocity;
+    if (y<50) or (y>949) then
+      yVelocity:=-yVelocity
+  end
+end.

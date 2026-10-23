@@ -1,0 +1,65 @@
+program BouncingTriangle;
+const
+  size=100;
+var
+  x,y,d:integer;
+  xVelocity,yVelocity,dVelocity:integer;
+  xEdge,yEdge:boolean;
+
+{draws a triangle, and checks whether it meets the edge of the canvas}
+procedure triangle(colr:integer);
+var
+  count:integer;
+begin
+  xEdge:=false;
+  yEdge:=false;
+  setxy(x,y);
+  direction(d);
+  colour(colr);
+  for count:=1 to 3 do
+  begin
+    forward(size);
+    if abs(turtx-500)>495 then
+      xEdge:=true;
+    if abs(turty-500)>495 then
+      yEdge:=true;
+    back(size);
+    forget(1);
+    right(120)
+  end;
+  polygon(3)
+end;
+begin
+  {set starting point and velocity}
+  x:=300;
+  y:=700;
+  d:=0;
+  xVelocity:=8;
+  yVelocity:=-4;
+  dVelocity:=5;
+  while 0<1 do
+  begin
+    noupdate;
+    {rub out existing triangle}
+    blank(white);
+    {move to next location}
+    x:=x+xVelocity;
+    y:=y+yVelocity;
+    d:=(d+dVelocity) mod 360;
+    {draw new triangle}
+    triangle(red);
+    update;
+    pause(10);
+    {"bounce" (i.e. invert velocity) at canvas edges}
+    if xEdge then
+    begin
+      xVelocity:=-xVelocity;
+      dVelocity:=-dVelocity
+    end;
+    if yEdge then
+    begin
+      yVelocity:=-yVelocity;
+      dVelocity:=-dVelocity
+    end
+  end
+end.

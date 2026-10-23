@@ -1,0 +1,22 @@
+# draw green blot radius 100, then pause
+colour(green)
+blot(100)
+pause(1000)
+# draw red line length 450 upwards, then pause
+colour(red)
+forward(450)
+pause(1000)
+# red circle, right 90 degrees, thickness 9
+circle(20)
+right(90)
+thickness(9)
+# colour blue, pause, draw horizontal line 450
+colour(blue)
+pause(1000)
+forward(450)
+# cyan, pause, circle, diagonal line to centre
+colour(cyan)
+pause(1000)
+circle(20)
+right(135)
+forward(635)

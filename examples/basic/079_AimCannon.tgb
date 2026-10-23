@@ -1,0 +1,99 @@
+CONST GUNLENGTH%=1000
+CONST DISTANCECOL%=GREEN
+CONST TIMECOL%=RED
+CANVAS(0,0,10500,10000)
+PROCgraphaxes
+turtd%=45
+THICKNESS(20)
+REPEAT
+  PROCaim
+  PRINTON("Elevation: "+STR$(90-turtd%))
+  PROCfire(COS(90-turtd%,1,96),SIN(90-turtd%,1,-96),1,9950)
+  PRINTON("  Distance: "+STR$(turtx%))
+  PRINT("  Time: "+STR$(steps%))
+  PROCplot(90-turtd%,turtx%,DISTANCECOL%)
+  PROCplot(90-turtd%,steps%*50,TIMECOL%)
+UNTIL 0=1
+END
+
+DEF PROCgraphaxes
+  LOCAL n%
+  THICKNESS(5)
+  SETXY(9700,600)
+  DRAWXY(0,3900)
+  DRAWXY(-9000,0)
+  DRAWXY(0,-3900)
+  FOR n%=0 TO 90
+    IF n% MOD 5=0 THEN
+      SETXY(650+n%*100,4600)
+      DISPLAY(STR$(n%),2,16)
+    ENDIF
+  NEXT
+  FOR n%=0 TO 9
+    SETXY(100,4350-n%*400)
+    DISPLAY(STR$(n%*1000),2,16)
+  NEXT
+  FOR n%=0 TO 9
+    SETXY(9900,4380-n%*400)
+    DISPLAY(STR$(n%*20),2,16)
+  NEXT
+  SETXY(4000,4900)
+  DISPLAY("Angle of elevation",2,24)
+  COLOUR(DISTANCECOL%)
+  SETXY(0,100)
+  DISPLAY("Distance",2,24)
+  COLOUR(TIMECOL%)
+  SETXY(9600,100)
+  DISPLAY("Time",2,24)
+ENDPROC
+
+DEF PROCplot(x%,y%,col%)
+  SETXY(700+x%*100,4500-y%*2/5)
+  COLOUR(col%)
+  BLOT(40)
+ENDPROC
+
+DEF PROCaim
+  REPEAT
+    NOUPDATE
+    SETXY(0,10000)
+    COLOUR(CREAM)
+    BLOT(1600)
+    COLOUR(YELLOWGREEN)
+    BLOT(1400)
+    COLOUR(MAROON)
+    SETXY(250,9750)
+    BLOT(250)
+    FORWARD(GUNLENGTH%)
+    SETXY(250,9750)
+    COLOUR(RED)
+    BLOT(100)
+    UPDATE
+    det%=DETECT(\lmouse,0)
+    IF PIXCOL(?mousex,?mousey)=CREAM THEN
+      TURNXY(?mousex-250,?mousey-9750)
+    ENDIF
+  UNTIL PIXCOL(?mousex,?mousey)=RED
+ENDPROC
+
+DEF PROCfire(xvel%,yvel%,gravity%,floor%)
+  SETXY(250,9750)
+  steps%=0
+  REPEAT
+    INC(steps%)
+    IF PIXCOL(turtx%,turty%)=BLACK THEN
+      COLOUR(WHITE)
+      BLOT(80)
+    ENDIF
+    MOVEXY(xvel%,yvel%)
+    yvel%=yvel%+gravity%
+    IF turty%>floor% THEN turty%=floor%
+    IF (PIXCOL(turtx%,turty%)=WHITE) OR (turty%=floor%) THEN
+      COLOUR(BLACK)
+      BLOT(75)
+    ENDIF
+    UPDATE
+    PAUSE(10)
+    NOUPDATE
+  UNTIL turty%=floor%
+ENDPROC

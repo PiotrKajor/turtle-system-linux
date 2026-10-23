@@ -1,0 +1,31 @@
+CONST WIDTH%=10
+CONST HEIGHT%=15
+REM set up canvas coordinates and resolution
+CANVAS(1,1,WIDTH%,HEIGHT%)
+RESOLUTION(WIDTH%,HEIGHT%)
+REM draw coloured pixels across bottom
+FOR x%=1 TO WIDTH%
+  PIXSET(x%,HEIGHT%,RGB(x%))
+NEXT
+REM now enter interactive repeat loop
+REPEAT
+  REM detect mouse click or key within 5 seconds
+  mk%=DETECT(\mousekey,5000)
+  REM if left click, cell becomes turtle colour
+  IF mk%=1 THEN
+    PIXSET(?mousex,?mousey,turtc%)
+  ELSE
+    REM if right click, turtle takes colour from cell
+    REM "TURTC%=X" has the same effect as "COLOUR(X)"}
+    IF mk%=2 THEN
+      turtc%=PIXCOL(?mousex,?mousey)
+    ELSE
+      REM if middle click, cell takes random colour
+      IF mk%=4 THEN
+        PIXSET(?mousex,?mousey,RGB(RND(10)))
+      ENDIF
+    ENDIF
+  ENDIF
+REM continue until ESCAPE key is pressed
+UNTIL mk%=\escape
+END

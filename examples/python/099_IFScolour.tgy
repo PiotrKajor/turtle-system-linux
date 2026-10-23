@@ -1,0 +1,134 @@
+def setsierpinski():
+    global xleft,xright,ytop,ybottom,scaledown
+    global mappings,gridscale,gridthick,coeffdiv
+    global mapxx,mapyx,mapxy,mapyy,mapxc,mapyc
+    xleft=1
+    xright=1024
+    ytop=1
+    ybottom=1024
+    scaledown=2
+    mappings=3
+    gridscale=5
+    gridthick=64
+    coeffdiv=2
+    mapxx=[1,1,1]
+    mapyx=[0,0,0]
+    mapxy=[0,0,0]
+    mapyy=[1,1,1]
+    mapxc=[256,0,512]
+    mapyc=[0,512,512]
+
+def setbarnsley():
+    global xleft,xright,ytop,ybottom,scaledown
+    global mappings,gridscale,gridthick,coeffdiv
+    global mapxx,mapyx,mapxy,mapyy,mapxc,mapyc
+    xleft=-236
+    xright=263
+    ytop=1
+    ybottom=1000
+    scaledown=2
+    mappings=4
+    gridscale=5
+    gridthick=32
+    coeffdiv=100
+    mapxx=[0,85,20,-15]
+    mapyx=[0,-4,23,26]
+    mapxy=[0,4,-26,28]
+    mapyy=[16,85,22,24]
+    mapxc=[0,0,0,0]
+    mapyc=[0,160,160,44]
+
+def setdragon():
+    global xleft,xright,ytop,ybottom,scaledown
+    global mappings,gridscale,gridthick,coeffdiv
+    global mapxx,mapyx,mapxy,mapyy,mapxc,mapyc
+    xleft=1
+    xright=1000
+    ytop=1
+    ybottom=1000
+    scaledown=4
+    mappings=3
+    gridscale=5
+    gridthick=64
+    coeffdiv=1000
+    mapxx=[0,0,0]
+    mapyx=[-577,-577,-577]
+    mapxy=[577,577,577]
+    mapyy=[0,0,0]
+    mapxc=[95,441,95]
+    mapyc=[589,789,989]
+
+def startprompt():
+    output(True,cream,True)
+    keyecho(False)
+    print('ITERATED FUNCTIONS ON COLOURED BACKGROUND')
+    print()
+    print('Select Sierpinski, Barnsley fern, or Dragon curve? (S/B/D) ',end ='')
+    keyecho(False)
+    det=0
+    while (det!=\s) and (det!=\b) and (det!=\d):
+        det=detect(\key,0)
+    print(chr(det))
+    if det==\s:
+        print('Sierpinski mappings will be used')
+        setsierpinski()
+    elif det==\b:
+        print('Barnsley fern mappings will be used')
+        setbarnsley()
+    else:
+        print('Dragon curve mappings will be used')
+        setdragon()
+    output(False,white,False)
+
+def setscale():
+    global xl,xr,yt,yb,mapxc,mapyc,gt
+    xl=xleft/scaledown
+    xr=xright/scaledown
+    yt=ytop/scaledown
+    yb=ybottom/scaledown
+    for i in range (mappings):
+        mapxc[i]=mapxc[i]/scaledown
+        mapyc[i]=mapyc[i]/scaledown
+    gt=gridthick/scaledown
+
+def background():
+    global gt,xl,xr,yt,yb
+    thickness(gt)
+    colour(darkgrey)
+    for x in range (1,gridscale):
+        setxy(xl+divmult(xr-xl,gridscale,x),yt)
+        drawxy(0,yb-yt)
+    for y in range (1,gridscale):
+        setxy(xl+gt/2,yt+divmult(yb-yt,gridscale,y))
+        drawxy(xr-xl-gt,0)
+    colour(black)
+    setxy(xl,yt)
+    drawxy(xr-xl,0)
+    drawxy(0,yb-yt)
+    drawxy(xl-xr,0)
+    drawxy(0,yt-yb)
+    for x in range (gridscale):
+        for y in range (gridscale):
+            cx=xl+divmult(xr-xl,gridscale,x)+gt
+            cy=yt+divmult(yb-yt,gridscale,y)+gt
+            r=divmult(255,gridscale-1,x)
+            g=divmult(255,gridscale-1,y)
+            b=divmult(255,2*gridscale-2,2*gridscale-2-x-y)
+            recolour(cx,cy,(r*0x10000)+(g*0x100)+b)
+
+def domap(mapnum):
+    noupdate()
+    for y in range (yt,yb+1):
+        for x in range (xl,xr+1):
+            newx=divmult(x,coeffdiv,mapxx[mapnum])+divmult(y,coeffdiv,mapxy[mapnum])+mapxc[mapnum]
+            newy=divmult(x,coeffdiv,mapyx[mapnum])+divmult(y,coeffdiv,mapyy[mapnum])+mapyc[mapnum]
+            pixset(newx,newy,pixcol(x,y))
+    update()
+
+startprompt()
+setscale()
+canvas(xl,yt,xr-xl+1,yb-yt+1)
+resolution(xr-xl+1,yb-yt+1)
+background()
+for count in range (mappings):
+    domap(count)

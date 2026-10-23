@@ -1,0 +1,32 @@
+WIDTH=32
+HEIGHT=32
+
+canvas(0,0,WIDTH,HEIGHT)
+resolution(WIDTH,HEIGHT)
+print('GAME OF LIFE (with user setup)')
+print('Left-click to make a cell alive; right-click to make a cell dead.')
+print('Press Esc key to quit, or any other key to start the Game ...')
+
+
+mk=0
+while mk<=2:
+    mk=detect(\mousekey,0)
+    if mk==1:
+        pixset(?mousex,?mousey,black)
+    elif mk==2:
+        pixset(?mousex,?mousey,white)
+while ?key!=\escape:
+    noupdate()
+    for x in range (WIDTH):
+        for y in range (HEIGHT):
+            dn=0
+            for i in range (-1,2):
+                for j in range (-1,2):
+                    dn=dn+(pixcol((x+i)% WIDTH,(y+j)% HEIGHT)&1)
+            if ((pixcol(x,y)&1==0) and ((dn<5) or (dn>6))) or ((pixcol(x,y)&1==1) and (dn==6)):
+                pixset(x,y,pixcol(x,y)^2)
+    for x in range (WIDTH):
+        for y in range (HEIGHT):
+            if (pixcol(x,y)&3)% 3!=0:
+                pixset(x,y,pixcol(x,y)^0xFFFFFD)
+    update()

@@ -1,0 +1,89 @@
+
+
+CONST EARTHRADIUS%=6371000
+CONST EARTHGM%=398600442
+CONST INITDIRECTION%=2000
+CONST INITTHRUST%=20000
+CONST THRUSTTIME%=500
+CONST ANGLEPRECISION%=1296000
+CANVAS(-20000,-20000,40000,40000)
+ANGLES(ANGLEPRECISION%)
+x%=0
+y%=-EARTHRADIUS%
+xvel%=0
+yvel%=0
+d%=INITDIRECTION%
+t%=0
+prevdiff%=1
+thrust%=INITTHRUST%
+REPEAT
+  PROCdrawrocket
+  prevdist%=dist%
+  dist%=HYPOT(x%,y%,1)
+  IF (dist%-prevdist%)*prevdiff%<=0 THEN PROCreport
+  prevdiff%=dist%-prevdist%
+  gravity%=DIVMULT(EARTHGM%,DIVMULT(dist%,1000000,dist%),1000)
+  xgravity%=DIVMULT(gravity%,dist%,-x%)
+  ygravity%=DIVMULT(gravity%,dist%,-y%)
+  xthrust%=SIN(d%,1,thrust%)
+  ythrust%=-COS(d%,1,thrust%)
+  xvel%=xvel%+xgravity%+xthrust%
+  yvel%=yvel%+ygravity%+ythrust%
+  x%=x%+xvel%/1000
+  y%=y%+yvel%/1000
+  IF yvel%>0 THEN
+    d%=ANGLEPRECISION%/2-ATN(xvel%,yvel%,1)
+  ELSE
+    d%=ATN(xvel%,-yvel%,1)
+  ENDIF
+  INC(t%)
+  IF t%=THRUSTTIME% THEN thrust%=0
+UNTIL (0=1) OR (dist%<EARTHRADIUS%) OR (dist%>40000000)
+IF dist%<EARTHRADIUS% THEN
+  COLOUR(YELLOW)
+  FOR explosion%=100 TO 200
+    BLOT(explosion%)
+    PAUSE(3)
+  NEXT
+  COLOUR(BLACK)
+  BLOT(200)
+ENDIF
+END
+
+DEF PROCdrawrocket
+  NOUPDATE
+  BLANK(BLACK)
+  COLOUR(TEAL)
+  SETXY(0,0)
+  BLOT(EARTHRADIUS%/1000)
+  SETXY(x%/1000,y%/1000)
+  DIRECTION(d%)
+  THICKNESS(4)
+  COLOUR(SILVER)
+  FORWARD(200)
+  BACK(200)
+  IF thrust%>0 THEN
+    THICKNESS(8)
+    COLOUR(YELLOW)
+    BACK(200)
+    FORWARD(200)
+  ENDIF
+  UPDATE
+ENDPROC
+
+DEF PROCreport
+  PRINT("")
+  PRINT("TIME = "+STR$(t%))
+  PRINT(" Xposition = "+STR$(x%)+" metres")
+  PRINT(" Yposition = "+STR$(y%)+" metres")
+  PRINT(" Height = "+QSTR$(dist%-EARTHRADIUS%,1000,2)+" km")
+  PRINT(" Direction = "+QSTR$(d%,3600,1)+" degrees")
+  PRINT(" Thrust = "+QSTR$(thrust%,1000,1)+" newtons per kg")
+  PRINT("  Xthrust = "+QSTR$(xthrust%,1000,1)+" newtons per kg")
+  PRINT("  Ythrust = "+QSTR$(ythrust%,1000,1)+" newtons per kg")
+  PRINT(" Gravity = "+QSTR$(gravity%,1000,1)+" newtons per kg")
+  PRINT("  Xgravity = "+QSTR$(xgravity%,1000,1)+" newtons per kg")
+  PRINT("  Ygravity = "+QSTR$(ygravity%,1000,1)+" newtons per kg")
+  PRINT(" Xvelocity = "+QSTR$(xvel%,1000,1)+" metres per s")
+  PRINT(" Yvelocity = "+QSTR$(yvel%,1000,1)+" metres per s")
+ENDPROC

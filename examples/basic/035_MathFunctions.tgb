@@ -1,0 +1,72 @@
+CONST DECIMALS%=4 REM decimal places for display of values
+CONST DENOMINATOR%=1000000 REM denominator gives level of precision
+REM show output and display information about the program
+OUTPUT(TRUE,WHITE,TRUE)
+PRINT("This program selects two random numbers a and b, in the range")
+PRINT("100-999, and then outputs various mathematical functions of the")
+PRINT("fraction a/b. The results are expressed to "+STR$(DECIMALS%)+" decimal places, and a")
+PRINT("denominator of "+STR$(DENOMINATOR%)+" is used in the calculations to provide")
+PRINT("precision, even though the Turtle functions strictly operate only")
+PRINT("on integers and produce integer results.")
+PRINT("")
+REM set a and b to random values, and display their values and quotient
+a%=RND(900)+99
+b%=RND(900)+99
+PRINT("a = "+STR$(a%)+"; b = "+STR$(b%))
+PRINT("a / b = "+STR$(a%)+" / "+STR$(b%)+" = "+QSTR$(a%,b%,DECIMALS%))
+PRINT("")
+REM display square, square root, cube, and cube root of a/b
+PROCshow("square","/",POWER(a%,b%,2,1,DENOMINATOR%),0)
+PROCshow("square root","/",POWER(a%,b%,1,2,DENOMINATOR%),0)
+PROCshow("cube","/",POWER(a%,b%,3,1,DENOMINATOR%),0)
+PROCshow("cube root","/",POWER(a%,b%,1,3,DENOMINATOR%),0)
+PRINT("")
+REM display hypotenuse of right-angled triangle with shorter sides a and b
+PROCshow("hypot",",",HYPOT(a%,b%,DENOMINATOR%),0)
+PROCshow("calculated hypot",",",SQR(a%*a%+b%*b%,DENOMINATOR%),0)
+PRINT("")
+REM display sin, cos, and tan of a/b, interpreted in degrees
+PROCshow("sin","/",SIN(a%,b%,DENOMINATOR%),1)
+PROCshow("cos","/",COS(a%,b%,DENOMINATOR%),1)
+PROCshow("tan","/",TAN(a%,b%,DENOMINATOR%),1)
+PRINT("")
+REM display ln, exp, log10, and antilog of a/b
+PROCshow("ln","/",LN(a%,b%,DENOMINATOR%),0)
+IF DIVMULT(a%,b%,1000)+LN(DENOMINATOR%,1,1000)>LN(MAXINT,1,1000) THEN
+  PRINT("EXP("+STR$(a%)+" / "+STR$(b%)+") would give numerical overflow, because")
+  PRINT("the result * "+STR$(DENOMINATOR%)+" would be greater than "+STR$(MAXINT))
+ELSE
+  PROCshow("exp","/",EXP(a%,b%,DENOMINATOR%),0)
+ENDIF
+PROCshow("log10","/",LOG10(a%,b%,DENOMINATOR%),0)
+IF DIVMULT(a%,b%,1000)+LOG10(DENOMINATOR%,1,1000)>LOG10(MAXINT,1,1000) THEN
+  PRINT("ANTILOG("+STR$(a%)+" / "+STR$(b%)+") would give numerical overflow, because")
+  PRINT("the result * "+STR$(DENOMINATOR%)+" would be greater than "+STR$(MAXINT))
+ELSE
+  PROCshow("antilog","/",ANTILOG(a%,b%,DENOMINATOR%),0)
+ENDIF
+PRINT("")
+REM display arccos, arcsin, and arctan of a/b, in degrees
+IF a%>b% THEN
+  PRINT("ACS and ASN are not defined for "+STR$(a%)+" / "+STR$(b%)+" = "+QSTR$(a%,b%,DECIMALS%))
+ELSE
+  PROCshow("arccos","/",ACS(a%,b%,DENOMINATOR%),2)
+  PROCshow("arcsin","/",ASN(a%,b%,DENOMINATOR%),2)
+ENDIF
+PROCshow("arctan","/",ATN(a%,b%,DENOMINATOR%),2)
+END
+
+REM Writes to the output the value of a mathematical function of a/b,
+REM or - in the case of HYPOT (where OP is "," not "/") - of a and b;
+REM CHR$(176) is the degree symbol for sin/cos/tan and their inverses.
+DEF PROCshow(fn$,op$,value%,degrees%)
+  IF degrees%=1 THEN
+    PRINT(fn$+"("+STR$(a%)+op$+STR$(b%)+CHR$(176)+") = "+QSTR$(value%,DENOMINATOR%,DECIMALS%))
+  ELSE
+    IF degrees%=2 THEN
+      PRINT(fn$+"("+STR$(a%)+op$+STR$(b%)+") = "+QSTR$(value%,DENOMINATOR%,DECIMALS%)+CHR$(176))
+    ELSE
+      PRINT(fn$+"("+STR$(a%)+op$+STR$(b%)+") = "+QSTR$(value%,DENOMINATOR%,DECIMALS%))
+    ENDIF
+  ENDIF
+ENDPROC

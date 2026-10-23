@@ -1,0 +1,38 @@
+REM draw palette
+PROCpalette
+REM return turtle to centre of canvas
+HOME
+THICKNESS(10)
+BLOT(2)
+REM repeatedly...
+REPEAT
+  REM wait for left or right mouse click...
+  REPEAT
+  UNTIL (?lmouse>0) OR (?rmouse>0)
+  REM if cursor is within the palette area...
+  IF ?mousey>900 THEN
+    REM set the colour
+    COLOUR(RGB(?mousex DIV 100+1))
+  ELSE
+    REM if left button pressed...
+    IF ?lmouse>0 THEN
+      REM move the turtle (drawing) to the cursor's location
+      DRAWXY(?mousex-turtx%,?mousey-turty%)
+    REM otherwise (i.e. right button pressed)...
+    ELSE
+      REM move the turtle (not drawing) the the cursor's location
+      SETXY(?mousex,?mousey)
+    ENDIF
+  ENDIF
+UNTIL FALSE
+END
+
+REM draws the palette of colours
+DEF PROCpalette
+  LOCAL colr%
+  FOR colr%=1 TO 10
+    SETXY(colr%*100-50,950)
+    COLOUR(RGB(colr%))
+    BLOT(50)
+  NEXT
+ENDPROC

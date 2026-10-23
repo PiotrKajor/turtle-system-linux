@@ -1,0 +1,13 @@
+REM counting from 1 to 200 ...
+FOR count%=1 TO 200
+  REM move forward and turn right 5 degrees
+  FORWARD(count% DIV 3)
+  RIGHT(5)
+  REM draw red blot radius 200
+  COLOUR(RED)
+  BLOT(200)
+  REM draw black circle around the red blot
+  COLOUR(BLACK)
+  CIRCLE(200)
+NEXT
+END

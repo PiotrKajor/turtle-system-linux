@@ -1,0 +1,158 @@
+program BirdTree;
+{Adapted from a student program submitted in}
+{March 2001 for the ACOM Programming Concepts}
+{core at Leeds University, using Turtle 4}
+var
+  height_tree:integer;
+  bird_arrived:integer;
+  xpos_bird,ypos_bird:integer;
+  nr_wingmovements:integer;
+  drops,radius:integer;
+procedure drawtree(length,angle_tree,shift,contraction,step:integer);
+begin
+  if step>0 then
+  begin
+    turtt:=step*2;
+    step:=step-1;
+    length:=length*9;
+    forward(length);
+    left(angle_tree div 2+shift);
+    drawtree(length/contraction,angle_tree,shift,contraction,step);
+    right(angle_tree);
+    drawtree(length/contraction,angle_tree,shift,contraction,step);
+    left(angle_tree/2-shift);
+    back(length)
+  end
+end;
+procedure drawbird;
+var
+  wingparts:integer;
+  angle_wing:integer;
+procedure wingright(degree:integer);
+begin
+  thickness(2);
+  right(degree);
+  for wingparts:=1 to 4 do
+  begin
+    forward(50);
+    right(20)
+  end;
+  setxy(xpos_bird,ypos_bird);
+  left(80+degree);
+  thickness(1)
+end;
+procedure wingleft(degree:integer);
+begin
+  thickness(2);
+  left(degree);
+  for wingparts:=1 to 4 do
+  begin
+    forward(50);
+    left(20)
+  end;
+  setxy(xpos_bird,ypos_bird);
+  right(80+degree);
+  thickness(1)
+end;
+begin
+  blot(20);
+  xpos_bird:=turtx;
+  ypos_bird:=turty;
+  wingright(60);
+  wingleft(60);
+  if bird_arrived=1 then
+  begin
+    for angle_wing:=60 downto 40 do
+    begin
+      noupdate;
+      colour(white);
+      wingright(angle_wing);
+      wingleft(angle_wing);
+      setxy(xpos_bird,ypos_bird);
+      colour(black);
+      wingright(angle_wing-1);
+      wingleft(angle_wing-1);
+      setxy(xpos_bird,ypos_bird);
+      update
+    end;
+    for angle_wing:=40 to 60 do
+    begin
+      noupdate;
+      colour(white);
+      wingright(angle_wing-1);
+      wingleft(angle_wing-1);
+      setxy(xpos_bird,ypos_bird);
+      colour(black);
+      wingright(angle_wing);
+      wingleft(angle_wing);
+      setxy(xpos_bird,ypos_bird);
+      update
+    end
+  end
+end;
+procedure pooh;
+begin
+  setxy(xpos_bird,ypos_bird+30);
+  repeat
+    noupdate;
+    colour(white);
+    blot(10);
+    movexy(0,2);
+    colour(black);
+    blot(10);
+    update
+  until turty>900
+end;
+begin
+  canvas(-1000,-1000,2000,2000);
+  setxy(200,800);
+  color(0);
+  height_tree:=1;
+  repeat
+    noupdate;
+    colour(white);
+    drawtree(height_tree,50,4,10,8);
+    height_tree:=height_tree+1;
+    colour(black);
+    drawtree(height_tree,50,4,10,8);
+    update
+  until height_tree=20;
+  bird_arrived:=0;
+  setxy(800,-700);
+  repeat
+    noupdate;
+    colour(white);
+    drawbird;
+    movexy(-2,1);
+    colour(black);
+    drawbird;
+    update
+  until turty>50;
+  bird_arrived:=1;
+  for drops:=1 to 3 do
+  begin
+    colour(white);
+    blot(300);
+    for nr_wingmovements:=1 to 3 do
+      drawbird;
+    pooh;
+    if drops<3 then
+      ypos_bird:=ypos_bird-200;
+    setxy(xpos_bird,ypos_bird)
+  end;
+  repeat
+    noupdate;
+    colour(white);
+    blot(300);
+    movexy(-20,-10);
+    colour(black);
+    drawbird;
+    update
+  until turtx<-1200;
+  home;
+  radius:=10;
+  repeat
+    blot(radius);
+    radius:=radius+1
+  until radius>3000
+end.

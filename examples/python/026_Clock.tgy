@@ -1,0 +1,38 @@
+# draws hour and minute hands on a clock face
+def showhands(hours,minutes):
+    # rub out previous hands
+    colour(white)
+    blot(360)
+    # draw hour hand and return to centre
+    colour(red)
+    direction(hours*30)
+    thickness(10)
+    forward(250)
+    back(250)
+    # draw minute hand and return to centre
+    direction(minutes*6)
+    thickness(6)
+    forward(350)
+    back(350)
+
+# draw black circle for clock face
+thickness(10)
+circle(400)
+# initialise hours and minutes to zero
+hours=0
+minutes=0
+# repeatedly through the hours until 12 is reached ...
+while hours<12:
+    # repeatedly through the minutes until 60 is reached ...
+    while minutes<60:
+        # draw both hands in the appropriate place
+        showhands(hours,minutes)
+        # pause 1/10 second [so clock goes 600 times too fast]
+        pause(100)
+        # count through minutes until it reaches 60
+        minutes+=1 # equivalent to "minutes = minutes+1"
+    # reinitialise minutes, and increment hours
+    minutes=0
+    hours+=1 # equivalent to "hours = hours+1"
+# show final position
+showhands(hours,minutes)

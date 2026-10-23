@@ -1,0 +1,24 @@
+program MovingBall;
+var
+  x,y,count:integer;
+begin
+  {set starting point}
+  x:=100;
+  y:=700;
+  for count:=1 to 100 do
+  begin
+    noupdate;
+    {rub out previous ball}
+    colour(white);
+    blot(51);
+    {move to next point}
+    x:=x+8;
+    y:=y-4;
+    setxy(x,y);
+    {draw new ball}
+    colour(red);
+    blot(50);
+    update;
+    pause(10)
+  end
+end.

@@ -1,0 +1,14 @@
+# draws a single "prong" and then returns
+def prong():
+    forward(400)
+    blot(20)
+    back(400)
+
+# repeatedly draw prongs in random colours
+# until Turtle is pointing north again
+right(61)
+while turtd!=0:
+    randcol(10)
+    prong()
+    # right turn gives impression of motion
+    right(61)

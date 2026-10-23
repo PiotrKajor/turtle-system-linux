@@ -1,0 +1,50 @@
+
+STRINGSIZE 255
+origfname$="TestFile.txt"
+newfname$="TestRename.txt"
+OUTPUT(TRUE,CREAM,TRUE)
+FOR i%=1 TO 3
+  PRINT("LOOP "+STR$(i%)+" ...")
+  PRINT("")
+  PRINT("ABOUT TO TRY TO READ "+origfname$+" ...")
+  PROCreadfile(origfname$)
+  PRINT("")
+  PRINT("ABOUT TO TRY TO READ "+newfname$+" ...")
+  PROCreadfile(newfname$)
+  PRINT("")
+  IF i%=1 THEN
+    PRINT("RENAMING "+origfname$+" TO "+newfname$)
+    IF RENAMEFILE(origfname$,newfname$) THEN
+      PRINT("  succeeded")
+    ELSE
+      PRINT("  failed")
+    ENDIF
+    PRINT("")
+  ELSE
+    IF i%=2 THEN
+      PRINT("DELETING "+newfname$)
+      IF DELETEFILE(newfname$) THEN
+        PRINT("  file no longer exists")
+      ELSE
+        PRINT("  failed")
+      ENDIF
+      PRINT("")
+    ENDIF
+  ENDIF
+NEXT
+END
+
+DEF PROCreadfile(fname$)
+  LOCAL s$
+  handle%=OPENIN(fname$)
+  IF handle%>0 THEN
+    PRINT("Contents read from "+fname$+":")
+    WHILE NOT (EOF#(handle%))
+      s$=FREADLN#(handle%)
+      PRINT("  "+s$)
+    ENDWHILE
+    CLOSE#(handle%)
+  ELSE
+    PRINT("  "+fname$+" could NOT be opened FOR reading")
+  ENDIF
+ENDPROC

@@ -1,0 +1,41 @@
+program SimpleDraw;
+
+{draws the palette of colours}
+procedure palette;
+var
+  colr:integer;
+begin
+  for colr:=1 to 10 do
+  begin
+    setxy(colr*100-50,950);
+    colour(rgb(colr));
+    blot(50)
+  end
+end;
+begin
+  {draw palette}
+  palette;
+  {return turtle to centre of canvas}
+  home;
+  thickness(10);
+  blot(2);
+  {repeatedly...}
+  repeat
+    {wait for left or right mouse click...}
+    repeat
+    until (?lmouse>0) or (?rmouse>0);
+    {if cursor is within the palette area...}
+    if ?mousey>900 then
+      {set the colour}
+      colour(rgb(?mousex div 100+1))
+    else
+    {if left button pressed...}
+    if ?lmouse>0 then
+      {move the turtle (drawing) to the cursor's location}
+      drawxy(?mousex-turtx,?mousey-turty)
+    {otherwise (i.e. right button pressed)...}
+    else
+      {move the turtle (not drawing) the the cursor's location}
+      setxy(?mousex,?mousey)
+  until false
+end.

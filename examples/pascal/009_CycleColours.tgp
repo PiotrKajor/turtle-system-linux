@@ -1,0 +1,23 @@
+program CycleColours;
+var
+  lineLength:integer;
+  colourInc,colourCode:integer;
+begin
+  {black out the canvas}
+  blank(black);
+  {initialise colour variables randomly}
+  colourInc:=random(5);
+  colourCode:=random(20)+1;
+  thickness(16);
+  {draw a multi-coloured spiral by repeatedly ...}
+  for lineLength:=1 to 250 do
+  begin
+    {cycling through some standard Turtle colours}
+    colourCode:=((colourCode+colourInc) mod 20)+1;
+    colour(rgb(colourCode));
+    {moving forward by an increasing amount}
+    forward(lineLength);
+    {turning right by 30 degrees}
+    right(30)
+  end
+end.

@@ -1,0 +1,6 @@
+Logo artwork in this folder is composed from:
+- Microsoft Fluent Emoji "Turtle" (src/fluent_*.svg, src/fluent_3d.png) - MIT License,
+  https://github.com/microsoft/fluentui-emoji
+- Google Noto Color Emoji "turtle" U+1F422 (rendered to src/noto_turtle.png) - Apache License 2.0 / SIL OFL,
+  https://github.com/googlefonts/noto-emoji
+Regenerate with: python3 make_logos.py

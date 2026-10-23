@@ -1,0 +1,76 @@
+program TippingPoint;
+const
+  width=100;
+  height=100;
+  susceptible=lightgreen;
+  infectious=red;
+  recovered=blue;
+  initialnumber=10;
+  infectprob=2;
+  contacts=50;
+var
+  x,y,n,i,j:integer;
+  numinfected,numinfectious:integer;
+
+{Procedure to infect cell at (x,y) - assumes that it is susceptible}
+procedure infect(x,y:integer);
+begin
+  pixset(x,y,infectious);
+  inc(numinfected);
+  inc(numinfectious)
+end;
+begin
+  {set up canvas, with all cells initially susceptible}
+  canvas(0,0,width,height);
+  resolution(width,height);
+  blank(susceptible);
+
+  {write out the general parameters of the model}
+  writeln('Initial infections:        '+str(initialnumber));
+  writeln('Contacts per person:       '+str(contacts));
+  writeln('Transmission probability:  '+str(infectprob)+'%');
+  writeln('R0 (reproduction number):  '+qstr(contacts*infectprob,100,2));
+
+  {initialise the counts}
+  numinfected:=0;
+  numinfectious:=0;
+
+  {randomly select the initial infections}
+  repeat
+    i:=random(width);
+    j:=random(height);
+    if pixcol(i,j)=susceptible then
+      infect(i,j)
+  until numinfected=initialnumber;
+
+  {now run and time the model until nobody is still infectious}
+  timeset(0);
+  repeat
+    {randomly choose an individual}
+    x:=random(width);
+    y:=random(height);
+    {if that individual is infectious ...}
+    if pixcol(x,y)=infectious then
+    begin
+      {count through their contacts}
+      for n:=1 to contacts do
+      begin
+        {randomly choose whether the disease could be passed on in this case ...}
+        if random(100)<infectprob then
+        {if so, and the contact turns out to be susceptible, then they catch it}
+        begin
+          i:=random(width);
+          j:=random(height);
+          if pixcol(i,j)=susceptible then
+            infect(i,j)
+        end
+      end;
+      {the individual now recovers and becomes immune}
+      pixset(x,y,recovered);
+      dec(numinfectious)
+    end
+  {carry on until nobody remains infectious, and report results}
+  until numinfectious=0;
+  writeln('Total infected overall:    '+str(numinfected)+' ('+qstr(time,1000,2)+' sec)');
+  writeln('Proportion infected:       '+qstr(numinfected*100,width*height,2)+'%')
+end.

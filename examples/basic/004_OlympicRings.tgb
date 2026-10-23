@@ -1,0 +1,29 @@
+REM set ring radius and pen thickness
+ringRadius%=130
+THICKNESS(20)
+REM raise pen to avoid drawing lines
+PENUP
+REM draw black ring
+FORWARD(50)
+CIRCLE(ringRadius%)
+REM draw blue ring
+LEFT(90)
+FORWARD(300)
+COLOUR(BLUE)
+CIRCLE(ringRadius%)
+REM draw red ring
+BACK(600)
+COLOUR(RED)
+CIRCLE(ringRadius%)
+REM draw green ring
+FORWARD(150)
+RIGHT(90)
+BACK(125)
+COLOUR(LIME)
+CIRCLE(ringRadius%)
+REM draw yellow ring
+LEFT(90)
+FORWARD(300)
+COLOUR(YELLOW)
+CIRCLE(ringRadius%)
+END

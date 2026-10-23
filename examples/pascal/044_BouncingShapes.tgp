@@ -1,0 +1,79 @@
+program BouncingShapes;
+const
+  minSize=70;
+  maxSize=130;
+  shapes=6;
+var
+  x,y,d:array [1..shapes] of integer;
+  xVelocity,yVelocity,dVelocity:array [1..shapes] of integer;
+  sides,size,colr:array [1..shapes] of integer;
+  xEdge,yEdge:boolean;
+  n:integer;
+
+{draws a polygon, and checks whether it meets the edge of the canvas}
+procedure drawShape(sides,size,colr:integer);
+var
+  count:integer;
+begin
+  xEdge:=false;
+  yEdge:=false;
+  colour(colr);
+  for count:=1 to sides do
+  begin
+    forward(size);
+    if abs(turtx-500)>495 then
+      xEdge:=true;
+    if abs(turty-500)>495 then
+      yEdge:=true;
+    back(size);
+    forget(1);
+    right(360/sides)
+  end;
+  polygon(sides)
+end;
+begin
+  {set initial properties for each shape}
+  for n:=1 to shapes do
+  begin
+    sides[n]:=n+2;
+    size[n]:=minSize+random(maxSize-minSize);
+    colr[n]:=rgb(n);
+    x[n]:=random(1000-2*size[n])+size[n];
+    y[n]:=random(1000-2*size[n])+size[n];
+    d[n]:=random(360);
+    xVelocity[n]:=random(15)-7;
+    yVelocity[n]:=random(15)-7;
+    dVelocity[n]:=random(4)+3
+  end;
+  while 0<1 do
+  begin
+    noupdate;
+    {rub out previous shapes}
+    blank(white);
+    {draw each shape in its next position}
+    for n:=1 to shapes do
+    begin
+      {move to next position}
+      x[n]:=x[n]+xVelocity[n];
+      y[n]:=y[n]+yVelocity[n];
+      d[n]:=(d[n]+dVelocity[n]) mod 360;
+      setxy(x[n],y[n]);
+      direction(d[n]);
+      {draw shape}
+      drawShape(sides[n],size[n],colr[n]);
+      {"bounce" (i.e. invert velocity) at canvas edges}
+      if xEdge then
+      begin
+        xVelocity[n]:=-xVelocity[n];
+        dVelocity[n]:=-dVelocity[n]
+      end;
+      if yEdge then
+      begin
+        yVelocity[n]:=-yVelocity[n];
+        dVelocity[n]:=-dVelocity[n]
+      end
+    end;
+    update;
+    pause(5)
+  end
+end.

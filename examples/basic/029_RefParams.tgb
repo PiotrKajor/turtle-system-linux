@@ -1,0 +1,38 @@
+REM set initial position
+SETXY(100,900)
+REM draw lines of varying thickness - TURTT% property is modified
+PROClines(turtt%,FALSE)
+REM draw lines of varying colour - TURTC% property is modified
+PROClines(turtc%,TRUE)
+REM draw dots with different x coordinates - TURTX% property is modified
+PROCdots(turtx%)
+REM draw dots with different y coordinates - TURTY% property is modified
+PROCdots(turty%)
+END
+
+DEF PROClines(RETURN turtleProperty%,isColour%)
+  LOCAL n%
+  REM draw 8 short lines, modifying passed-in Turtle property each time
+  FOR n%=1 TO 8
+    IF isColour% THEN
+      REM set property value to nth standard Turtle colour
+      turtleProperty%=RGB(n%)
+    ELSE
+      REM set property value to n%
+      turtleProperty%=n%
+    ENDIF
+    FORWARD(50)
+    PAUSE(100)
+  NEXT
+ENDPROC
+
+DEF PROCdots(RETURN turtleProperty%)
+  LOCAL n%
+  REM draw 8 blots, modifying passed-in Turtle property each time
+  FOR n%=1 TO 8
+    REM increment property value by 100
+    turtleProperty%=turtleProperty%+100
+    BLOT(40)
+    PAUSE(100)
+  NEXT
+ENDPROC

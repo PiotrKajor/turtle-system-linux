@@ -1,0 +1,98 @@
+program RecursionFactory;
+const
+  numsides=6;        {number of sides in each polygon }
+  initsize=240;      {initial length of polygon side  }
+  shrink=40;         {shrink n/120ths each recursion  }
+  rangle=180;        {recursion angle from centre line}
+  polygap=0;         {polygon gap, n/120ths at RANGLE }
+  levels=5;          {how many levels of recursion    }
+  slowdraw=3;        {levels to be shown slow-drawing }
+  mode=1;            {1=lines ; 2=blots ; 3=circles   }
+  firstcol=5;        {colour of first level polygon   }
+  colinc=4;          {increment for successive colours}
+  minthick=2;        {minimum line thickness          }
+  addthick=6;        {extra thickness per level x 12  }
+  circsize=60;       {radius n/120ths of polygon side }
+var
+  halfangle:integer;  {internal half-angle of polygon  }
+  slowlev:integer;    {minimum level to be slow-drawn  }
+
+{PROCEDURE RECURSE is the program's heart. SIZE gives the }
+{polygon side at the current level; DEPTH the levels of   }
+{recursion to go; COL the colour; FLAG is explained below.}
+{Note that when RECURSE is called, the turtle is always at}
+{a corner, facing towards the centre of the polygon at the}
+{current level. So after turning HALFANGLE to the left, it}
+{will be facing along the left-hand edge of the polygon.  }
+procedure recurse(flag,size,depth,col:integer);
+var
+  storex,storey:integer;
+  sides:integer;     {Recursion stops when DEPTH=0; if}
+begin                   {DEPTH is less than SLOWLEV, then}
+  if depth>0 then        {no screen updating takes place, }
+  begin                 {making the program run faster.  }
+    if depth<slowlev then {FLAG=1 for first call at each   }
+      noupdate            {level. RECURSE then calls itself}
+    else                 {NUMSIDES times with FLAG=2, then}
+      update;             {3, and then restores position.  }
+    if flag=1 then       {FLAG=2 draws one side of the    }
+      for flag:=2 to 3 do {polygon at the current level.   }
+    begin              {FLAG=3 moves along the same path}
+      storex:=turtx;    {recursively calling next level. }
+      storey:=turty;
+      for sides:=1 to numsides do
+        recurse(flag,size,depth,col);
+      turtx:=storex;
+      turty:=storey     {The program works in three modes}
+    end                {depending on whether the pattern}
+    else                 {is to be made of lines, blots or}
+    begin               {circles. Drawing is done only   }
+      penup;             {when FLAG=2, and the PEN is down}
+      if flag=2 then     {only in LINE MODE (1). Thickness}
+      begin             {is set by MINTHICK and ADDTHICK.}
+        colour(rgb(col));
+        thickness(minthick+((depth-1)*addthick)/12);
+        if mode=1 then
+          pendown         {IN BLOT & CIRCLE MODES 2 & 3 the}
+        else if mode=2 then             {radius is set using CIRCSIZE    }
+          blot(size*circsize/120)
+        else
+          circle(size*circsize/120)
+      end;
+      left(halfangle);   {Turn and move along polygon edge}
+      forward(size);
+      right(180-halfangle+rangle);
+      if flag=3 then
+      begin
+        forward(size*polygap/120);
+        recurse(1,(size*shrink)/120,depth-1,((col+colinc-1) mod 7)+1);
+        back(size*polygap/120)
+      end;              {The turtle has now moved to the }
+      left(rangle)       {next corner of the polygon, and }
+    end                 {after turning left is facing the}
+  end                   {centre again. In between, it has}
+end;                    {turned away from the centre by  }
+                         {the angle RANGLE, moved distance}
+begin                    {SIZE*POLYGAP/120, and called    }
+  blank(black);           {RECURSE at the next level down. }
+  {blacken Canvas}
+
+  {***************************************************}
+
+  {HALFANGLE is calculated from NUMSIDES by simple geometry,}
+  {but the program only proceeds if the value is  an integer}
+  {(otherwise a mess results). SLOWLEV is calculated from   }
+  {LEVELS and SLOWDRAW, but set so that at least two levels }
+  {are slow-drawn (to avoid the impression that the program }
+  {is "hanging"). Finally, the turtle moves back by INITSIZE}
+  {to make the pattern more central, then off it goes ...   }
+  if 180 mod numsides=0 then
+  begin
+    halfangle:=90-(180/numsides);
+    slowlev:=levels+1-slowdraw;
+    if slowlev>levels-1 then
+      slowlev:=levels-1;
+    movexy(0,initsize);
+    recurse(1,initsize,levels,firstcol)
+  end
+end.

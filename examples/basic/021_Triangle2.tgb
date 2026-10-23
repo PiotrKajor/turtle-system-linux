@@ -1,0 +1,18 @@
+REM move to start, without drawing
+MOVEXY(-100,150)
+REM draw a triangle of size 256
+PROCtriangle(256)
+END
+
+REM draws a triangle of the given size
+DEF PROCtriangle(size%)
+  REM draw first side, and turn
+  FORWARD(size%)
+  RIGHT(120)
+  REM draw second side, and turn
+  FORWARD(size%)
+  RIGHT(120)
+  REM draw third side, and turn
+  FORWARD(size%)
+  RIGHT(120)
+ENDPROC

@@ -1,0 +1,23 @@
+REM set canvas to black, and pen to lightblue
+BLANK(BLACK)
+COLOUR(LIGHTBLUE)
+REM place Turtle and draw blots for stars
+SETXY(100,200)
+BLOT(10)
+SETXY(300,250)
+BLOT(10)
+SETXY(420,350)
+BLOT(10)
+SETXY(570,490)
+BLOT(10)
+SETXY(900,560)
+BLOT(10)
+SETXY(840,720)
+BLOT(10)
+SETXY(590,660)
+BLOT(10)
+SETXY(570,490)
+REM join dots to highlight plough shape
+COLOUR(SILVER)
+POLYLINE(8)
+END

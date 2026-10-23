@@ -1,0 +1,71 @@
+CONST BOARDSIZE%=30
+CONST SNAKECOLOUR%=PURPLE
+CONST APPLECOLOUR%=GREEN
+REM set canvas and resolution
+CANVAS(0,0,BOARDSIZE%,BOARDSIZE%)
+RESOLUTION(BOARDSIZE%,BOARDSIZE%)
+REM set angles to 4, because only four directions are needed
+ANGLES(4)
+REM blank canvas and hide cursor
+BLANK(LIGHTBLUE)
+CURSOR(0)
+COLOUR(SNAKECOLOUR%)
+THICKNESS(1)
+PENUP
+FORWARD(1)
+snakeLength%=2
+REM place the first apple
+PROCnewApple
+REM initialise crash variable to false
+crash%=FALSE
+REM until the snake crashes...
+REPEAT
+  NOUPDATE
+  REM turn snake in response to arrow key press
+  IF (ABS(?key)=\up) AND (turtd%<>2) THEN DIRECTION(0)
+  IF (ABS(?key)=\right) AND (turtd%<>3) THEN DIRECTION(1)
+  IF (ABS(?key)=\down) AND (turtd%<>0) THEN DIRECTION(2)
+  IF (ABS(?key)=\left) AND (turtd%<>1) THEN DIRECTION(3)
+  REM move snake forward
+  FORWARD(1)
+  REM crash if snake reaches edge of canvas
+  IF (turtx%<0) OR (turtx%>=BOARDSIZE%) OR (turty%<0) OR (turty%>=BOARDSIZE%) THEN crash%=TRUE
+  REM crash if snake hits itself
+  IF PIXCOL(turtx%,turty%)=SNAKECOLOUR% THEN crash%=TRUE
+  REM if snake reaches an apple...
+  IF PIXCOL(turtx%,turty%)=APPLECOLOUR% THEN
+    REM increase snake length
+    snakeLength%=snakeLength%+1
+    REM "eat" the apple
+    PIXSET(turtx%,turty%,SNAKECOLOUR%)
+    REM place a new apple
+    PROCnewApple
+  ENDIF
+  REM rub out the previous snake
+  COLOUR(LIGHTBLUE)
+  POLYLINE(snakeLength%+1)
+  REM draw the snake in its new position
+  COLOUR(SNAKECOLOUR%)
+  POLYLINE(snakeLength%)
+  UPDATE
+  REM pause less for longer snakes (increasing speed with each apple)
+  PAUSE(250-(snakeLength%*3))
+UNTIL crash%
+REM print final score
+RESOLUTION(1000,1000)
+BLANK(LILAC)
+SETXY(BOARDSIZE%/4,2*BOARDSIZE%/5)
+DISPLAY("Score "+STR$(snakeLength%-2),20,100)
+END
+
+REM draws a new apple
+DEF PROCnewApple
+  LOCAL x%,y%
+  REM choose a random point where the snake isn't
+  REPEAT
+    x%=RND(BOARDSIZE%)-1
+    y%=RND(BOARDSIZE%)-1
+  UNTIL (PIXCOL(x%,y%)<>SNAKECOLOUR%)
+  REM draw an apple at that point
+  PIXSET(x%,y%,APPLECOLOUR%)
+ENDPROC

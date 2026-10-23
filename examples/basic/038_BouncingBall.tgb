@@ -1,0 +1,28 @@
+REM set starting point and velocity
+x%=100
+y%=700
+xvel%=8
+yvel%=-4
+WHILE 0<1
+  NOUPDATE
+  REM rub out existing ball
+  COLOUR(WHITE)
+  BLOT(51)
+  REM move to next location
+  x%=x%+xvel%
+  y%=y%+yvel%
+  SETXY(x%,y%)
+  REM draw new ball
+  COLOUR(RED)
+  BLOT(50)
+  UPDATE
+  PAUSE(10)
+  REM "bounce" (i.e. invert velocity) at canvas edges
+  IF (x%<50) OR (x%>949) THEN
+    xvel%=-xvel%
+  ENDIF
+  IF (y%<50) OR (y%>949) THEN
+    yvel%=-yvel%
+  ENDIF
+ENDWHILE
+END

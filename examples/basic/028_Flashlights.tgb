@@ -1,0 +1,34 @@
+REM blacken the entire canvas
+BLOT(1000)
+REM set thickness for drawing circles
+THICKNESS(10)
+REM repeatedly draw circles or blots in a grid
+REPEAT
+  REM RND(8) returns a value between 1 and 8
+  REM fix x coordinate from 111 to 888
+  SETX(RND(8)*111)
+  REM fix y coordinate from 111 to 888
+  SETY(RND(8)*111)
+  REM call PROCdrawit(TRUE) if RND(2) returns 1
+  REM or PROCdrawit(FALSE) if RND(2) returns 2
+  PROCdrawit(RND(2)=1)
+UNTIL FALSE
+END
+
+REM draws circle or blot at Turtle position
+DEF PROCdrawit(doblot%)
+  REM doblot% is equal to either TRUE or FALSE
+  IF doblot% THEN
+    REM draw a randomly coloured blot
+    REM without erasing any circle
+    RNDCOL(10)
+    BLOT(25)
+  ELSE
+    REM erase any previous blot
+    COLOUR(BLACK)
+    BLOT(30)
+    REM draw randomly coloured circle
+    RNDCOL(10)
+    CIRCLE(25)
+  ENDIF
+ENDPROC

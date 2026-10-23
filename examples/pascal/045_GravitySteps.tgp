@@ -1,0 +1,53 @@
+program GravitySteps;
+var
+  count:integer;
+
+{draws n steps}
+procedure steps(n:integer);
+var
+  size,count:integer;
+begin
+  size:=1000/n;
+  setxy(0,1000);
+  thickness(1);
+  for count:=1 to n*2 do
+    if count mod 2=0 then
+      movexy(0,-size)
+  else
+    movexy(size,0);
+  movexy(0,n*size);
+  movexy(-n*size,0);
+  colour(blue);
+  polygon(n*2+2)
+end;
+
+{simulates the movement of a ball with the effect of gravity}
+procedure throwBall(xVelocity,yVelocity,gravity,floor:integer);
+begin
+  repeat
+    colour(white);
+    blot(25);
+    movexy(xVelocity,yVelocity);
+    yVelocity:=yVelocity+gravity;
+    if turty>floor then
+      turty:=floor;
+    colour(red);
+    blot(24);
+    update;
+    pause(10);
+    noupdate
+  until turty=floor
+end;
+begin
+  {draw steps}
+  steps(10);
+  {set starting point}
+  setxy(950,75);
+  {throw ball down each step}
+  repeat
+    throwBall(-2,-22,1,turty+100)
+  until turtx<75;
+  {bounce ball on the ground}
+  for count:=1 to 10 do
+    throwBall(0,count*2-20,1,turty)
+end.

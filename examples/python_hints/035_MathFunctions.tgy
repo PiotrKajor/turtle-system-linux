@@ -1,0 +1,67 @@
+# Two constants determine the precision to which values are calculated and displayed:
+DECIMALS=4          # decimal places for display of values (4 decimal places)
+DENOMINATOR=1000000 # gives level of calculation precision (6 significant figures)
+
+# Writes to the output the value of a mathematical function of a/b,
+# or - in the case of HYPOT (where OP is "," not "/") - of a and b;
+# chr(176) is the degree symbol for sin/cos/tan and their inverses.
+def show(fn,op,value,degrees):
+    if degrees==1:
+        print(fn+'('+str(a)+op+str(b)+chr(176)+') = '+qstr(value,DENOMINATOR,DECIMALS))
+    else:
+        if degrees==2:
+            print(fn+'('+str(a)+op+str(b)+') = '+qstr(value,DENOMINATOR,DECIMALS)+chr(176))
+        else:
+            print(fn+'('+str(a)+op+str(b)+') = '+qstr(value,DENOMINATOR,DECIMALS))
+
+# show output and display information about the program
+output(True,white,True)
+print('This program selects two random numbers a and b, in the range')
+print('100-999, and then outputs various mathematical functions of the')
+print('fraction a/b. The results are expressed to '+str(DECIMALS)+' decimal places, and a')
+print('denominator of '+str(DENOMINATOR)+' is used in the calculations to provide')
+print('precision, even though the Turtle functions strictly operate only')
+print('on integers and produce integer results.')
+print('')
+# set a and b to random values, and display their values and quotient
+a=randint(100,999)
+b=randint(100,999)
+print('a = '+str(a)+' b = '+str(b))
+print('a / b = '+str(a)+' / '+str(b)+' = '+qstr(a,b,DECIMALS))
+print('')
+# display square, square root, cube, and cube root of a/b
+show('square','/',power(a,b,2,1,DENOMINATOR),0)
+show('square root','/',power(a,b,1,2,DENOMINATOR),0)
+show('cube','/',power(a,b,3,1,DENOMINATOR),0)
+show('cube root','/',power(a,b,1,3,DENOMINATOR),0)
+print('')
+# display hypotenuse of right-angled triangle with shorter sides a and b
+show('hypot',',',hypot(a,b,DENOMINATOR),0)
+show('calculated hypot',',',sqrt(a*a+b*b,DENOMINATOR),0)
+print('')
+# display sin, cos, and tan of a/b, interpreted in degrees
+show('sin','/',sin(a,b,DENOMINATOR),1)
+show('cos','/',cos(a,b,DENOMINATOR),1)
+show('tan','/',tan(a,b,DENOMINATOR),1)
+print('')
+# display ln, exp, log10, and antilog of a/b
+show('ln','/',log(a,b,DENOMINATOR),0)
+if divmult(a,b,1000)+log(DENOMINATOR,1,1000)>log(maxint(),1,1000):
+    print('EXP('+str(a)+'/'+str(b)+') would give numerical overflow, because')
+    print('the result*'+str(DENOMINATOR)+' would be greater than '+str(maxint()))
+else:
+    show('exp','/',exp(a,b,DENOMINATOR),0)
+show('log10','/',log10(a,b,DENOMINATOR),0)
+if divmult(a,b,1000)+log10(DENOMINATOR,1,1000)>log10(maxint(),1,1000):
+    print('ANTILOG('+str(a)+'/'+str(b)+') would give numerical overflow, because')
+    print('the result*'+str(DENOMINATOR)+' would be greater than '+str(maxint()))
+else:
+    show('antilog','/',antilog(a,b,DENOMINATOR),0)
+print('')
+# display arccos, arcsin, and arctan of a/b, in degrees
+if a>b:
+    print('ARCCOS and ARCSIN are not defined for '+str(a)+'/'+str(b)+' = '+qstr(a,b,DECIMALS))
+else:
+    show('arccos','/',acos(a,b,DENOMINATOR),2)
+    show('arcsin','/',asin(a,b,DENOMINATOR),2)
+show('arctan','/',atan(a,b,DENOMINATOR),2)

@@ -1,0 +1,15 @@
+program TriangleSpin;
+var
+  i:integer;
+begin
+  {adjust start position so pattern is central}
+  movexy(-20,80);
+  {counting from 1 to 300 ...}
+  for i:=25 to 300 do
+  begin
+    {move forward by 3 times the count number}
+    forward(i*3);
+    {turn right by 121 degrees}
+    right(121)
+  end
+end.

@@ -1,0 +1,134 @@
+SECTORS=7
+WAVECOL1=red
+WAVECOL2=skyblue
+WAVEADDCOL=indigo
+CLOCKS=16
+REPORT=False
+
+sectcol=[violet,blue,cyan,lime,yellow,orange,red,violet]
+boundary=[]
+for n in range (SECTORS+1):
+    boundary.append(divmult(360,SECTORS,n))
+clockx=[]
+for n in range (CLOCKS):
+    clockx.append(divmult(1000,CLOCKS*2+2,(n+1)*2))
+leftx=clockx[0]
+rightx=clockx[CLOCKS-1]
+cradius=(rightx-leftx)/CLOCKS/2
+hand=cradius*6/7
+dimensions=1
+wavelength1=300
+wavelength2=420
+
+def wavecolour(n):
+    col2=1
+    while boundary[col2]<n:
+        col2+=1
+    col1=col2-1
+    return mixcols(sectcol[col1],sectcol[col2],boundary[col2]-n,n-boundary[col1])
+
+def drawwave(s,top,wavelength,wavecol):
+    if dimensions==1:
+        setxy(leftx,top+25)
+        colour(black)
+        drawxy(rightx-leftx,0)
+        setxy(leftx,top)
+        colour(wavecol)
+    for n in range (rightx-leftx+1):
+        if dimensions==1:
+            setxy(leftx+n,top+25-cos(divmult(n % wavelength,wavelength,360),1,25))
+            polyline(2)
+        else:
+            setxy(leftx+n,top)
+            colour(wavecolour(divmult(n % wavelength,wavelength,360)))
+            drawxy(0,50)
+    for n in range (CLOCKS):
+        setxy(clockx[n],top+70+cradius)
+        colour(black)
+        circle(cradius)
+        blot(5)
+        turn=divmult((clockx[n]-leftx)% wavelength,wavelength,360)
+        if REPORT:
+            print(s+', clock '+str(n)+': dist='+str(clockx[n])+'; turn='+str(turn))
+        turnxy(sin(turn,1,1000),-cos(turn,1,1000))
+        colour(wavecol)
+        forward(hand)
+
+def drawresult(top):
+    if dimensions==1:
+        setxy(leftx,top+50)
+        colour(black)
+        drawxy(rightx-leftx,0)
+        setxy(leftx,top)
+        colour(WAVEADDCOL)
+    for n in range (rightx-leftx+1):
+        turn1=divmult(n % wavelength1,wavelength1,360)
+        turn2=divmult(n % wavelength2,wavelength2,360)
+        waveaddi=sin(turn1,1,500)+sin(turn2,1,500)
+        waveaddj=cos(turn1,1,500)+cos(turn2,1,500)
+        waveadd=hypot(waveaddi,waveaddj,1)
+        if dimensions==1:
+            setxy(leftx+n,top+50-divmult(waveaddj,1000,50))
+            polyline(2)
+        else:
+            setxy(leftx+n,top)
+            turnxy(waveaddi,-waveaddj)
+            colour(mixcols(wavecolour(turtd),black,waveadd,1000-waveadd))
+            if mixcols(wavecolour(turtd),black,waveadd,1000-waveadd)<51:
+                colour(black)
+            drawxy(0,100)
+    for n in range (CLOCKS):
+        setxy(clockx[n],top+280+2*cradius-(150*((n+1)% 2)))
+        colour(black)
+        circle(cradius*2)
+        blot(5)
+        turn1=divmult((clockx[n]-leftx)% wavelength1,wavelength1,360)
+        turn2=divmult((clockx[n]-leftx)% wavelength2,wavelength2,360)
+        waveaddi=sin(turn1,1,500)+sin(turn2,1,500)
+        waveaddj=cos(turn1,1,500)+cos(turn2,1,500)
+        waveadd=hypot(waveaddi,waveaddj,1)
+        turnxy(waveaddi,-waveaddj)
+        thickness(6)
+        colour(WAVEADDCOL)
+        forward(divmult(waveadd,1000,hand*2))
+        setxy(clockx[n],top+280+2*cradius-(150*((n+1)% 2)))
+        thickness(4)
+        direction(turn1)
+        colour(WAVECOL1)
+        forward(hand)
+        direction(turn2)
+        colour(WAVECOL2)
+        forward(hand)
+        thickness(2)
+
+def changeprompt():
+    global dimensions,wavelength1,wavelength2
+    console(True,white)
+    keyecho(False)
+    print('Press "1" or "2" for the dimensionality required,')
+    print('or press "R" to pick random new wavelengths: ')
+    det=detect(\key,0)
+    while (det!=\1) and (det!=\2) and (det!=\r):
+        det=detect(\key,0)
+    if det==\1:
+        dimensions=1
+    elif det==\2:
+        dimensions=2
+    else:
+        wavelength1=randrange(30)*10+200
+        wavelength2=randrange(30)*10+200
+    reset(\keybuffer)
+
+while True:
+    blank(white)
+    noupdate()
+    setxy(leftx,25)
+    colour(black)
+    display('Component waves (wavelengths '+str(wavelength1)+', '+str(wavelength2)+')',4,30)
+    drawwave('Wave 1',100,wavelength1,WAVECOL1)
+    drawwave('Wave 2',300,wavelength2,WAVECOL2)
+    setxy(leftx,505)
+    colour(black)
+    display('Resultant wave',4,30)
+    drawresult(580)
+    changeprompt()

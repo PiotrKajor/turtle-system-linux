@@ -1,0 +1,30 @@
+program ColourSpiral;
+var
+  lineLength:integer;
+
+{draws a line and turns right 60 degrees}
+procedure lineTurn;
+begin
+  forward(lineLength);
+  right(60)
+end;
+begin
+  {make the canvas black}
+  blank(black);
+  {position the turtle so pattern fits neatly}
+  forward(15);
+  {set line thickness and initial length}
+  thickness(27);
+  lineLength:=20;
+  {repeatedly ...}
+  repeat
+    {choose one of the first 40 turtle colours}
+    randcol(40);
+    {call the lineTurn procedure, then pause}
+    lineTurn;
+    pause(50);
+    {increment the lineLength value}
+    lineLength:=lineLength+10
+  {stop looping when lineLength gets to 510}
+  until lineLength>500
+end.
