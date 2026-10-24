@@ -396,6 +396,7 @@ class CanvasView(QWidget):
         self.target = QRectF()
         self.zoom = 1.0                 # 1 = the whole canvas fits the area
         self.center = (0.5, 0.5)
+        self._pan = None                # (start point, visible centre) while dragging
         self.setMinimumSize(200, 200)
         self.setMouseTracking(True)
         self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
@@ -453,19 +454,22 @@ class CanvasView(QWidget):
             return
         if self.zoom <= 1:
             return
-        self._layout()
-        t = self.target
         step = -delta / 120 * 0.1
-        cx, cy = self.center
+        cx, cy = self._visible_center()
         a = self._area()
-        cx = (a.center().x() - t.left()) / t.width()
-        cy = (a.center().y() - t.top()) / t.height()
+        t = self.target
         if event.modifiers() & Qt.KeyboardModifier.ShiftModifier or event.angleDelta().x():
             cx += step * a.width() / t.width()
         else:
             cy += step * a.height() / t.height()
         self.center = (min(1, max(0, cx)), min(1, max(0, cy)))
         self.update()
+
+    def _visible_center(self):
+        """The image point (fractions) shown in the middle of the area."""
+        self._layout()
+        t, a = self.target, self._area()
+        return (a.center().x() - t.left()) / t.width(), (a.center().y() - t.top()) / t.height()
 
     def paintEvent(self, event):
         self._layout()
@@ -537,6 +541,13 @@ class CanvasView(QWidget):
         return self.m.to_virtual(px, py)
 
     def mouseMoveEvent(self, event):
+        if self._pan:
+            start, (cx, cy) = self._pan
+            d = event.position() - start
+            t = self.target
+            self.center = (min(1, max(0, cx - d.x() / t.width())),
+                           min(1, max(0, cy - d.y() / t.height())))
+            self.update()
         x, y = self._virtual(event.position())
         self.m.mouse_event(x, y, "move")
         self.window().show_mouse(x, y, self.target.contains(event.position()))
@@ -547,10 +558,21 @@ class CanvasView(QWidget):
 
     def mousePressEvent(self, event):
         self.setFocus()
+        # a zoomed canvas pans with a middle-button drag, or a left-button drag when
+        # no program is running (a running program gets the clicks as usual too)
+        button = event.button()
+        if self.zoom > 1 and (button == Qt.MouseButton.MiddleButton or
+                              button == Qt.MouseButton.LeftButton and not self.m.running):
+            self._pan = (event.position(), self._visible_center())
+            self.setCursor(Qt.CursorShape.ClosedHandCursor)
         x, y = self._virtual(event.position())
         self.m.mouse_event(x, y, "down", self._button(event), modifiers(event))
 
     def mouseReleaseEvent(self, event):
+        if self._pan and not event.buttons() & (Qt.MouseButton.MiddleButton |
+                                                Qt.MouseButton.LeftButton):
+            self._pan = None
+            self.unsetCursor()
         x, y = self._virtual(event.position())
         self.m.mouse_event(x, y, "up", self._button(event), modifiers(event))
 
