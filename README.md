@@ -48,7 +48,7 @@ the original program run under Wine as an oracle.
   and large canvas; multi-document editor with syntax highlighting, auto-format, find & replace.
 - **All 323 built-in example programs**, grouped as in the original's Examples menu.
 - **Extras**: 8 colour themes (incl. dark, high contrast, Solarized, Sepia, Green terminal),
-  canvas zoom and pan (Ctrl + `+`/`-`, Ctrl + mouse wheel; drag with the middle button, or the left button when no program is running, to pan), optional black canvas with white
+  canvas zoom and pan (Ctrl + `+`/`-`, Ctrl + mouse wheel; drag with the middle button, the left button when no program is running, or the left button with the ✋ hand tool, to pan; on-canvas −/+/Fit/✋ buttons and touchpad pinch-zoom and two-finger scrolling for laptops), optional black canvas with white
   pen, CSV/TSV export of every table, saving and loading PCode files.
 
 ## Installation

@@ -8,7 +8,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from PySide6.QtCore import QRect, QRectF, QSettings, QSize, Qt, QTimer
+from PySide6.QtCore import QEvent, QRect, QRectF, QSettings, QSize, Qt, QTimer
 from PySide6.QtGui import (QAction, QActionGroup, QColor, QFontMetrics, QFont, QFontDatabase, QIcon, QKeySequence, QPainter,
                            QPen, QPixmap, QPolygonF, QSyntaxHighlighter, QTextCharFormat, QTextDocument,
                            QTextCursor, QTextFormat)
@@ -16,7 +16,7 @@ from PySide6.QtWidgets import (QApplication, QCheckBox, QDialog, QFileDialog, QG
                                QHBoxLayout, QHeaderView,
                                QLabel, QLineEdit, QMainWindow, QMessageBox, QPlainTextEdit,
                                QPushButton, QSplitter, QTableWidget, QTableWidgetItem, QTabWidget,
-                               QTextBrowser, QTextEdit, QVBoxLayout, QWidget)
+                               QTextBrowser, QTextEdit, QToolButton, QVBoxLayout, QWidget)
 
 import formatting
 from wraptabs import WrapTabWidget
@@ -397,9 +397,79 @@ class CanvasView(QWidget):
         self.zoom = 1.0                 # 1 = the whole canvas fits the area
         self.center = (0.5, 0.5)
         self._pan = None                # (start point, visible centre) while dragging
+        self.hand = False               # hand tool: the left button pans instead of clicking
+        self.program_cursor = None      # the cursor the running program asked for
         self.setMinimumSize(200, 200)
         self.setMouseTracking(True)
         self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
+        self.setAttribute(Qt.WidgetAttribute.WA_AcceptTouchEvents)
+        self._make_buttons()
+
+    def _make_buttons(self):
+        """Zoom and hand-tool buttons over the canvas, for touchpads and mice without a wheel."""
+        self.buttons = []
+        for text, tip, slot in [("\u2212", "Zoom out (Ctrl+-)", lambda: self.zoom_step(-1)),
+                                ("+", "Zoom in (Ctrl++)", lambda: self.zoom_step(1)),
+                                ("Fit", "Show the whole canvas (Ctrl+0)", lambda: self.zoom_step(0)),
+                                ("\u270b", "Hand tool: drag the zoomed canvas with the left button\n"
+                                 "(clicks are not passed to the program while it is on)", None)]:
+            b = QToolButton(self)
+            b.setText(text)
+            b.setToolTip(tip)
+            b.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+            b.setCursor(Qt.CursorShape.ArrowCursor)
+            if slot:
+                b.clicked.connect(slot)
+            self.buttons.append(b)
+        self.hand_button = self.buttons[-1]
+        self.hand_button.setCheckable(True)
+        self.hand_button.toggled.connect(self.set_hand)
+        self._sync_buttons()
+
+    def _sync_buttons(self):
+        zoomed = self.zoom > 1
+        self.buttons[0].setEnabled(zoomed)
+        self.buttons[2].setEnabled(zoomed)
+        self.hand_button.setEnabled(zoomed)
+        if not zoomed and self.hand:
+            self.hand_button.setChecked(False)
+        self._apply_cursor()
+
+    def resizeEvent(self, event):
+        a = self._area()
+        x, y = a.right() - 4, a.top() + 4
+        height = max(b.sizeHint().height() for b in self.buttons)
+        for b in reversed(self.buttons):
+            b.resize(b.sizeHint().width(), height)
+            x -= b.width()
+            b.move(int(x), int(y))
+            x -= 2
+
+    def set_hand(self, on):
+        self.hand = on
+        self._apply_cursor()
+
+    def set_program_cursor(self, shape):
+        self.program_cursor = shape
+        self._apply_cursor()
+
+    def _apply_cursor(self):
+        if self._pan:
+            self.setCursor(Qt.CursorShape.ClosedHandCursor)
+        elif self.hand and self.zoom > 1:
+            self.setCursor(Qt.CursorShape.OpenHandCursor)
+        elif self.program_cursor is not None:
+            self.setCursor(self.program_cursor)
+        else:
+            self.unsetCursor()
+
+    def zoom_step(self, step):
+        """step > 0 zooms in, < 0 out, 0 fits the whole canvas; keeps the visible centre."""
+        if step and self.zoom > 1:
+            self.center = self._visible_center()
+        z = self.set_zoom(1.0 if step == 0 else self.zoom * (1.25 if step > 0 else 0.8))
+        self.window().statusBar().showMessage(f"Canvas zoom {z * 100:.0f}%", 2000)
+        return z
 
     def refresh(self):
         """Take a new frame if the program has drawn and screen updating is on."""
@@ -441,12 +511,13 @@ class CanvasView(QWidget):
         elif zoom <= 1:
             self.center = (0.5, 0.5)
         self.zoom = max(1.0, min(32.0, zoom))
+        self._sync_buttons()
         self.update()
         return self.zoom
 
     def wheelEvent(self, event):
         delta = event.angleDelta().y() or event.angleDelta().x()
-        if not delta:
+        if not delta and event.pixelDelta().isNull():
             return
         if event.modifiers() & Qt.KeyboardModifier.ControlModifier:
             self.set_zoom(self.zoom * (1.25 if delta > 0 else 0.8), event.position())
@@ -454,16 +525,30 @@ class CanvasView(QWidget):
             return
         if self.zoom <= 1:
             return
-        step = -delta / 120 * 0.1
         cx, cy = self._visible_center()
         a = self._area()
         t = self.target
+        pixels = event.pixelDelta()
+        if not pixels.isNull():         # touchpad: two-finger scrolling moves both ways
+            self.center = (min(1, max(0, cx - pixels.x() / t.width())),
+                           min(1, max(0, cy - pixels.y() / t.height())))
+            self.update()
+            return
+        step = -delta / 120 * 0.1
         if event.modifiers() & Qt.KeyboardModifier.ShiftModifier or event.angleDelta().x():
             cx += step * a.width() / t.width()
         else:
             cy += step * a.height() / t.height()
         self.center = (min(1, max(0, cx)), min(1, max(0, cy)))
         self.update()
+
+    def event(self, event):
+        if (event.type() == QEvent.Type.NativeGesture
+                and event.gestureType() == Qt.NativeGestureType.ZoomNativeGesture):
+            self.set_zoom(self.zoom * (1 + event.value()), event.position())
+            self.window().statusBar().showMessage(f"Canvas zoom {self.zoom * 100:.0f}%", 2000)
+            return True
+        return super().event(event)
 
     def _visible_center(self):
         """The image point (fractions) shown in the middle of the area."""
@@ -558,13 +643,17 @@ class CanvasView(QWidget):
 
     def mousePressEvent(self, event):
         self.setFocus()
-        # a zoomed canvas pans with a middle-button drag, or a left-button drag when
-        # no program is running (a running program gets the clicks as usual too)
+        # a zoomed canvas pans with a middle-button drag, or a left-button drag with the
+        # hand tool or when no program is running (a running program gets the clicks too,
+        # except with the hand tool)
         button = event.button()
+        left = button == Qt.MouseButton.LeftButton
         if self.zoom > 1 and (button == Qt.MouseButton.MiddleButton or
-                              button == Qt.MouseButton.LeftButton and not self.m.running):
+                              left and (self.hand or not self.m.running)):
             self._pan = (event.position(), self._visible_center())
-            self.setCursor(Qt.CursorShape.ClosedHandCursor)
+            self._apply_cursor()
+        if left and self.hand and self.zoom > 1:
+            return
         x, y = self._virtual(event.position())
         self.m.mouse_event(x, y, "down", self._button(event), modifiers(event))
 
@@ -572,7 +661,9 @@ class CanvasView(QWidget):
         if self._pan and not event.buttons() & (Qt.MouseButton.MiddleButton |
                                                 Qt.MouseButton.LeftButton):
             self._pan = None
-            self.unsetCursor()
+            self._apply_cursor()
+        if event.button() == Qt.MouseButton.LeftButton and self.hand and self.zoom > 1:
+            return
         x, y = self._virtual(event.position())
         self.m.mouse_event(x, y, "up", self._button(event), modifiers(event))
 
@@ -1887,7 +1978,7 @@ class MainWindow(QMainWindow):
         self.output.clear()
         set_background(self.console.text, None)
         set_background(self.output, None)
-        self.canvas.unsetCursor()
+        self.canvas.set_program_cursor(None)
         if program is not None:            # run the PCode on the Turtle Machine
             vm = TurtleVM(self.machine, program, autodel=self.autodel_action.isChecked())
             if self.pcode_tab.trace_on_run.isChecked():
@@ -2064,7 +2155,8 @@ class MainWindow(QMainWindow):
         self.console.entry.setFocus()
 
     def _on_cursor(self, code):
-        self.canvas.setCursor(CURSORS[code] if 0 <= code < len(CURSORS) else Qt.CursorShape.ArrowCursor)
+        self.canvas.set_program_cursor(CURSORS[code] if 0 <= code < len(CURSORS)
+                                       else Qt.CursorShape.ArrowCursor)
 
     def _tick(self):
         self.canvas.refresh()
@@ -2103,9 +2195,7 @@ class MainWindow(QMainWindow):
 
     def zoom(self, step):
         if self._canvas_targeted():
-            z = 1.0 if step == 0 else self.canvas.zoom * (1.25 if step > 0 else 0.8)
-            z = self.canvas.set_zoom(z)
-            self.statusBar().showMessage(f"Canvas zoom {z * 100:.0f}%", 2000)
+            self.canvas.zoom_step(step)
             return
         self.font_size = 12 if step == 0 else max(6, min(40, self.font_size + step))
         for i in range(self.docs.count()):
